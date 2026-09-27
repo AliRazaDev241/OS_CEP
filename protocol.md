@@ -1,3 +1,4 @@
+# GPU Sharing Mechanisms for Multi-Tenant Inference Serving — SLR Review Protocol
 
 **Version:** v1.2, proposed pre-search revision, 27 September 2026 (PKT)  
 **Status:** Not frozen. The four database interfaces, exact executable queries, access, seed recall, group ownership and reviewer sign-off remain unverified. No formal search, screened study or PRISMA count is claimed.  
@@ -5,11 +6,11 @@
 
 The twelve sections below follow the instructor's requested order. PRISMA-P informs protocol transparency [1], PRISMA 2020 informs final review reporting [2], PRISMA-S informs reproducible search documentation [3], and software-engineering SLR guidance informs the review process [4]. These reporting guidelines are **method references**, not included primary studies.
 
-# 1. Research objective
+## 1. Research objective
 
 Identify, critically appraise and synthesize peer-reviewed primary studies evaluating how **one physical GPU on a single node** is shared by multiple inference tenants. Compare temporal time-slicing, CUDA Multi-Process Service (MPS), Multi-Instance GPU (MIG), CUDA/GPU API remoting or virtualization, and hybrids. The intended output is a conditional engineering choice: which mechanism fits a specified model and arrival pattern, GPU generation/configuration, latency service-level objective (SLO), utilization or tenant-density goal, and isolation requirement. Treat performance interference, resource/memory separation, security isolation and fault containment as distinct observations; no mechanism name proves a measured outcome [10], [11].
 
-# 2. Research questions
+## 2. Research questions
 
 1. **RQ1 (alternatives):** Which of the four assigned mechanism families and hybrids have been evaluated for concurrent inference tenants on a single GPU, and what control/resource boundaries were evaluated?
 2. **RQ2 (measurement):** How are utilization, throughput/goodput, tenant density, p50/p95/p99 latency, SLO violations, interference and isolation measured? Which studies can actually be compared?
@@ -19,13 +20,13 @@ Identify, critically appraise and synthesize peer-reviewed primary studies evalu
 
 The group must map each final RQ to the extraction fields in §11 and synthesis outputs in §12 before freezing.
 
-# 3. Selected academic databases
+## 3. Selected academic databases
 
 The **proposed formal sources** are IEEE Xplore (engineering/systems), ACM Digital Library (computing/systems), ScienceDirect (Elsevier engineering/computing journals), and Springer Nature Link (computing journals/proceedings). NED's E-Resources page lists these platforms in its E-Databases area [5]. Verify each group's actual entitlement, indexed collection and export route before freeze; a publisher collection is not an exhaustive cross-publisher index. If unavailable, document a justified replacement and revised coverage.
 
 Scopus and Web of Science, if accessible, supplement cross-publisher coverage/citation checking; any systematic run must be logged and screened like a formal source. Google Scholar and backward/forward references are supplementary discovery, logged separately. Check whether USENIX and other systems proceedings are missed by the proposed publisher platforms. Do not mistake publisher access for database coverage.
 
-# 4. Search keywords
+## 4. Search keywords
 
 | Concept | Candidate keywords and spelling variants |
 |---|---|
@@ -39,7 +40,7 @@ Scopus and Web of Science, if accessible, supplement cross-publisher coverage/ci
 
 The mandatory query logic is hardware AND inference AND an OR of **all four** mechanism families. Do not require `multi-tenant` or an outcome word in every record: relevant seed papers may lack that literal term [12]. Pilot spelling, tokenization, wildcard and subject-field choices for each interface before freeze. MPS and MIG alone can have unrelated meanings, so pair with GPU/inference and inspect precision.
 
-# 5. Search strings
+## 5. Search strings
 
 **Candidate Boolean logic (not yet an executed search):**
 
@@ -63,11 +64,11 @@ If clause limits or seed misses require it, run **four separately logged queries
 
 For every later **formal** run log group ID, database/collection, exact executed query, fields, filters, date/time, URL, total hits, export filename and reviewer. Keep pilot and formal runs separate. PRISMA-S [3] motivates this audit trail. Backward/forward citation chasing begins after an eligible full text is found; log seed, direction, date, source and candidate IDs, and apply the same eligibility and screening rules.
 
-# 6. Publication period
+## 6. Publication period
 
 Search for English-language works dated **1 January 2020 through 27 September 2026 inclusive** (date of draft). The final group protocol must state its actual search cutoff and search date. If an interface filters by year only, inspect 2026 records and exclude post-cutoff publications manually. An older seminal mechanism or indispensable baseline may enter only with a per-study written reason and a demonstrated direct connection to the RQs; older contextual work is otherwise background, not part of the included set. The assignment targets 15–20 **unique included primary studies**, minimum 15, per group; do not relax eligibility just to reach that count.
 
-# 7. Inclusion criteria
+## 7. Inclusion criteria
 
 All conditions must hold after full-text assessment:
 
@@ -78,11 +79,11 @@ All conditions must hold after full-text assessment:
 
 Eligibility is independent of whether a mechanism performs well. Report negative and null findings. Record any justified older exception and the group's adjudication.
 
-# 8. Exclusion criteria
+## 8. Exclusion criteria
 
 At full text record one primary reason, with secondary notes if useful: **E1** no inference-serving evidence; **E2** no relevant single-node multi-tenant sharing; **E3** mechanism outside assigned scope; **E4** training-only; **E5** cluster orchestration without local sharing evaluation; **E6** no peer-reviewed original primary study (survey, vendor page, blog, preprint-only, poster, editorial, patent); **E7** insufficient technical/outcome evidence; **E8** duplicate/less complete report of the same study; **E9** outside date/language rule without exception; **E10** other, with written justification. Vendor guides [10], [11] describe mechanism context but cannot count as primary evidence or demonstrate workload performance. Track full text **not retrieved** as an access outcome, with attempts, rather than an exclusion among assessed reports [2].
 
-# 9. Screening procedure
+## 9. Screening procedure
 
 1. **Identification:** Execute and export each frozen query. Assign a unique record ID to every hit, preserving database/run provenance. Log citation-chased candidates separately.
 2. **Deduplication and versions:** Normalize DOI, title, year and authors; retain raw records and link record IDs → report IDs → underlying unique study IDs. Prefer the complete peer-reviewed version without treating its preprint as a second study.
@@ -93,7 +94,7 @@ At full text record one primary reason, with secondary notes if useful: **E1** n
 
 If the pilot suggests fewer than 15 eligible studies, consult the instructor before changing the assigned scope or criteria. Do not retrospectively turn scoping candidates into screened inclusions.
 
-# 10. Quality-assessment criteria
+## 10. Quality-assessment criteria
 
 Two reviewers independently score each **included** study on Q1–Q10: **1** adequate, **0.5** partial/unclear, **0** absent/not reported. Reconcile with a recorded rationale; the third member resolves persistent disagreement. This group-designed rubric is an appraisal plan, not a validated universal instrument [4].
 
@@ -112,7 +113,7 @@ Two reviewers independently score each **included** study on Q1–Q10: **1** ade
 
 Total 0–10: **high 8–10**, **moderate 6–7.5**, **low <6**. Score does not replace eligibility. Retain eligible low-quality evidence with labels and rerun conclusions without it. Log reviewer-specific scores, evidence anchors, reconciliation and missing facts.
 
-# 11. Data-extraction fields
+## 11. Data-extraction fields
 
 Use one study-level identity row plus report/result rows where needed, each with PDF page/section/table/figure anchors. Pilot the form on multiple mechanism families before freeze.
 
@@ -129,13 +130,13 @@ Use one study-level identity row plus report/result rows where needed, each with
 
 Do not fill absent values by assuming a GPU mechanism's default behavior. Capture both favorable and unfavorable findings.
 
-# 12. Evidence-synthesis strategy
+## 12. Evidence-synthesis strategy
 
 Build a mechanism taxonomy (temporal, MPS, MIG, API remoting/virtualization, hybrids), an RQ-to-study matrix and a condition/comparability table. For RQ1 summarize evaluated control and isolation dimensions; for RQ2 compare metric and experiment definitions; for RQ3 stratify by GPU generation/profile, model and batch/arrival/tenant conditions; for RQ4 trace reported trade-offs and counterexamples to differing baselines and conditions; for RQ5 create a conditional decision matrix with evidence strength and uncertainty.
 
 Use structured narrative synthesis because different GPUs, workloads, tenancy and latency percentiles make raw pooling misleading. Compare numerical effects only inside genuinely compatible experimental strata; otherwise report direction, conditions and limitations without an invented aggregate. Report each recommendation as **direct within-study comparison**, **indirect primary evidence**, **vendor context only**, or **insufficient evidence**. Apply the SWiM transparency principles for any synthesis without meta-analysis [9]. Repeat the conclusion after excluding low-QA/incomplete studies. Report coverage gaps, publication/access bias, heterogeneity and reviewer disagreement. No mechanism is declared universally optimal.
 
-# Protocol changes and freeze record
+## Protocol changes and freeze record
 
 **A001 (historical):** v1.0 was prematurely called frozen; v1.1 corrected the proposed databases, recall risk and full-text accounting before any formal screening. Details remain in `evidence/protocol_amendments.md`; no count impact was claimed.
 
@@ -143,7 +144,7 @@ Use structured narrative synthesis because different GPUs, workloads, tenancy an
 
 **After a group starts formal searching:** Before using a major change, append a dated entry to *that group's* `evidence/protocol_amendments.md` with old/new rule, trigger, justification, approving reviewers, affected queries/dates/records, whether earlier databases must be rerun, screening/PRISMA count effects, and how old and new results will be reconciled. Version the protocol and label deviations in the report. Log purely syntactic platform translations in search logs; a recall-changing translation is a major amendment. PRISMA-P calls for recording important protocol amendments [1].
 
-# References (IEEE style; context and method only, no included studies claimed)
+## References (IEEE style; context and method only, no included studies claimed)
 
 [1] L. Shamseer *et al*., “Preferred reporting items for systematic review and meta-analysis protocols (PRISMA-P) 2015: elaboration and explanation,” *BMJ*, vol. 349, g7647, 2015. doi: [10.1136/bmj.g7647](https://doi.org/10.1136/bmj.g7647).
 
