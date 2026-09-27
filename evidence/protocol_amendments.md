@@ -17,6 +17,16 @@
 - **Impact on counts:** None: no formal search, import, screening, inclusion, or PRISMA counts had occurred. No claim of database hit count or retrieval is made.
 - **Next gate:** Verify interfaces/access and exact executed syntax, capture pilot results, assign owner/reviewers, then freeze revised protocol before formal selection. Future semantic changes require another numbered amendment.
 
+
+## Amendment A002 — v1.1 to proposed v1.2 (pre-search presentation and sourcing)
+
+- **Date:** 2026-09-27 (Asia/Karachi)
+- **Reason:** The existing LaTeX protocol conflated search keywords with strings, inclusion with exclusion, and extraction with synthesis. The assignment explicitly requires twelve separate protocol elements. It also needed more verifiable methodology and topic references.
+- **Changes:** Reorganize the shared candidate protocol and its Markdown/LaTeX/PDF report into the instructor's twelve numbered elements; add verified references to PRISMA-P, PRISMA 2020, PRISMA-S, EBSE, SWiM, publisher search guidance, NVIDIA documentation and three candidate search seeds. Clarify that seeds are not included studies and that group-specific protocol freezes and post-search amendments are independent.
+- **Affected artifacts:** `protocol.md`, `report/main.tex`, `report/main.pdf`, `evidence/protocol_amendments.md`.
+- **Status and impact:** Proposed shared pre-search revision; no change to eligibility or executed formal search. No formal searches, included studies, or PRISMA counts are claimed; zero recorded count impact. Each group must validate its own executable strings, entitlement, seed recall, roles and dated freeze.
+- **After-search rule:** A major change requires date, previous/new rule, justification, approvals, affected databases/records, any rerun and screening/PRISMA count effects, entered in that group's amendment register before use.
+
 ## Amendment entry template
 
 | Date | Version | Change | Rationale | Affected artifacts/records | Effect on search/screening counts | Approved by |
