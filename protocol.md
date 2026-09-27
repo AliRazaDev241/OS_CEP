@@ -1,188 +1,174 @@
-# SLR Protocol v1.1 — pre-search corrective draft
 
-## GPU Sharing Mechanisms for Multi-Tenant Inference Serving
+**Version:** v1.2, proposed pre-search revision, 27 September 2026 (PKT)  
+**Status:** Not frozen. The four database interfaces, exact executable queries, access, seed recall, group ownership and reviewer sign-off remain unverified. No formal search, screened study or PRISMA count is claimed.  
+**Ownership:** Shared candidate for two independent three-student groups. Each group must adapt, pilot, date and freeze its own protocol before formal selection. Neither may inherit the other's decisions or counts. The root v1.0/v1.1 history remains in `evidence/protocol_amendments.md`.
 
-**Protocol status:** v1.1 corrective amendment drafted 2026-09-27 (Asia/Karachi); **formal-search freeze pending database-interface pilot and group sign-off**. v1.0 was prematurely marked frozen before the roadmap's pilot gate; see `evidence/protocol_amendments.md`.  
-**Ownership:** Shared pre-search candidate only. Neither group's protocol is frozen or approved. Each three-person group must create and validate its own `groups/group-a/protocol.md` or `groups/group-b/protocol.md`, with its own dated search strings, reviewers, eligibility, extraction and amendment register before formal screening. The group-specific protocol controls that group's decisions; this root draft is background and cannot supply final PRISMA counts.  
-**Scope status:** Formal study selection has not started. Web checks in `evidence/scoping_log.md` are candidate discovery only and must not be counted in PRISMA. No database hit counts, validated query executions, or eligible studies are claimed.
+The twelve sections below follow the instructor's requested order. PRISMA-P informs protocol transparency [1], PRISMA 2020 informs final review reporting [2], PRISMA-S informs reproducible search documentation [3], and software-engineering SLR guidance informs the review process [4]. These reporting guidelines are **method references**, not included primary studies.
 
-**Repository transition:** The planned canonical source is https://github.com/AliRazaDev241/OS_CEP after the staged files are imported through a reviewed PR. Each group's subsequent changes go through its own feature branch and PR; agents do not merge. See `GROUP_WORKFLOW.md`.
+# 1. Research objective
 
-## 1. Research objective
+Identify, critically appraise and synthesize peer-reviewed primary studies evaluating how **one physical GPU on a single node** is shared by multiple inference tenants. Compare temporal time-slicing, CUDA Multi-Process Service (MPS), Multi-Instance GPU (MIG), CUDA/GPU API remoting or virtualization, and hybrids. The intended output is a conditional engineering choice: which mechanism fits a specified model and arrival pattern, GPU generation/configuration, latency service-level objective (SLO), utilization or tenant-density goal, and isolation requirement. Treat performance interference, resource/memory separation, security isolation and fault containment as distinct observations; no mechanism name proves a measured outcome [10], [11].
 
-To systematically identify, appraise, and synthesize peer-reviewed primary evidence on single-node GPU-sharing mechanisms for multi-tenant inference serving—temporal sharing/time-slicing, NVIDIA Multi-Process Service (MPS), Multi-Instance GPU (MIG), and CUDA/API remoting, proxying, or virtualization. The review will determine when each mechanism, or a combination, is appropriate under stated workloads, GPU hardware, configurations, and service-level objectives (SLOs), balancing GPU utilization and tenant density against tail-latency predictability, interference, resource/memory isolation, and fault containment.
+# 2. Research questions
 
-## 2. Engineering problem and scope
+1. **RQ1 (alternatives):** Which of the four assigned mechanism families and hybrids have been evaluated for concurrent inference tenants on a single GPU, and what control/resource boundaries were evaluated?
+2. **RQ2 (measurement):** How are utilization, throughput/goodput, tenant density, p50/p95/p99 latency, SLO violations, interference and isolation measured? Which studies can actually be compared?
+3. **RQ3 (conditions):** How do workload/model, request arrival and batching, tenant mix, GPU generation, MPS settings, MIG profile and remoting path affect the reported outcomes?
+4. **RQ4 (trade-offs):** What performance, isolation, implementation and operational trade-offs, conflicting findings and evidence gaps are reported?
+5. **RQ5 (decision):** Under stated SLO, utilization/density, isolation and hardware conditions, what mechanism or combination is supported, and how strong is that support?
 
-An engineer must run concurrent inference tenants on one physical GPU. Greater multiplexing can improve occupancy and reduce idle capacity, but it may worsen request interference or p95/p99 latency. Stronger partitioning can improve predictability and resource boundaries, but may create fragmentation, reduce elastic sharing, or require supported hardware and operational reconfiguration. The review is bounded to the **single-node OS/runtime layer**. Cluster-wide scheduling is considered only when a study exposes and evaluates a relevant local GPU-sharing mechanism.
+The group must map each final RQ to the extraction fields in §11 and synthesis outputs in §12 before freezing.
 
-### Operational definitions
+# 3. Selected academic databases
 
-- **Inference serving:** execution of trained ML/DNN/LLM models to answer online or batch-service requests; training-only workloads are excluded.
-- **Multi-tenant:** two or more separately scheduled workloads, users, models, services, or processes sharing one physical GPU.
-- **Single-node sharing:** sharing controlled on one host/GPU by driver, runtime, process, partition, or API layer.
-- **Time-slicing:** temporal multiplexing/context scheduling of a physical GPU without a dedicated hardware partition.
-- **MPS:** NVIDIA CUDA Multi-Process Service or a clearly equivalent process-concurrency implementation.
-- **MIG:** NVIDIA Multi-Instance GPU or a hardware partitioning mechanism with separately assigned GPU resources.
-- **API remoting/virtualization:** interception, proxying, forwarding, or virtual presentation of CUDA/GPU APIs that enables multiple clients to access a GPU; virtual machines/containers qualify only when this mechanism is evaluated.
-- **Isolation:** recorded separately as measured performance interference, resource/memory partitioning, security boundary, and fault containment. A mechanism name alone does not prove any of them.
+The **proposed formal sources** are IEEE Xplore (engineering/systems), ACM Digital Library (computing/systems), ScienceDirect (Elsevier engineering/computing journals), and Springer Nature Link (computing journals/proceedings). NED's E-Resources page lists these platforms in its E-Databases area [5]. Verify each group's actual entitlement, indexed collection and export route before freeze; a publisher collection is not an exhaustive cross-publisher index. If unavailable, document a justified replacement and revised coverage.
 
-## 3. Research questions
+Scopus and Web of Science, if accessible, supplement cross-publisher coverage/citation checking; any systematic run must be logged and screened like a formal source. Google Scholar and backward/forward references are supplementary discovery, logged separately. Check whether USENIX and other systems proceedings are missed by the proposed publisher platforms. Do not mistake publisher access for database coverage.
 
-| ID | Research question |
+# 4. Search keywords
+
+| Concept | Candidate keywords and spelling variants |
 |---|---|
-| RQ1 | Which single-node time-slicing, MPS, MIG, and API-remoting/virtualization mechanisms have been evaluated for multi-tenant inference, and what isolation boundaries do they provide? |
-| RQ2 | How do studies measure utilization, throughput, tenant density, latency distribution/tail latency, interference, and fault isolation, and how comparable are their experiments? |
-| RQ3 | Under what model/workload, GPU generation, partition/configuration, batching/concurrency, and tenant-mix conditions do mechanisms change utilization and latency predictability? |
-| RQ4 | What engineering trade-offs, implementation costs, limitations, and apparently conflicting findings are reported, and which experimental differences plausibly explain them? |
-| RQ5 | Which mechanism or combination should an engineer choose for specified inference-serving conditions, given evidence quality and uncertainty? |
+| Hardware | GPU; graphics processing unit; accelerator |
+| Inference | inference; model serving; deep learning; DNN; neural network; LLM; online serving |
+| Temporal sharing | time slicing; time-slicing; time sharing; context switching; preemptive scheduling |
+| MPS | MPS; multi-process service; CUDA MPS; process concurrency |
+| MIG/partitioning | MIG; multi-instance GPU; GPU partitioning; spatial sharing |
+| API remoting | API remoting; CUDA remoting; GPU proxy; API interception; virtual GPU; GPU virtualization |
+| Outcomes/setting (optional refinements) | multi-tenant; co-location; utilization; latency; tail latency; QoS; SLO; interference; isolation |
 
-## 4. Databases and justification
+The mandatory query logic is hardware AND inference AND an OR of **all four** mechanism families. Do not require `multi-tenant` or an outcome word in every record: relevant seed papers may lack that literal term [12]. Pilot spelling, tokenization, wildcard and subject-field choices for each interface before freeze. MPS and MIG alone can have unrelated meanings, so pair with GPU/inference and inspect precision.
 
-NED Engr. Abul Kalam Library separates **E-Databases** from **Analytics** on its E-Resources page. The four planned formal source platforms are from the E-Databases section, pending actual NED entitlement and interface checks:
+# 5. Search strings
 
-| Formal source | Role and rationale |
-|---|---|
-| IEEE Xplore | Electrical/computer engineering and systems journals/conferences; the assigned topic supplies an IEEE example query. |
-| ACM Digital Library | Specialist computing and OS/systems conference/journal coverage; distinguish ACM full-text collection from the wider ACM Guide at execution. |
-| ScienceDirect | Complementary Elsevier engineering/computing journal coverage, including systems venues. |
-| Springer Nature Link (SpringerLink) | Complementary computing/engineering journals and proceedings; filter research papers from books/chapters and duplicates. |
-
-**Scopus and Web of Science** are NED-listed analytics/citation indexes and are useful as *additional* cross-publisher validation/citation-tracking sources if the team has access. They do not replace four E-Databases sources, and if searched formally their runs and exports receive the same complete logging/screening. **Google Scholar** is supplementary citation discovery only. USENIX and other publisher sites may supply full-text copies and seed records but are not automatically formal database runs. This coverage limitation, especially USENIX proceedings not necessarily indexed in these platforms, must be assessed in the pilot and reported as a review threat.
-
-## 5. Search concepts and keywords
-
-The query design combines four concepts:
-
-1. **GPU and sharing:** GPU, graphics processing unit, accelerator, sharing, multiplexing, multi-tenant, multi-tenancy, co-location, colocated.
-2. **Mechanisms:** time slicing, timeslicing, context scheduling, MPS, multi-process service, MIG, multi-instance GPU, GPU partitioning, virtualization, virtual GPU, vGPU, CUDA remoting, API remoting, CUDA proxy, GPU proxy, GPU virtualization.
-3. **Inference context:** inference, serving, online inference, model serving, DNN, deep learning, neural network, machine learning, LLM, transformer.
-4. **Evaluation outcomes:** utilization, occupancy, throughput, latency, tail latency, p95, p99, QoS, SLO, interference, isolation, tenant density.
-
-Use the mechanism and inference blocks in every formal search. Do **not** require a separate sharing/multi-tenant block: relevant papers such as PipeSwitch can describe time-sharing and inference without the exact phrase `multi-tenant` in their title/abstract. Sharing and outcome terms remain optional refinements. Run a documented pilot with known candidate seeds from `evidence/scoping_log.md`, checking retrieval for all four mechanism categories; revise through the amendment register before the formal freeze if a category is systematically missed.
-
-## 6. Database-specific search strings
-
-### Candidate query logic for v1.1 (not yet interface-validated)
+**Candidate Boolean logic (not yet an executed search):**
 
 ```text
 (GPU OR "graphics processing unit")
 AND (inference OR "model serving" OR "deep learning" OR DNN OR LLM)
-AND ("time slicing" OR "time sharing" OR "context switching" OR MPS OR "multi-process service" OR MIG OR "multi-instance GPU" OR partition* OR virtuali* OR "API remoting" OR "CUDA remoting" OR "GPU proxy")
+AND ("time slicing" OR "time sharing" OR "context switching"
+     OR MPS OR "multi-process service" OR MIG OR "multi-instance GPU"
+     OR "GPU partitioning" OR "API remoting" OR "CUDA remoting"
+     OR "GPU proxy" OR "GPU virtualization")
 ```
 
-The mechanism block should be split into four separately logged mechanism-family queries where a platform restricts length or a pilot shows recall loss. Do not add an outcome or multi-tenancy AND block until a documented seed-recall check establishes that it does not suppress relevant records. See `evidence/query_validation.md` for per-platform proposed inputs, syntax caveats, seed tests, and execution gate.
-
-### v1.0 strings retired
-
-The unexecuted v1.0 strings assumed four mandatory blocks and misclassified two analytics indexes as the four E-Databases. They were removed from the operative protocol to prevent accidental use. See the amendment register; no historical query is operative in v1.1.
-
-### Citation chasing
-
-Backward and forward citation chasing begins only after at least one eligible full-text report is confirmed. Each seed report, direction, platform, date, candidate count, and decision will be logged separately. Citation-chased candidates receive the same duplicate check, independent screening, quality assessment, and full-text rule as database records.
-
-## 7. Publication period and language
-
-The normal period is **1 January 2020 to 27 September 2026**, inclusive, and English language. Older material may be included only if it is a seminal mechanism paper or an essential directly relevant baseline. The report must record the reason, mechanism, and why no newer equivalent evidence suffices. The final included set must contain 15–20 peer-reviewed primary studies; 15 is the minimum.
-
-## 8. Eligibility criteria
-
-| Type | Criterion |
+| Interface to pilot | Proposed entry and mandatory validation |
 |---|---|
-| Include | Peer-reviewed journal or conference primary study in English, normally published 2020–2026. |
-| Include | Evaluates, compares, implements, or technically analyses at least one in-scope single-node GPU-sharing mechanism for multi-tenant inference serving. |
-| Include | Reports enough full-text technical detail to assess mechanism/configuration and at least one engineering outcome relevant to an RQ (e.g., utilization, tenant density, throughput, latency, interference, isolation, overhead). |
-| Include | Directly transferable inference evidence may be included only when the mechanism, workload assumptions, and transfer rationale are explicitly recorded. |
-| Exclude | Duplicate report of an already represented study: retain provenance, link reports, and extract from the most complete peer-reviewed version. |
-| Exclude | Training-only, cluster-orchestration-only, or allocation-only work that does not evaluate a local sharing mechanism. |
-| Exclude | Surveys/reviews, vendor documentation, blogs, editorials, posters, patents, slides, opinion pieces, and abstract-only reports as primary evidence. |
-| Exclude | Studies without sufficient technical or engineering evidence, inaccessible full text, or no discernible relation to the RQs. |
+| IEEE Xplore Command Search | Enter the candidate logic; verify uppercase Boolean, phrase grouping, metadata field, date/type facets and displayed executed query. |
+| ACM DL Advanced Search | Enter concepts in the builder in the **ACM full-text collection**; capture its generated syntax, field scope and collection (not automatically the broader ACM Guide). |
+| ScienceDirect Advanced Search | Test the broad logic in the Advanced Search terms field; record accepted syntax, whether full text or title/abstract/keywords was searched, and applied article/date filters. |
+| Springer Nature Link Advanced Search | Test grouping, phrases, uppercase Boolean, field scope and year/content-type facets; record the executed representation. |
 
-## 9. Screening and PRISMA procedure
+If clause limits or seed misses require it, run **four separately logged queries per platform** with the common GPU AND inference blocks and one mechanism-family OR block from §4 each; deduplicate their exported records. A family split or field change affecting recall must be chosen and recorded **before** formal freeze. `evidence/query_validation.md` contains the existing unexecuted platform inputs; each group must replace proposals with its actual accepted query, field, URL, filters, pilot hit count and seed-retrieval result. Suggested seed *candidates* span PipeSwitch [12], ParvaGPU [13] and Torpor [14]; none is pre-included. A seed absent from its publisher collection tests coverage, not necessarily query syntax.
 
-1. **Identification:** run each frozen database query, record exact syntax, URL, date, filters, hit count, export file, and reviewer in `evidence/search_runs.csv`; import every hit with source provenance.
-2. **Duplicate and version handling:** normalize DOI, title, year, and authors; preserve all records. Link record → report → underlying study in `evidence/duplicates.csv`; do not delete provenance.
-3. **Pilot calibration:** two reviewers independently label the same small pilot set. Record disagreements, decisions, refinements, and calibration date. Do not change the frozen criteria without a formal amendment.
-4. **Title/abstract screening:** two reviewers independently apply eligibility criteria. Record both decisions and a controlled reason for exclusion.
-5. **Full-text assessment:** retrieve legally accessible reports; two reviewers independently assess complete text. Record access state separately from exclusion reason. The third member adjudicates disagreements.
-6. **Inclusion:** assign a unique Study ID only after final eligibility; link all reports and identify the extraction report.
-7. **PRISMA 2020:** derive every count from the logs: records identified, records removed before screening, records screened, reports sought/retrieved, reports assessed, reports excluded with reasons, and unique studies included.
+For every later **formal** run log group ID, database/collection, exact executed query, fields, filters, date/time, URL, total hits, export filename and reviewer. Keep pilot and formal runs separate. PRISMA-S [3] motivates this audit trail. Backward/forward citation chasing begins after an eligible full text is found; log seed, direction, date, source and candidate IDs, and apply the same eligibility and screening rules.
 
-Controlled full-text exclusion codes (for **assessed** reports): `E1 Not inference serving`; `E2 Not multi-tenant/single-node sharing`; `E3 Mechanism out of scope`; `E4 Training-only`; `E5 Cluster-only`; `E6 Not peer-reviewed primary study`; `E7 Insufficient technical/evaluation evidence`; `E8 Duplicate/less-complete report`; `E10 Other (narrative required)`. **Full text not retrieved** is tracked as a report-retrieval outcome (e.g., `R1 Full text unavailable after documented attempts`), not falsely counted among full-text reports assessed. Preserve retrieval attempts and source links.
+# 6. Publication period
 
-## 10. Quality assessment
+Search for English-language works dated **1 January 2020 through 27 September 2026 inclusive** (date of draft). The final group protocol must state its actual search cutoff and search date. If an interface filters by year only, inspect 2026 records and exclude post-cutoff publications manually. An older seminal mechanism or indispensable baseline may enter only with a per-study written reason and a demonstrated direct connection to the RQs; older contextual work is otherwise background, not part of the included set. The assignment targets 15–20 **unique included primary studies**, minimum 15, per group; do not relax eligibility just to reach that count.
 
-Each included study is scored independently by two reviewers: **1 = yes/adequate, 0.5 = partial/unclear, 0 = no/not reported**. The total (0–10) is used to label evidence, not automatically discard a study: High 8.0–10; Moderate 6.0–7.5; Low <6.0. Low-quality evidence is retained only when eligible, labelled clearly, and excluded in a sensitivity synthesis.
+# 7. Inclusion criteria
 
-| ID | Quality question |
+All conditions must hold after full-text assessment:
+
+1. English, peer-reviewed journal or full conference paper reporting an original empirical or technical evaluation; ordinarily within §6.
+2. A clearly identifiable local GPU sharing, partition, process-concurrency or API-interception/remoting mechanism involving at least two inference tenants, services, models or processes on a physical GPU. A transferable mixed workload qualifies only if inference-specific evidence and transfer rationale are explicit.
+3. Sufficient full-text detail to identify workload, sharing configuration and at least one RQ-relevant engineering outcome or directly assessable isolation property.
+4. A unique study, with multiple conference/journal/preprint reports linked and the most complete peer-reviewed report selected for extraction.
+
+Eligibility is independent of whether a mechanism performs well. Report negative and null findings. Record any justified older exception and the group's adjudication.
+
+# 8. Exclusion criteria
+
+At full text record one primary reason, with secondary notes if useful: **E1** no inference-serving evidence; **E2** no relevant single-node multi-tenant sharing; **E3** mechanism outside assigned scope; **E4** training-only; **E5** cluster orchestration without local sharing evaluation; **E6** no peer-reviewed original primary study (survey, vendor page, blog, preprint-only, poster, editorial, patent); **E7** insufficient technical/outcome evidence; **E8** duplicate/less complete report of the same study; **E9** outside date/language rule without exception; **E10** other, with written justification. Vendor guides [10], [11] describe mechanism context but cannot count as primary evidence or demonstrate workload performance. Track full text **not retrieved** as an access outcome, with attempts, rather than an exclusion among assessed reports [2].
+
+# 9. Screening procedure
+
+1. **Identification:** Execute and export each frozen query. Assign a unique record ID to every hit, preserving database/run provenance. Log citation-chased candidates separately.
+2. **Deduplication and versions:** Normalize DOI, title, year and authors; retain raw records and link record IDs → report IDs → underlying unique study IDs. Prefer the complete peer-reviewed version without treating its preprint as a second study.
+3. **Calibration:** Both screeners independently apply the draft rule set to a small common pilot set; record disagreements and clarify ambiguous terms before freeze. The group's third member adjudicates.
+4. **Title/abstract:** Two independent screeners mark include, exclude or uncertain with reason and IDs. Retrieve uncertain records; adjudicate disagreement without inventing a consensus.
+5. **Full text:** Record retrieval attempts and access status. Two screeners independently apply §§7–8 to retrieved reports; the third adjudicates discrepancies and records the final reason and study/report links. No inference from an unavailable full text.
+6. **Flow:** Derive PRISMA 2020 record, report and study counts from those logs, including pre-screen removals, reports sought, reports not retrieved, assessed reports, exclusions with reasons and included unique studies [2]. Reconcile counts by group and by formal/supplementary discovery route.
+
+If the pilot suggests fewer than 15 eligible studies, consult the instructor before changing the assigned scope or criteria. Do not retrospectively turn scoping candidates into screened inclusions.
+
+# 10. Quality-assessment criteria
+
+Two reviewers independently score each **included** study on Q1–Q10: **1** adequate, **0.5** partial/unclear, **0** absent/not reported. Reconcile with a recorded rationale; the third member resolves persistent disagreement. This group-designed rubric is an appraisal plan, not a validated universal instrument [4].
+
+| ID | Question |
 |---|---|
-| QA1 | Is the engineering objective/problem clearly defined? |
-| QA2 | Is the sharing mechanism and configuration described sufficiently? |
-| QA3 | Are GPU/SKU, partition profile, OS/kernel, driver/CUDA/runtime described? |
-| QA4 | Are model/workload, batching/arrival pattern, tenant/co-tenant mix described? |
-| QA5 | Are baselines and comparison conditions fair and explicit? |
-| QA6 | Are relevant metrics precisely defined with units and latency percentile where relevant? |
-| QA7 | Is the evaluation methodology adequate (warm-up/window/repetitions or equivalent)? |
-| QA8 | Are results supported by data/figures/tables and source anchors? |
-| QA9 | Are limitations or threats to validity acknowledged? |
-| QA10 | Is enough information available to reproduce or critically interpret the experiment? |
+| Q1 | Is the engineering question and tenant setting explicit? |
+| Q2 | Are the mechanism and isolation/configuration described sufficiently? |
+| Q3 | Are GPU SKU/count, partition, OS, driver and runtime stated? |
+| Q4 | Are model, workload, batching/arrivals and co-tenant mix stated? |
+| Q5 | Is the baseline appropriate and configured fairly? |
+| Q6 | Are utilization, latency percentiles and other metric definitions/units clear? |
+| Q7 | Are warm-up, duration, repetitions/variance and load generation adequate? |
+| Q8 | Do figures/tables/data support the reported findings? |
+| Q9 | Are limitations, confounders and validity threats discussed? |
+| Q10 | Is there enough information to reproduce or critically interpret the comparison? |
 
-## 11. Data-extraction fields
+Total 0–10: **high 8–10**, **moderate 6–7.5**, **low <6**. Score does not replace eligibility. Retain eligible low-quality evidence with labels and rerun conclusions without it. Log reviewer-specific scores, evidence anchors, reconciliation and missing facts.
 
-The extraction sheet has one row per report-result where necessary, linked to a Study ID. Every numerical or substantive finding used in synthesis must include a PDF page, figure, table, or section anchor.
+# 11. Data-extraction fields
 
-| Group | Required fields |
+Use one study-level identity row plus report/result rows where needed, each with PDF page/section/table/figure anchors. Pilot the form on multiple mechanism families before freeze.
+
+| Field group | Required fields |
 |---|---|
-| Identity/provenance | Record ID, Report ID, Study ID, database, source URL/DOI, retrieval date, title, authors, year, venue, peer-review status, full-text access status, report-version relation. |
-| Mechanism | taxonomy class; product/framework; time-slice/MPS/MIG/remoting/virtualization configuration; scheduler/control layer; partition profile; admission/QoS policy. |
-| Environment | GPU vendor/SKU/count; memory; CPU/RAM; OS/kernel; driver; CUDA/runtime; container/VM details. |
-| Workload | model and version; task; model size; dataset/input; batch size; arrival/request pattern; warm-up and measurement window; tenant count and co-tenant mix. |
-| Comparator | baseline mechanism/configuration and whether comparison is direct or indirect. |
-| Outcomes | utilization/occupancy; throughput/goodput; mean/median/p50/p95/p99 latency and units; SLO misses; interference; tenant density; overhead; energy when reported. |
-| Isolation | performance interference; resource/memory partitioning; security boundary; fault containment: each marked measured, claimed, not reported, or not applicable. |
-| Interpretation controls | exact finding with source anchor; paper-stated limitation; team interpretation (separate); evidence strength; QA score; comparability notes. |
+| Provenance | Group, record/report/study IDs, query/run and database, DOI/publisher URL, authors, title, year, venue, peer-review/version status, access/retrieval date, source anchor |
+| Mechanism | Time-slice policy or context switch; MPS version/limits; MIG profile; API remoting/proxy path; hybrid; scheduler/control layer, admission/QoS policy |
+| Environment | GPU vendor/SKU/count/memory/partition, host CPU/RAM, OS/kernel, driver, CUDA/runtime, container or VM |
+| Workload | Inference task/model/size/input, tenant identity and mix, batch size, arrival pattern, concurrency, load, warm-up/window/repetitions |
+| Comparator | Baseline, direct vs indirect comparison, configuration equivalence |
+| Outcomes | Utilization/occupancy, throughput/goodput, tenant density, p50/p95/p99 and units, SLO threshold/miss rate, interference, overhead, energy if given, uncertainty/variance |
+| Isolation | **Separately** measured or claimed performance interference, resource/memory partitioning, security boundary and fault containment; mark not reported where absent |
+| Interpretation | Verbatim-sized finding summary in own words, exact anchor, author caveat, reviewer inference separately, QA scores, confounders and comparability notes |
 
-## 12. Taxonomy and evidence-synthesis strategy
+Do not fill absent values by assuming a GPU mechanism's default behavior. Capture both favorable and unfavorable findings.
 
-### Taxonomy
+# 12. Evidence-synthesis strategy
 
-Synthesis will classify evidence first by mechanism: (A) temporal/time-slice sharing, (B) process-level concurrency/MPS, (C) hardware partitioning/MIG, (D) API interception/remoting/virtualization, and (E) hybrid mechanisms (e.g., MIG+MPS). Within each class, studies are further grouped by isolation boundary, control/scheduling layer, partitioning granularity, workload class, GPU generation, and QoS/admission policy.
+Build a mechanism taxonomy (temporal, MPS, MIG, API remoting/virtualization, hybrids), an RQ-to-study matrix and a condition/comparability table. For RQ1 summarize evaluated control and isolation dimensions; for RQ2 compare metric and experiment definitions; for RQ3 stratify by GPU generation/profile, model and batch/arrival/tenant conditions; for RQ4 trace reported trade-offs and counterexamples to differing baselines and conditions; for RQ5 create a conditional decision matrix with evidence strength and uncertainty.
 
-### Synthesis method
+Use structured narrative synthesis because different GPUs, workloads, tenancy and latency percentiles make raw pooling misleading. Compare numerical effects only inside genuinely compatible experimental strata; otherwise report direction, conditions and limitations without an invented aggregate. Report each recommendation as **direct within-study comparison**, **indirect primary evidence**, **vendor context only**, or **insufficient evidence**. Apply the SWiM transparency principles for any synthesis without meta-analysis [9]. Repeat the conclusion after excluding low-QA/incomplete studies. Report coverage gaps, publication/access bias, heterogeneity and reviewer disagreement. No mechanism is declared universally optimal.
 
-- Build an RQ-to-evidence matrix and a comparability profile before numerical comparison.
-- Use structured narrative synthesis and mechanism-level evidence tables; no statistical meta-analysis is planned because hardware, models, batching, tenant mixes, latency definitions, and baselines are expected to be heterogeneous.
-- Compare quantitative results only within compatible experimental strata. Otherwise describe direction, conditions, and evidence strength rather than pooling raw values.
-- Label every conclusion: **direct comparison**, **indirect primary evidence**, **contextual vendor information**, or **insufficient evidence**.
-- Analyze conflicting results against GPU/SKU, partition size, driver/runtime, workload/model size, batching, concurrency/arrival pattern, tenant mix, baseline, and metric/measurement differences.
-- Run a sensitivity synthesis excluding low-QA and incomplete-report evidence; report whether conditional recommendations change.
-- Produce a conditional decision matrix covering latency SLO, utilization/tenant-density priority, isolation/fault-containment need, MIG-capable hardware availability, workload/model heterogeneity, and operational complexity.
+# Protocol changes and freeze record
 
-## 13. RQ-to-evidence map
+**A001 (historical):** v1.0 was prematurely called frozen; v1.1 corrected the proposed databases, recall risk and full-text accounting before any formal screening. Details remain in `evidence/protocol_amendments.md`; no count impact was claimed.
 
-| RQ | Core extraction fields | Analysis output | Decision use |
-|---|---|---|---|
-| RQ1 | mechanism, configuration, isolation dimensions, scheduler/control layer | taxonomy and isolation matrix | establishes alternatives and boundaries |
-| RQ2 | metric definitions, units, percentile, hardware, workload, baseline, measurement protocol | comparability matrix | prevents invalid cross-study comparison |
-| RQ3 | GPU/SKU, partition, model, batching, tenant mix, latency/utilization/throughput results | condition-by-mechanism evidence table | identifies workload/hardware-dependent behavior |
-| RQ4 | overhead, limitations, QoS misses, interference, QA, experimental differences | trade-off and conflict matrix | explains why findings differ |
-| RQ5 | all above plus evidence-strength label and sensitivity result | conditional decision matrix | supports recommendation rather than a universal winner |
+**A002 (this proposal, 27 September 2026 PKT):** Reorganize the shared protocol into the instructor's exact twelve headings, expand methodological and mechanism references, specify executable-query validation and group-specific ownership, and align report source and Markdown. This is a **pre-search reporting/clarification revision**, not a claim of completed search or changed eligibility. Once the two groups are named, each must evaluate these choices independently and record its own dated freeze; A002 affects zero formal records based on the current documented status.
 
-## 14. Protocol deviations and amendments
+**After a group starts formal searching:** Before using a major change, append a dated entry to *that group's* `evidence/protocol_amendments.md` with old/new rule, trigger, justification, approving reviewers, affected queries/dates/records, whether earlier databases must be rerun, screening/PRISMA count effects, and how old and new results will be reconciled. Version the protocol and label deviations in the report. Log purely syntactic platform translations in search logs; a recall-changing translation is a major amendment. PRISMA-P calls for recording important protocol amendments [1].
 
-This protocol is **v1.1, pre-search corrective draft**. Its predecessor v1.0 was marked frozen before the required database-interface pilot and team ownership confirmation; the corrective changes are documented in `evidence/protocol_amendments.md`. Formal selection is still prohibited. Once four source interfaces have been piloted, exact executable strings and filters have been captured, and the group signs off, issue a dated freeze (v1.2 if search semantics change). Thereafter any material change to scope, RQs, databases, queries, dates, criteria, screening, QA, extraction, or synthesis must be entered in the register before use, with rationale and effects on records/counts. Syntax-only interface transformations are logged in search runs; semantic changes require an amendment.
+# References (IEEE style; context and method only, no included studies claimed)
 
-## 15. Open decisions before formal screening
+[1] L. Shamseer *et al*., “Preferred reporting items for systematic review and meta-analysis protocols (PRISMA-P) 2015: elaboration and explanation,” *BMJ*, vol. 349, g7647, 2015. doi: [10.1136/bmj.g7647](https://doi.org/10.1136/bmj.g7647).
 
-1. Confirm the calendar date for week 13.
-2. Enter the three members’ reviewer IDs and assign two screeners plus one adjudicator.
-3. Confirm NED VPN/database access, index availability, and permitted export-sharing procedure.
-4. Confirm the IEEE LaTeX template expected by the instructor.
-5. Confirm the five RQs or record instructor-approved revisions as an amendment.
+[2] M. J. Page *et al*., “The PRISMA 2020 statement: an updated guideline for reporting systematic reviews,” *BMJ*, vol. 372, n71, 2021. doi: [10.1136/bmj.n71](https://doi.org/10.1136/bmj.n71).
 
-## Methodological basis for this protocol
+[3] M. L. Rethlefsen *et al*., “PRISMA-S: an extension to the PRISMA statement for reporting literature searches in systematic reviews,” *Systematic Reviews*, vol. 10, art. 39, 2021. doi: [10.1186/s13643-020-01542-z](https://doi.org/10.1186/s13643-020-01542-z).
 
-- Page *et al.*, PRISMA 2020, specifies transparent reporting through a 27-item checklist and flow-diagram templates.
-- Kitchenham and Charters provide software-engineering SLR guidance for a protocol-led, auditable process.
-- NED’s library pages identify IEEE, ACM, Scopus, Web of Science, ScienceDirect, Springer and related sources, supporting the selected database set.
-- The scoping review discovery found an existing multi-tenant inference survey and recent hybrid MIG/MPS primary studies. Therefore this review remains focused on single-node mechanism-level utilization–latency isolation trade-offs and treats surveys as vocabulary/context only, not primary evidence.
+[4] B. Kitchenham and S. Charters, “Guidelines for performing systematic literature reviews in software engineering,” EBSE Technical Report EBSE-2007-01, 2007. [Online]. Available: [EBSE record](https://ebse.webspace.durham.ac.uk/ebse-bibliography/guidelines-for-performing-systematic-literature-reviews-in-software-engineering/).
+
+[5] Engr. Abul Kalam Library, NED University, “E-Resources,” accessed Sept. 27, 2026. [Online]. Available: [NED E-Resources](https://eaklibrary.neduet.edu.pk/eakl/E-Resources.html).
+
+[6] IEEE, “IEEE Xplore: Searching and Saving Searches,” user guide. [Online]. Available: [IEEE guide](https://ieeexplore.ieee.org/Xplorehelp/downloads/user-guides/IEEE_Xplore_Searching_and_Saving_Searches.pdf).
+
+[7] ACM, “Search tools,” ACM Digital Library. [Online]. Available: [ACM search tools](https://libraries.acm.org/training-resources/search-tools).
+
+[8] Springer Nature, “Springer Nature Link advanced search option.” [Online]. Available: [Search help](https://support.springernature.com/en/support/solutions/articles/6000080445-springer-nature-link-advanced-search-option).
+
+[9] M. Campbell *et al*., “Synthesis without meta-analysis (SWiM) in systematic reviews: reporting guideline,” *BMJ*, vol. 368, l6890, 2020. doi: [10.1136/bmj.l6890](https://doi.org/10.1136/bmj.l6890).
+
+[10] NVIDIA, “Introduction,” *Multi-Instance GPU User Guide*. [Online]. Available: [MIG introduction](https://docs.nvidia.com/datacenter/tesla/mig-user-guide/introduction.html).
+
+[11] NVIDIA, “Architecture,” *Multi-Process Service*. [Online]. Available: [MPS architecture](https://docs.nvidia.com/deploy/mps/architecture.html).
+
+[12] Z. Bai *et al*., “PipeSwitch: Fast pipelined context switching for deep learning applications,” in *Proc. 14th USENIX OSDI*, 2020. [Online]. Available: [USENIX venue page](https://www.usenix.org/conference/osdi20/presentation/bai). **Search seed only; not screened.**
+
+[13] M. Lee *et al*., “ParvaGPU: Efficient spatial GPU sharing for large-scale DNN inference in cloud environments,” in *Proc. SC '24*, 2024. doi: [10.1109/SC41406.2024.00048](https://doi.org/10.1109/SC41406.2024.00048). **Search seed only; not screened.**
+
+[14] M. Yu *et al*., “Torpor: GPU-enabled serverless computing for low-latency, resource-efficient inference,” in *Proc. USENIX ATC '25*, 2025. [Online]. Available: [USENIX venue page](https://www.usenix.org/conference/atc25/presentation/yu). **Search seed only; not screened.**

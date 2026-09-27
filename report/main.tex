@@ -1,72 +1,623 @@
-\documentclass[12pt]{article}
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+\PassOptionsToPackage{dvipsnames,svgnames,x11names}{xcolor}
+%
+\documentclass[
+  12pt,
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math} % this also loads fontspec
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+\usepackage{lmodern}
+\ifPDFTeX\else
+  % xetex/luatex font selection
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
 \usepackage[margin=1in]{geometry}
-\usepackage{booktabs,longtable,array}
-\usepackage{microtype}
-\usepackage[hidelinks]{hyperref}
-\emergencystretch=2em
-\title{GPU Sharing Mechanisms for Multi-Tenant Inference Serving\\\large Systematic Literature Review Protocol v1.1 (Pre-search Corrective Draft)}
-\author{Operating Systems CEP Group\\NED University of Engineering and Technology}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\newenvironment{Shaded}{}{}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.49,0.56,0.16}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\BuiltInTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{#1}}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.53,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.56,0.13,0.00}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.73,0.13,0.13}{\textit{#1}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{1.00,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.25,0.63,0.44}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.02,0.16,0.49}{#1}}
+\newcommand{\ImportTok}[1]{\textcolor[rgb]{0.00,0.50,0.00}{\textbf{#1}}}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.40,0.40,0.40}{#1}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.00,0.44,0.13}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.74,0.48,0.00}{#1}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.73,0.40,0.53}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.10,0.09,0.49}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.25,0.44,0.63}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.38,0.63,0.69}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\urlstyle{same}
+\hypersetup{
+  pdftitle={GPU Sharing Mechanisms for Multi-Tenant Inference Serving},
+  pdfauthor={Operating Systems CEP --- shared candidate for two independent groups},
+  colorlinks=true,
+  linkcolor={Maroon},
+  filecolor={Maroon},
+  citecolor={Blue},
+  urlcolor={Blue},
+  pdfcreator={LaTeX via pandoc}}
+
+\title{GPU Sharing Mechanisms for Multi-Tenant Inference Serving}
+\usepackage{etoolbox}
+\makeatletter
+\providecommand{\subtitle}[1]{% add subtitle to \maketitle
+  \apptocmd{\@title}{\par {\large #1 \par}}{}{}
+}
+\makeatother
+\subtitle{Systematic Literature Review Protocol v1.2 (Proposed
+Pre-Search Draft)}
+\author{Operating Systems CEP --- shared candidate for two independent
+groups}
 \date{27 September 2026}
+
 \begin{document}
 \maketitle
 
-\noindent\textbf{Protocol status:} Corrective draft v1.1; formal freeze awaits NED access, four interface pilots, seed-recall tests, reviewer ownership, and group sign-off. The v1.0 premature freeze and changes are documented in \texttt{evidence/protocol\_amendments.md}. Candidate discoveries in \texttt{evidence/scoping\_log.md} are neither included studies nor PRISMA counts.
+\textbf{Version:} v1.2, proposed pre-search revision, 27 September 2026
+(PKT)\\
+\textbf{Status:} Not frozen. The four database interfaces, exact
+executable queries, access, seed recall, group ownership and reviewer
+sign-off remain unverified. No formal search, screened study or PRISMA
+count is claimed.\\
+\textbf{Ownership:} Shared candidate for two independent three-student
+groups. Each group must adapt, pilot, date and freeze its own protocol
+before formal selection. Neither may inherit the other\textquotesingle s
+decisions or counts. The root v1.0/v1.1 history remains in
+\texttt{evidence/protocol\_amendments.md}.
 
-\section{Research objective and engineering problem}
-An engineer must share a single GPU among concurrent inference tenants. More multiplexing can improve utilization and tenant density, while potentially worsening interference and tail latency. Stronger partitioning can improve predictability and resource boundaries but can introduce fragmentation, hardware restrictions, and operational cost. This review will systematically identify, appraise, and synthesize peer-reviewed primary evidence on time-slicing, NVIDIA Multi-Process Service (MPS), Multi-Instance GPU (MIG), and CUDA/API remoting, proxying, or virtualization for single-node multi-tenant inference. Its outcome is a conditional engineering recommendation, rather than a universal winner.
+The twelve sections below follow the instructor\textquotesingle s
+requested order. PRISMA-P informs protocol transparency {[}1{]}, PRISMA
+2020 informs final review reporting {[}2{]}, PRISMA-S informs
+reproducible search documentation {[}3{]}, and software-engineering SLR
+guidance informs the review process {[}4{]}. These reporting guidelines
+are \textbf{method references}, not included primary studies.
 
-The scope is the single-node OS/runtime layer. Training-only and cluster-orchestration-only studies are outside scope unless they directly evaluate an eligible local sharing mechanism for inference.
+\hypertarget{1-research-objective}{%
+\section{1. Research objective}\label{1-research-objective}}
 
-\section{Research questions}
+Identify, critically appraise and synthesize peer-reviewed primary
+studies evaluating how \textbf{one physical GPU on a single node} is
+shared by multiple inference tenants. Compare temporal time-slicing,
+CUDA Multi-Process Service (MPS), Multi-Instance GPU (MIG), CUDA/GPU API
+remoting or virtualization, and hybrids. The intended output is a
+conditional engineering choice: which mechanism fits a specified model
+and arrival pattern, GPU generation/configuration, latency service-level
+objective (SLO), utilization or tenant-density goal, and isolation
+requirement. Treat performance interference, resource/memory separation,
+security isolation and fault containment as distinct observations; no
+mechanism name proves a measured outcome {[}10{]}, {[}11{]}.
+
+\hypertarget{2-research-questions}{%
+\section{2. Research questions}\label{2-research-questions}}
+
 \begin{enumerate}
-\item[\textbf{RQ1.}] Which single-node time-slicing, MPS, MIG, and API-remoting/virtualization mechanisms have been evaluated for multi-tenant inference, and what isolation boundaries do they provide?
-\item[\textbf{RQ2.}] How do studies measure utilization, throughput, tenant density, latency distribution/tail latency, interference, and fault isolation, and how comparable are their experiments?
-\item[\textbf{RQ3.}] Under what workload, GPU and partition configuration, batching and concurrency, and tenant-mix conditions do mechanisms change utilization and latency predictability?
-\item[\textbf{RQ4.}] What trade-offs, implementation costs, limitations, and apparently conflicting findings are reported, and which experimental differences plausibly explain them?
-\item[\textbf{RQ5.}] Which mechanism or combination should an engineer choose under specified inference-serving conditions, given evidence quality and uncertainty?
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{RQ1 (alternatives):} Which of the four assigned mechanism
+  families and hybrids have been evaluated for concurrent inference
+  tenants on a single GPU, and what control/resource boundaries were
+  evaluated?
+\item
+  \textbf{RQ2 (measurement):} How are utilization, throughput/goodput,
+  tenant density, p50/p95/p99 latency, SLO violations, interference and
+  isolation measured? Which studies can actually be compared?
+\item
+  \textbf{RQ3 (conditions):} How do workload/model, request arrival and
+  batching, tenant mix, GPU generation, MPS settings, MIG profile and
+  remoting path affect the reported outcomes?
+\item
+  \textbf{RQ4 (trade-offs):} What performance, isolation, implementation
+  and operational trade-offs, conflicting findings and evidence gaps are
+  reported?
+\item
+  \textbf{RQ5 (decision):} Under stated SLO, utilization/density,
+  isolation and hardware conditions, what mechanism or combination is
+  supported, and how strong is that support?
 \end{enumerate}
 
-\section{Database selection}
-The four planned formal sources are IEEE Xplore, ACM Digital Library, ScienceDirect, and Springer Nature Link, subject to confirming NED entitlement. The first two emphasize engineering and computing conferences/journals; the latter two add publisher-platform engineering/computing coverage. NED distinguishes E-Databases from its Analytics sources \cite{nedresources,nedfaq}. Scopus and Web of Science are supplementary cross-publisher indexes for coverage and citation validation if accessible; any formal use receives full search logging. Google Scholar is supplementary citation discovery only. Publisher-specific coverage and missing USENIX proceedings will be assessed as potential search bias.
+The group must map each final RQ to the extraction fields in §11 and
+synthesis outputs in §12 before freezing.
 
-\section{Search strategy and publication period}
-Searches combine GPU-sharing, mechanism, inference-serving, and evaluation concepts. The normal period is 1 January 2020--27 September 2026; older studies require a documented seminal/baseline justification. English peer-reviewed journal and conference papers are eligible.
+\hypertarget{3-selected-academic-databases}{%
+\section{3. Selected academic
+databases}\label{3-selected-academic-databases}}
 
-\begin{verbatim}
-(GPU OR "graphics processing unit")
-AND (inference OR "model serving" OR "deep learning" OR DNN OR LLM)
-AND ("time slicing" OR "time sharing" OR "context switching" OR MPS OR
- "multi-process service" OR MIG OR "multi-instance GPU" OR partitioning OR
- virtualization OR "API remoting" OR "CUDA remoting" OR "GPU proxy")
-\end{verbatim}
+The \textbf{proposed formal sources} are IEEE Xplore
+(engineering/systems), ACM Digital Library (computing/systems),
+ScienceDirect (Elsevier engineering/computing journals), and Springer
+Nature Link (computing journals/proceedings). NED\textquotesingle s
+E-Resources page lists these platforms in its E-Databases area {[}5{]}.
+Verify each group\textquotesingle s actual entitlement, indexed
+collection and export route before freeze; a publisher collection is not
+an exhaustive cross-publisher index. If unavailable, document a
+justified replacement and revised coverage.
 
-This is a \emph{candidate} three-concept search, not a query proven executable in all four databases. The old four-block query could suppress pertinent papers lacking an explicit ``multi-tenant'' term. Four platform inputs, mechanism-family fallback strings, date/document filters, and known-seed tests are specified in \texttt{evidence/query\_validation.md}. Before freeze, the group must execute and record each platform's exact accepted syntax, field scope, filters, URL, pilot count, and seed recall. Every subsequent \emph{formal} run must be separately logged with date, exact query, result count, export and reviewer; pilot counts are never substituted for formal counts.
+Scopus and Web of Science, if accessible, supplement cross-publisher
+coverage/citation checking; any systematic run must be logged and
+screened like a formal source. Google Scholar and backward/forward
+references are supplementary discovery, logged separately. Check whether
+USENIX and other systems proceedings are missed by the proposed
+publisher platforms. Do not mistake publisher access for database
+coverage.
 
-\subsection{Platform-specific pilot inputs}
-The exact string printed above is the proposed first pilot input for each of the four platforms, not a claim that the platforms executed it. On IEEE Xplore, test it in Command Search with metadata field scope and uppercase Boolean operators; on ACM DL, enter it through Advanced Search in the ACM full-text collection and capture the generated query syntax; on ScienceDirect, test its Advanced Search terms field and record whether the scope includes full text; on Springer Nature Link, test Advanced Search with uppercase Boolean operators and phrase matching. In each case apply and record 2020--2026, English, journal/conference article filters where available. Check that no post--27 September 2026 records pass screening. The full per-platform copyable inputs and mechanism-family alternatives are in \texttt{evidence/query\_validation.md}; the group must insert validated executed strings here before a formal freeze.
+\hypertarget{4-search-keywords}{%
+\section{4. Search keywords}\label{4-search-keywords}}
 
-\section{Eligibility criteria}
-Include peer-reviewed English journal/conference primary studies that technically evaluate or compare an in-scope single-node GPU-sharing mechanism for multi-tenant inference and report sufficient full-text engineering evidence. Directly transferable inference evidence requires an explicit mechanism and transfer rationale. Exclude duplicate or less-complete reports; training-only work; cluster-only work; reviews, vendor documentation, blogs, editorials, posters, patents, slides, and abstracts; inaccessible full texts; and reports lacking relevant technical or evaluation detail. Surveys and vendor documentation may provide context but never count toward the target of 15--20 primary studies.
+\begin{longtable}[]{@{}p{0.23\textwidth}p{0.70\textwidth}@{}}
+\toprule\noalign{}
+Concept & Candidate keywords and spelling variants \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Hardware & GPU; graphics processing unit; accelerator \\
+Inference & inference; model serving; deep learning; DNN; neural
+network; LLM; online serving \\
+Temporal sharing & time slicing; time-slicing; time sharing; context
+switching; preemptive scheduling \\
+MPS & MPS; multi-process service; CUDA MPS; process concurrency \\
+MIG/partitioning & MIG; multi-instance GPU; GPU partitioning; spatial
+sharing \\
+API remoting & API remoting; CUDA remoting; GPU proxy; API interception;
+virtual GPU; GPU virtualization \\
+Outcomes/setting (optional refinements) & multi-tenant; co-location;
+utilization; latency; tail latency; QoS; SLO; interference; isolation \\
+\end{longtable}
 
-\section{Screening and PRISMA 2020}
-All records will retain source provenance. DOI, normalized title, year, and author data will be used to link records, reports, and unique underlying studies without deleting records. Two reviewers will independently conduct title/abstract and full-text screening; a third reviewer will adjudicate disagreements. The actual PRISMA 2020 flow will be calculated from the logs: records identified, records removed before screening, records screened, reports sought, reports not retrieved (with documented access attempts), reports assessed, reports excluded with reasons, and unique studies included. Unretrieved reports will not be falsely placed among assessed-report exclusions. PRISMA 2020 provides the reporting checklist and suitable flow-diagram templates \cite{prisma}.
+The mandatory query logic is hardware AND inference AND an OR of
+\textbf{all four} mechanism families. Do not require
+\texttt{multi-tenant} or an outcome word in every record: relevant seed
+papers may lack that literal term {[}12{]}. Pilot spelling,
+tokenization, wildcard and subject-field choices for each interface
+before freeze. MPS and MIG alone can have unrelated meanings, so pair
+with GPU/inference and inspect precision.
 
-\section{Quality assessment}
-Two reviewers score each included study from 0 to 1 on ten questions: clarity of objective; sharing configuration; hardware/software description; workload/tenant description; fairness of baseline; metric definition; measurement method; result support; limitations; and reproducibility. Scores are 1 (adequate), 0.5 (partial/unclear), or 0 (not reported). Total quality is High (8--10), Moderate (6--7.5), or Low ($<6$). Low-quality studies remain labelled eligible evidence but are excluded in a sensitivity synthesis.
+\hypertarget{5-search-strings}{%
+\section{5. Search strings}\label{5-search-strings}}
 
-\section{Data extraction and evidence synthesis}
-For each report, capture identity and access state; mechanism/configuration; GPU/SKU and partition; OS/kernel, driver and CUDA/runtime; model/workload; batching/arrival pattern; tenant/co-tenant mix; baseline; metric definitions and units; exact results with page/figure/table anchors; isolation dimensions; limitations; and quality score. Isolation is recorded separately as performance interference, resource/memory partitioning, security boundary, and fault containment, each as measured, claimed, not reported, or not applicable.
+\textbf{Candidate Boolean logic (not yet an executed search):}
 
-Evidence will be synthesized by mechanism category: temporal sharing, MPS, MIG, remoting/virtualization, and hybrids. Quantitative values will be compared only in compatible experimental strata; heterogeneous results receive structured narrative synthesis with stated conditions and evidence strength. A sensitivity synthesis will omit low-quality or incomplete evidence. The final decision matrix will condition recommendations on latency SLO, utilization and tenant density, isolation need, MIG hardware availability, workload heterogeneity, and operational complexity.
+\begin{Shaded}
+\begin{Highlighting}[]
+\NormalTok{(GPU OR "graphics processing unit")}
+\NormalTok{AND (inference OR "model serving" OR "deep learning" OR DNN OR LLM)}
+\NormalTok{AND ("time slicing" OR "time sharing" OR "context switching"}
+\NormalTok{     OR MPS OR "multi{-}process service" OR MIG OR "multi{-}instance GPU"}
+\NormalTok{     OR "GPU partitioning" OR "API remoting" OR "CUDA remoting"}
+\NormalTok{     OR "GPU proxy" OR "GPU virtualization")}
+\end{Highlighting}
+\end{Shaded}
 
-\section{Protocol governance}
-Protocol v1.1 is a corrective pre-search draft. Amendment A001 explains the earlier premature freeze, changed database set and search design, and corrected retrieval accounting; no formal record counts are affected because no formal selection occurred. The group must validate exact platform strings and sign off before a new freeze. Thereafter material changes to scope, RQs, search logic, eligibility, quality appraisal, extraction, or synthesis require a dated amendment describing rationale, affected artifacts, and count impact. This protocol follows PRISMA 2020 reporting and protocol-led software-engineering SLR guidance \cite{prisma,kitchenham}.
+\begin{longtable}[]{@{}p{0.23\textwidth}p{0.70\textwidth}@{}}
+\toprule\noalign{}
+Interface to pilot & Proposed entry and mandatory validation \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+IEEE Xplore Command Search & Enter the candidate logic; verify uppercase
+Boolean, phrase grouping, metadata field, date/type facets and displayed
+executed query. \\
+ACM DL Advanced Search & Enter concepts in the builder in the
+\textbf{ACM full-text collection}; capture its generated syntax, field
+scope and collection (not automatically the broader ACM Guide). \\
+ScienceDirect Advanced Search & Test the broad logic in the Advanced
+Search terms field; record accepted syntax, whether full text or
+title/abstract/keywords was searched, and applied article/date
+filters. \\
+Springer Nature Link Advanced Search & Test grouping, phrases, uppercase
+Boolean, field scope and year/content-type facets; record the executed
+representation. \\
+\end{longtable}
 
-\begin{thebibliography}{9}
-\bibitem{prisma} M. J. Page et al., ``The PRISMA 2020 statement: an updated guideline for reporting systematic reviews,'' \emph{BMJ}, vol. 372, n71, 2021, doi: 10.1136/bmj.n71.
-\bibitem{kitchenham} B. Kitchenham and S. Charters, ``Guidelines for performing systematic literature reviews in software engineering,'' EBSE Technical Report EBSE-2007-01, 2007.
-\bibitem{nedresources} Engr. Abul Kalam Library, NED University, ``E-Resources,'' accessed Sep. 27, 2026. [Online]. Available: \url{https://eaklibrary.neduet.edu.pk/eakl/E-Resources.html}
-\bibitem{nedfaq} Engr. Abul Kalam Library, NED University, ``Library FAQs,'' accessed Sep. 27, 2026. [Online]. Available: \url{https://eaklibrary.neduet.edu.pk/eakl/FAQ.html}
-\bibitem{nedguide} Engr. Abul Kalam Library, NED University, ``Research Guide,'' 2026. [Online]. Available: \url{https://eaklibrary.neduet.edu.pk/eakl/ResearchGuide.html}
-\end{thebibliography}
+If clause limits or seed misses require it, run \textbf{four separately
+logged queries per platform} with the common GPU AND inference blocks
+and one mechanism-family OR block from §4 each; deduplicate their
+exported records. A family split or field change affecting recall must
+be chosen and recorded \textbf{before} formal freeze.
+\texttt{evidence/query\_validation.md} contains the existing unexecuted
+platform inputs; each group must replace proposals with its actual
+accepted query, field, URL, filters, pilot hit count and seed-retrieval
+result. Suggested seed \emph{candidates} span PipeSwitch {[}12{]},
+ParvaGPU {[}13{]} and Torpor {[}14{]}; none is pre-included. A seed
+absent from its publisher collection tests coverage, not necessarily
+query syntax.
+
+For every later \textbf{formal} run log group ID, database/collection,
+exact executed query, fields, filters, date/time, URL, total hits,
+export filename and reviewer. Keep pilot and formal runs separate.
+PRISMA-S {[}3{]} motivates this audit trail. Backward/forward citation
+chasing begins after an eligible full text is found; log seed,
+direction, date, source and candidate IDs, and apply the same
+eligibility and screening rules.
+
+\hypertarget{6-publication-period}{%
+\section{6. Publication period}\label{6-publication-period}}
+
+Search for English-language works dated \textbf{1 January 2020 through
+27 September 2026 inclusive} (date of draft). The final group protocol
+must state its actual search cutoff and search date. If an interface
+filters by year only, inspect 2026 records and exclude post-cutoff
+publications manually. An older seminal mechanism or indispensable
+baseline may enter only with a per-study written reason and a
+demonstrated direct connection to the RQs; older contextual work is
+otherwise background, not part of the included set. The assignment
+targets 15--20 \textbf{unique included primary studies}, minimum 15, per
+group; do not relax eligibility just to reach that count.
+
+\hypertarget{7-inclusion-criteria}{%
+\section{7. Inclusion criteria}\label{7-inclusion-criteria}}
+
+All conditions must hold after full-text assessment:
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  English, peer-reviewed journal or full conference paper reporting an
+  original empirical or technical evaluation; ordinarily within §6.
+\item
+  A clearly identifiable local GPU sharing, partition,
+  process-concurrency or API-interception/remoting mechanism involving
+  at least two inference tenants, services, models or processes on a
+  physical GPU. A transferable mixed workload qualifies only if
+  inference-specific evidence and transfer rationale are explicit.
+\item
+  Sufficient full-text detail to identify workload, sharing
+  configuration and at least one RQ-relevant engineering outcome or
+  directly assessable isolation property.
+\item
+  A unique study, with multiple conference/journal/preprint reports
+  linked and the most complete peer-reviewed report selected for
+  extraction.
+\end{enumerate}
+
+Eligibility is independent of whether a mechanism performs well. Report
+negative and null findings. Record any justified older exception and the
+group\textquotesingle s adjudication.
+
+\hypertarget{8-exclusion-criteria}{%
+\section{8. Exclusion criteria}\label{8-exclusion-criteria}}
+
+At full text record one primary reason, with secondary notes if useful:
+\textbf{E1} no inference-serving evidence; \textbf{E2} no relevant
+single-node multi-tenant sharing; \textbf{E3} mechanism outside assigned
+scope; \textbf{E4} training-only; \textbf{E5} cluster orchestration
+without local sharing evaluation; \textbf{E6} no peer-reviewed original
+primary study (survey, vendor page, blog, preprint-only, poster,
+editorial, patent); \textbf{E7} insufficient technical/outcome evidence;
+\textbf{E8} duplicate/less complete report of the same study;
+\textbf{E9} outside date/language rule without exception; \textbf{E10}
+other, with written justification. Vendor guides {[}10{]}, {[}11{]}
+describe mechanism context but cannot count as primary evidence or
+demonstrate workload performance. Track full text \textbf{not retrieved}
+as an access outcome, with attempts, rather than an exclusion among
+assessed reports {[}2{]}.
+
+\hypertarget{9-screening-procedure}{%
+\section{9. Screening procedure}\label{9-screening-procedure}}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  \textbf{Identification:} Execute and export each frozen query. Assign
+  a unique record ID to every hit, preserving database/run provenance.
+  Log citation-chased candidates separately.
+\item
+  \textbf{Deduplication and versions:} Normalize DOI, title, year and
+  authors; retain raw records and link record IDs → report IDs →
+  underlying unique study IDs. Prefer the complete peer-reviewed version
+  without treating its preprint as a second study.
+\item
+  \textbf{Calibration:} Both screeners independently apply the draft
+  rule set to a small common pilot set; record disagreements and clarify
+  ambiguous terms before freeze. The group\textquotesingle s third
+  member adjudicates.
+\item
+  \textbf{Title/abstract:} Two independent screeners mark include,
+  exclude or uncertain with reason and IDs. Retrieve uncertain records;
+  adjudicate disagreement without inventing a consensus.
+\item
+  \textbf{Full text:} Record retrieval attempts and access status. Two
+  screeners independently apply §§7--8 to retrieved reports; the third
+  adjudicates discrepancies and records the final reason and
+  study/report links. No inference from an unavailable full text.
+\item
+  \textbf{Flow:} Derive PRISMA 2020 record, report and study counts from
+  those logs, including pre-screen removals, reports sought, reports not
+  retrieved, assessed reports, exclusions with reasons and included
+  unique studies {[}2{]}. Reconcile counts by group and by
+  formal/supplementary discovery route.
+\end{enumerate}
+
+If the pilot suggests fewer than 15 eligible studies, consult the
+instructor before changing the assigned scope or criteria. Do not
+retrospectively turn scoping candidates into screened inclusions.
+
+\hypertarget{10-quality-assessment-criteria}{%
+\section{10. Quality-assessment
+criteria}\label{10-quality-assessment-criteria}}
+
+Two reviewers independently score each \textbf{included} study on
+Q1--Q10: \textbf{1} adequate, \textbf{0.5} partial/unclear, \textbf{0}
+absent/not reported. Reconcile with a recorded rationale; the third
+member resolves persistent disagreement. This group-designed rubric is
+an appraisal plan, not a validated universal instrument {[}4{]}.
+
+\begin{longtable}[]{@{}p{0.23\textwidth}p{0.70\textwidth}@{}}
+\toprule\noalign{}
+ID & Question \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Q1 & Is the engineering question and tenant setting explicit? \\
+Q2 & Are the mechanism and isolation/configuration described
+sufficiently? \\
+Q3 & Are GPU SKU/count, partition, OS, driver and runtime stated? \\
+Q4 & Are model, workload, batching/arrivals and co-tenant mix stated? \\
+Q5 & Is the baseline appropriate and configured fairly? \\
+Q6 & Are utilization, latency percentiles and other metric
+definitions/units clear? \\
+Q7 & Are warm-up, duration, repetitions/variance and load generation
+adequate? \\
+Q8 & Do figures/tables/data support the reported findings? \\
+Q9 & Are limitations, confounders and validity threats discussed? \\
+Q10 & Is there enough information to reproduce or critically interpret
+the comparison? \\
+\end{longtable}
+
+Total 0--10: \textbf{high 8--10}, \textbf{moderate 6--7.5}, \textbf{low
+\textless6}. Score does not replace eligibility. Retain eligible
+low-quality evidence with labels and rerun conclusions without it. Log
+reviewer-specific scores, evidence anchors, reconciliation and missing
+facts.
+
+\hypertarget{11-data-extraction-fields}{%
+\section{11. Data-extraction fields}\label{11-data-extraction-fields}}
+
+Use one study-level identity row plus report/result rows where needed,
+each with PDF page/section/table/figure anchors. Pilot the form on
+multiple mechanism families before freeze.
+
+\begin{longtable}[]{@{}p{0.23\textwidth}p{0.70\textwidth}@{}}
+\toprule\noalign{}
+Field group & Required fields \\
+\midrule\noalign{}
+\endhead
+\bottomrule\noalign{}
+\endlastfoot
+Provenance & Group, record/report/study IDs, query/run and database,
+DOI/publisher URL, authors, title, year, venue, peer-review/version
+status, access/retrieval date, source anchor \\
+Mechanism & Time-slice policy or context switch; MPS version/limits; MIG
+profile; API remoting/proxy path; hybrid; scheduler/control layer,
+admission/QoS policy \\
+Environment & GPU vendor/SKU/count/memory/partition, host CPU/RAM,
+OS/kernel, driver, CUDA/runtime, container or VM \\
+Workload & Inference task/model/size/input, tenant identity and mix,
+batch size, arrival pattern, concurrency, load,
+warm-up/window/repetitions \\
+Comparator & Baseline, direct vs indirect comparison, configuration
+equivalence \\
+Outcomes & Utilization/occupancy, throughput/goodput, tenant density,
+p50/p95/p99 and units, SLO threshold/miss rate, interference, overhead,
+energy if given, uncertainty/variance \\
+Isolation & \textbf{Separately} measured or claimed performance
+interference, resource/memory partitioning, security boundary and fault
+containment; mark not reported where absent \\
+Interpretation & Verbatim-sized finding summary in own words, exact
+anchor, author caveat, reviewer inference separately, QA scores,
+confounders and comparability notes \\
+\end{longtable}
+
+Do not fill absent values by assuming a GPU mechanism\textquotesingle s
+default behavior. Capture both favorable and unfavorable findings.
+
+\hypertarget{12-evidence-synthesis-strategy}{%
+\section{12. Evidence-synthesis
+strategy}\label{12-evidence-synthesis-strategy}}
+
+Build a mechanism taxonomy (temporal, MPS, MIG, API
+remoting/virtualization, hybrids), an RQ-to-study matrix and a
+condition/comparability table. For RQ1 summarize evaluated control and
+isolation dimensions; for RQ2 compare metric and experiment definitions;
+for RQ3 stratify by GPU generation/profile, model and
+batch/arrival/tenant conditions; for RQ4 trace reported trade-offs and
+counterexamples to differing baselines and conditions; for RQ5 create a
+conditional decision matrix with evidence strength and uncertainty.
+
+Use structured narrative synthesis because different GPUs, workloads,
+tenancy and latency percentiles make raw pooling misleading. Compare
+numerical effects only inside genuinely compatible experimental strata;
+otherwise report direction, conditions and limitations without an
+invented aggregate. Report each recommendation as \textbf{direct
+within-study comparison}, \textbf{indirect primary evidence},
+\textbf{vendor context only}, or \textbf{insufficient evidence}. Apply
+the SWiM transparency principles for any synthesis without meta-analysis
+{[}9{]}. Repeat the conclusion after excluding low-QA/incomplete
+studies. Report coverage gaps, publication/access bias, heterogeneity
+and reviewer disagreement. No mechanism is declared universally optimal.
+
+\hypertarget{protocol-changes-and-freeze-record}{%
+\section{Protocol changes and freeze
+record}\label{protocol-changes-and-freeze-record}}
+
+\textbf{A001 (historical):} v1.0 was prematurely called frozen; v1.1
+corrected the proposed databases, recall risk and full-text accounting
+before any formal screening. Details remain in
+\texttt{evidence/protocol\_amendments.md}; no count impact was claimed.
+
+\textbf{A002 (this proposal, 27 September 2026 PKT):} Reorganize the
+shared protocol into the instructor\textquotesingle s exact twelve
+headings, expand methodological and mechanism references, specify
+executable-query validation and group-specific ownership, and align
+report source and Markdown. This is a \textbf{pre-search
+reporting/clarification revision}, not a claim of completed search or
+changed eligibility. Once the two groups are named, each must evaluate
+these choices independently and record its own dated freeze; A002
+affects zero formal records based on the current documented status.
+
+\textbf{After a group starts formal searching:} Before using a major
+change, append a dated entry to \emph{that group\textquotesingle s}
+\texttt{evidence/protocol\_amendments.md} with old/new rule, trigger,
+justification, approving reviewers, affected queries/dates/records,
+whether earlier databases must be rerun, screening/PRISMA count effects,
+and how old and new results will be reconciled. Version the protocol and
+label deviations in the report. Log purely syntactic platform
+translations in search logs; a recall-changing translation is a major
+amendment. PRISMA-P calls for recording important protocol amendments
+{[}1{]}.
+
+\hypertarget{references-ieee-style-context-and-method-only-no-included-studies-claimed}{%
+\section{References (IEEE style; context and method only, no included
+studies
+claimed)}\label{references-ieee-style-context-and-method-only-no-included-studies-claimed}}
+
+{[}1{]} L. Shamseer \emph{et al}., ``Preferred reporting items for
+systematic review and meta-analysis protocols (PRISMA-P) 2015:
+elaboration and explanation,'' \emph{BMJ}, vol. 349, g7647, 2015. doi:
+\href{https://doi.org/10.1136/bmj.g7647}{10.1136/bmj.g7647}.
+
+{[}2{]} M. J. Page \emph{et al}., ``The PRISMA 2020 statement: an
+updated guideline for reporting systematic reviews,'' \emph{BMJ}, vol.
+372, n71, 2021. doi:
+\href{https://doi.org/10.1136/bmj.n71}{10.1136/bmj.n71}.
+
+{[}3{]} M. L. Rethlefsen \emph{et al}., ``PRISMA-S: an extension to the
+PRISMA statement for reporting literature searches in systematic
+reviews,'' \emph{Systematic Reviews}, vol. 10, art. 39, 2021. doi:
+\href{https://doi.org/10.1186/s13643-020-01542-z}{10.1186/s13643-020-01542-z}.
+
+{[}4{]} B. Kitchenham and S. Charters, ``Guidelines for performing
+systematic literature reviews in software engineering,'' EBSE Technical
+Report EBSE-2007-01, 2007. {[}Online{]}. Available:
+\href{https://ebse.webspace.durham.ac.uk/ebse-bibliography/guidelines-for-performing-systematic-literature-reviews-in-software-engineering/}{EBSE
+record}.
+
+{[}5{]} Engr. Abul Kalam Library, NED University, ``E-Resources,''
+accessed Sept. 27, 2026. {[}Online{]}. Available:
+\href{https://eaklibrary.neduet.edu.pk/eakl/E-Resources.html}{NED
+E-Resources}.
+
+{[}6{]} IEEE, ``IEEE Xplore: Searching and Saving Searches,'' user
+guide. {[}Online{]}. Available:
+\href{https://ieeexplore.ieee.org/Xplorehelp/downloads/user-guides/IEEE_Xplore_Searching_and_Saving_Searches.pdf}{IEEE
+guide}.
+
+{[}7{]} ACM, ``Search tools,'' ACM Digital Library. {[}Online{]}.
+Available:
+\href{https://libraries.acm.org/training-resources/search-tools}{ACM
+search tools}.
+
+{[}8{]} Springer Nature, ``Springer Nature Link advanced search
+option.'' {[}Online{]}. Available:
+\href{https://support.springernature.com/en/support/solutions/articles/6000080445-springer-nature-link-advanced-search-option}{Search
+help}.
+
+{[}9{]} M. Campbell \emph{et al}., ``Synthesis without meta-analysis
+(SWiM) in systematic reviews: reporting guideline,'' \emph{BMJ}, vol.
+368, l6890, 2020. doi:
+\href{https://doi.org/10.1136/bmj.l6890}{10.1136/bmj.l6890}.
+
+{[}10{]} NVIDIA, ``Introduction,'' \emph{Multi-Instance GPU User Guide}.
+{[}Online{]}. Available:
+\href{https://docs.nvidia.com/datacenter/tesla/mig-user-guide/introduction.html}{MIG
+introduction}.
+
+{[}11{]} NVIDIA, ``Architecture,'' \emph{Multi-Process Service}.
+{[}Online{]}. Available:
+\href{https://docs.nvidia.com/deploy/mps/architecture.html}{MPS
+architecture}.
+
+{[}12{]} Z. Bai \emph{et al}., ``PipeSwitch: Fast pipelined context
+switching for deep learning applications,'' in \emph{Proc. 14th USENIX
+OSDI}, 2020. {[}Online{]}. Available:
+\href{https://www.usenix.org/conference/osdi20/presentation/bai}{USENIX
+venue page}. \textbf{Search seed only; not screened.}
+
+{[}13{]} M. Lee \emph{et al}., ``ParvaGPU: Efficient spatial GPU sharing
+for large-scale DNN inference in cloud environments,'' in \emph{Proc. SC
+\textquotesingle24}, 2024. doi:
+\href{https://doi.org/10.1109/SC41406.2024.00048}{10.1109/SC41406.2024.00048}.
+\textbf{Search seed only; not screened.}
+
+{[}14{]} M. Yu \emph{et al}., ``Torpor: GPU-enabled serverless computing
+for low-latency, resource-efficient inference,'' in \emph{Proc. USENIX
+ATC \textquotesingle25}, 2025. {[}Online{]}. Available:
+\href{https://www.usenix.org/conference/atc25/presentation/yu}{USENIX
+venue page}. \textbf{Search seed only; not screened.}
+
 \end{document}
