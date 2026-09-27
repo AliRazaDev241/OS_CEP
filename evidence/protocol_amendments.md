@@ -27,6 +27,14 @@
 - **Status and impact:** Proposed shared pre-search revision; no change to eligibility or executed formal search. No formal searches, included studies, or PRISMA counts are claimed; zero recorded count impact. Each group must validate its own executable strings, entitlement, seed recall, roles and dated freeze.
 - **After-search rule:** A major change requires date, previous/new rule, justification, approvals, affected databases/records, any rerun and screening/PRISMA count effects, entered in that group's amendment register before use.
 
+## Amendment A003 — Professor-facing presentation polish (pre-search)
+
+- **Date:** 2026-09-27 (Asia/Karachi)
+- **Reason:** Internal version, ownership, two-group and drafting notes are inappropriate on the professor's protocol submission; author identification and the required Times New Roman font were absent.
+- **Changes:** Remove internal project-management notes from the submitted Markdown, TeX and PDF while retaining the twelve required methods and a concise rule for documenting major post-search changes; add the three group members in ascending roll-number order; configure all LaTeX font families as Times New Roman and build/verify the PDF with that installed font.
+- **Affected artifacts:** `protocol.md`, `report/main.tex`, `report/main.pdf`, build workflow and this register.
+- **Impact:** Presentation only. No change to search logic, eligibility or documented formal counts; no formal searches or study selection are claimed.
+
 ## Amendment entry template
 
 | Date | Version | Change | Rationale | Affected artifacts/records | Effect on search/screening counts | Approved by |
