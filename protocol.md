@@ -6,8 +6,6 @@
 **ALI RAZA (SE-24302)**  
 **27 September 2026**
 
-This protocol specifies the review methods in advance of final study selection. Protocol reporting follows PRISMA-P [1]; the completed review will use PRISMA 2020 [2]. Search documentation follows PRISMA-S [3] and software-engineering review guidance [4].
-
 ## 1. Research objective
 
 Identify, critically appraise and synthesize peer-reviewed primary studies evaluating how **one physical GPU on a single node** is shared by multiple inference tenants. Compare temporal time-slicing, CUDA Multi-Process Service (MPS), Multi-Instance GPU (MIG), CUDA/GPU API remoting or virtualization, and hybrids. The intended output is a conditional engineering choice: which mechanism fits a specified model and arrival pattern, GPU generation/configuration, latency service-level objective (SLO), utilization or tenant-density goal, and isolation requirement. Treat performance interference, resource/memory separation, security isolation and fault containment as distinct observations; no mechanism name proves a measured outcome [10], [11].
