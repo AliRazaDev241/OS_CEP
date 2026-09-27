@@ -1,0 +1,72 @@
+\documentclass[12pt]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{booktabs,longtable,array}
+\usepackage{microtype}
+\usepackage[hidelinks]{hyperref}
+\emergencystretch=2em
+\title{GPU Sharing Mechanisms for Multi-Tenant Inference Serving\\\large Systematic Literature Review Protocol v1.1 (Pre-search Corrective Draft)}
+\author{Operating Systems CEP Group\\NED University of Engineering and Technology}
+\date{27 September 2026}
+\begin{document}
+\maketitle
+
+\noindent\textbf{Protocol status:} Corrective draft v1.1; formal freeze awaits NED access, four interface pilots, seed-recall tests, reviewer ownership, and group sign-off. The v1.0 premature freeze and changes are documented in \texttt{evidence/protocol\_amendments.md}. Candidate discoveries in \texttt{evidence/scoping\_log.md} are neither included studies nor PRISMA counts.
+
+\section{Research objective and engineering problem}
+An engineer must share a single GPU among concurrent inference tenants. More multiplexing can improve utilization and tenant density, while potentially worsening interference and tail latency. Stronger partitioning can improve predictability and resource boundaries but can introduce fragmentation, hardware restrictions, and operational cost. This review will systematically identify, appraise, and synthesize peer-reviewed primary evidence on time-slicing, NVIDIA Multi-Process Service (MPS), Multi-Instance GPU (MIG), and CUDA/API remoting, proxying, or virtualization for single-node multi-tenant inference. Its outcome is a conditional engineering recommendation, rather than a universal winner.
+
+The scope is the single-node OS/runtime layer. Training-only and cluster-orchestration-only studies are outside scope unless they directly evaluate an eligible local sharing mechanism for inference.
+
+\section{Research questions}
+\begin{enumerate}
+\item[\textbf{RQ1.}] Which single-node time-slicing, MPS, MIG, and API-remoting/virtualization mechanisms have been evaluated for multi-tenant inference, and what isolation boundaries do they provide?
+\item[\textbf{RQ2.}] How do studies measure utilization, throughput, tenant density, latency distribution/tail latency, interference, and fault isolation, and how comparable are their experiments?
+\item[\textbf{RQ3.}] Under what workload, GPU and partition configuration, batching and concurrency, and tenant-mix conditions do mechanisms change utilization and latency predictability?
+\item[\textbf{RQ4.}] What trade-offs, implementation costs, limitations, and apparently conflicting findings are reported, and which experimental differences plausibly explain them?
+\item[\textbf{RQ5.}] Which mechanism or combination should an engineer choose under specified inference-serving conditions, given evidence quality and uncertainty?
+\end{enumerate}
+
+\section{Database selection}
+The four planned formal sources are IEEE Xplore, ACM Digital Library, ScienceDirect, and Springer Nature Link, subject to confirming NED entitlement. The first two emphasize engineering and computing conferences/journals; the latter two add publisher-platform engineering/computing coverage. NED distinguishes E-Databases from its Analytics sources \cite{nedresources,nedfaq}. Scopus and Web of Science are supplementary cross-publisher indexes for coverage and citation validation if accessible; any formal use receives full search logging. Google Scholar is supplementary citation discovery only. Publisher-specific coverage and missing USENIX proceedings will be assessed as potential search bias.
+
+\section{Search strategy and publication period}
+Searches combine GPU-sharing, mechanism, inference-serving, and evaluation concepts. The normal period is 1 January 2020--27 September 2026; older studies require a documented seminal/baseline justification. English peer-reviewed journal and conference papers are eligible.
+
+\begin{verbatim}
+(GPU OR "graphics processing unit")
+AND (inference OR "model serving" OR "deep learning" OR DNN OR LLM)
+AND ("time slicing" OR "time sharing" OR "context switching" OR MPS OR
+ "multi-process service" OR MIG OR "multi-instance GPU" OR partitioning OR
+ virtualization OR "API remoting" OR "CUDA remoting" OR "GPU proxy")
+\end{verbatim}
+
+This is a \emph{candidate} three-concept search, not a query proven executable in all four databases. The old four-block query could suppress pertinent papers lacking an explicit ``multi-tenant'' term. Four platform inputs, mechanism-family fallback strings, date/document filters, and known-seed tests are specified in \texttt{evidence/query\_validation.md}. Before freeze, the group must execute and record each platform's exact accepted syntax, field scope, filters, URL, pilot count, and seed recall. Every subsequent \emph{formal} run must be separately logged with date, exact query, result count, export and reviewer; pilot counts are never substituted for formal counts.
+
+\subsection{Platform-specific pilot inputs}
+The exact string printed above is the proposed first pilot input for each of the four platforms, not a claim that the platforms executed it. On IEEE Xplore, test it in Command Search with metadata field scope and uppercase Boolean operators; on ACM DL, enter it through Advanced Search in the ACM full-text collection and capture the generated query syntax; on ScienceDirect, test its Advanced Search terms field and record whether the scope includes full text; on Springer Nature Link, test Advanced Search with uppercase Boolean operators and phrase matching. In each case apply and record 2020--2026, English, journal/conference article filters where available. Check that no post--27 September 2026 records pass screening. The full per-platform copyable inputs and mechanism-family alternatives are in \texttt{evidence/query\_validation.md}; the group must insert validated executed strings here before a formal freeze.
+
+\section{Eligibility criteria}
+Include peer-reviewed English journal/conference primary studies that technically evaluate or compare an in-scope single-node GPU-sharing mechanism for multi-tenant inference and report sufficient full-text engineering evidence. Directly transferable inference evidence requires an explicit mechanism and transfer rationale. Exclude duplicate or less-complete reports; training-only work; cluster-only work; reviews, vendor documentation, blogs, editorials, posters, patents, slides, and abstracts; inaccessible full texts; and reports lacking relevant technical or evaluation detail. Surveys and vendor documentation may provide context but never count toward the target of 15--20 primary studies.
+
+\section{Screening and PRISMA 2020}
+All records will retain source provenance. DOI, normalized title, year, and author data will be used to link records, reports, and unique underlying studies without deleting records. Two reviewers will independently conduct title/abstract and full-text screening; a third reviewer will adjudicate disagreements. The actual PRISMA 2020 flow will be calculated from the logs: records identified, records removed before screening, records screened, reports sought, reports not retrieved (with documented access attempts), reports assessed, reports excluded with reasons, and unique studies included. Unretrieved reports will not be falsely placed among assessed-report exclusions. PRISMA 2020 provides the reporting checklist and suitable flow-diagram templates \cite{prisma}.
+
+\section{Quality assessment}
+Two reviewers score each included study from 0 to 1 on ten questions: clarity of objective; sharing configuration; hardware/software description; workload/tenant description; fairness of baseline; metric definition; measurement method; result support; limitations; and reproducibility. Scores are 1 (adequate), 0.5 (partial/unclear), or 0 (not reported). Total quality is High (8--10), Moderate (6--7.5), or Low ($<6$). Low-quality studies remain labelled eligible evidence but are excluded in a sensitivity synthesis.
+
+\section{Data extraction and evidence synthesis}
+For each report, capture identity and access state; mechanism/configuration; GPU/SKU and partition; OS/kernel, driver and CUDA/runtime; model/workload; batching/arrival pattern; tenant/co-tenant mix; baseline; metric definitions and units; exact results with page/figure/table anchors; isolation dimensions; limitations; and quality score. Isolation is recorded separately as performance interference, resource/memory partitioning, security boundary, and fault containment, each as measured, claimed, not reported, or not applicable.
+
+Evidence will be synthesized by mechanism category: temporal sharing, MPS, MIG, remoting/virtualization, and hybrids. Quantitative values will be compared only in compatible experimental strata; heterogeneous results receive structured narrative synthesis with stated conditions and evidence strength. A sensitivity synthesis will omit low-quality or incomplete evidence. The final decision matrix will condition recommendations on latency SLO, utilization and tenant density, isolation need, MIG hardware availability, workload heterogeneity, and operational complexity.
+
+\section{Protocol governance}
+Protocol v1.1 is a corrective pre-search draft. Amendment A001 explains the earlier premature freeze, changed database set and search design, and corrected retrieval accounting; no formal record counts are affected because no formal selection occurred. The group must validate exact platform strings and sign off before a new freeze. Thereafter material changes to scope, RQs, search logic, eligibility, quality appraisal, extraction, or synthesis require a dated amendment describing rationale, affected artifacts, and count impact. This protocol follows PRISMA 2020 reporting and protocol-led software-engineering SLR guidance \cite{prisma,kitchenham}.
+
+\begin{thebibliography}{9}
+\bibitem{prisma} M. J. Page et al., ``The PRISMA 2020 statement: an updated guideline for reporting systematic reviews,'' \emph{BMJ}, vol. 372, n71, 2021, doi: 10.1136/bmj.n71.
+\bibitem{kitchenham} B. Kitchenham and S. Charters, ``Guidelines for performing systematic literature reviews in software engineering,'' EBSE Technical Report EBSE-2007-01, 2007.
+\bibitem{nedresources} Engr. Abul Kalam Library, NED University, ``E-Resources,'' accessed Sep. 27, 2026. [Online]. Available: \url{https://eaklibrary.neduet.edu.pk/eakl/E-Resources.html}
+\bibitem{nedfaq} Engr. Abul Kalam Library, NED University, ``Library FAQs,'' accessed Sep. 27, 2026. [Online]. Available: \url{https://eaklibrary.neduet.edu.pk/eakl/FAQ.html}
+\bibitem{nedguide} Engr. Abul Kalam Library, NED University, ``Research Guide,'' 2026. [Online]. Available: \url{https://eaklibrary.neduet.edu.pk/eakl/ResearchGuide.html}
+\end{thebibliography}
+\end{document}
