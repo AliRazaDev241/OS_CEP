@@ -1,5 +1,14 @@
 # Instructions for this OS CEP project
 
+## Current state — 11 October 2026
+
+GitHub is the canonical working repository; the initial import and protocol-polish PRs have already been merged. The user confirms that root `report/main.tex` / `main.pdf` is the completed submitted SLR protocol and that **Group A** is their team. Group A adopts that baseline in `groups/group-a/protocol.md`. The current request is an intermediate search/evidence report before the final CEP report, for the same instructor. The cutoff extends through 11 October 2026. The user authorizes one AI reviewer to screen and appraise; do not invent a second reviewer or human consensus. These Group A instructions supersede the historical pending-protocol and reviewer gates below. They do not authorize relaxing eligibility.
+
+Group A checkpoint: 689 formal query occurrences (587 Springer, 102 IEEE), 10 duplicate occurrences, 20 selected supplementary records, 16 currently accepted unique studies, 22 assessed full texts including 6 full-text exclusions, 575 earlier-stage exclusions, and 102 unresolved retrieval cases. ACM and ScienceDirect database searches remain blocked with UNKNOWN hit counts. This is not a completed four-database SLR or final CEP submission. See `groups/group-a/evidence/` and its roadmap for authoritative records and outstanding extraction/access/version checks. Group B remains independent and unchanged; no Group A evidence or status is transferred to it.
+
+All updates use a Group A feature branch and PR for human review; agents never merge or push directly to main. Root submitted protocol/report and assignment authorities are preserved. The older planning sections below are historical unless compatible with this current-state override.
+
+
 ## Authority, location, and safe file handling
 
 The canonical GitHub destination is https://github.com/AliRazaDev241/OS_CEP. Until the initial import PR is merged, `C:\Projects\OS_CEP` is the only Windows staging directory; read its current `topics.md`, `guidelines.md`, `PRD.md` and `GROUP_WORKFLOW.md` before substantive PC work. After import, read the current repository branch files as authoritative for project state; chat attachments and PC copies may be stale. The repository was empty when this transition was planned. Never infer that a staged PC edit is already on GitHub.

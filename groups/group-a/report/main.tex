@@ -1,0 +1,166 @@
+\documentclass[12pt,a 4paper]{article}
+\usepackage[margin=1in]{geometry}
+\usepackage{iftex}
+\ifPDFTeX\usepackage[T1]{fontenc}\usepackage[utf 8]{inputenc}\usepackage{mathptmx}\else\usepackage{fontspec}\setmainfont{Times New Roman}\fi
+\usepackage{longtable,booktabs,array,enumitem,microtype,xcolor}
+\usepackage[hidelinks]{hyperref}
+\usepackage{parskip}
+\setlength{\emergencystretch}{3em}
+\setlist{nosep}
+\newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
+\title{GPU Sharing Mechanisms for Multi-Tenant Inference Serving\\\large Group A: Search Execution and Evidence Report}
+\author{MUHAMMAD BURHAN UN NADEEM (SE-24071)\\MUHAMMAD FAAIZ ALAM (SE-24094)\\ALI RAZA (SE-24302)}
+\date{11 October 2026\\Operating Systems Complex Engineering Problem\\NED University of Engineering and Technology}
+\begin{document}
+\maketitle
+\begin{abstract}
+This intermediate deliverable records execution of the submitted SLR protocol and prepares traceable evidence for the final CEP report. Two databases yielded 689 captured query occurrences; supplementary public venue and author searches supplied additional named candidates. Sixteen distinct peer-reviewed studies currently meet full-text eligibility. Unavailable full texts, incomplete publisher coverage and extraction gaps remain explicit. The paper set and conditional synthesis are provisional; the completed four-database SLR and final CEP submission are not claimed.
+\end{abstract}
+\textbf{Status: evidence checkpoint, not final SLR.} The publication window is 1 January 2020--11 October 2026 inclusive. One AI reviewer conducted screening and appraisal at the user's direction; the listed students are the project authors, not claimed independent reviewers.
+\newpage\tableofcontents\newpage
+\section{Purpose and requirements}
+The engineering problem is to share a physical GPU among inference tenants while balancing useful work and density against predictable latency and isolation. The assigned alternatives are time-slicing, MPS, MIG and API remoting/virtualization, including hybrids. The unit of technical comparison is local sharing on one GPU. A study containing cluster experiments qualifies only when local inference-sharing evidence is identifiable; cluster-wide GPU counts are never substituted for local occupancy.
+
+The submitted \texttt{report/main.tex} and \texttt{report/main.pdf} are the protocol baseline identified by the user. They remain historical artifacts. This Group A deliverable resides under \texttt{groups/group-a/}. The final assignment still requires 15--20 unique peer-reviewed primary studies, at least 15, a 12-point IEEE-cited LaTeX report, and approximately 20--30 pages of main content. Meeting a provisional paper count does not complete searching or the final deliverable. No additional intermediate-page requirement was supplied.
+
+The five questions ask which mechanisms are evaluated (RQ1), how outcomes are measured and compared (RQ2), which operating conditions change results (RQ3), what trade-offs and gaps remain (RQ4), and what conditional choice is supported (RQ5). All five map to extraction and the claim register, rather than to an unconditional ranking of mechanisms.
+
+\section{Protocol adoption and deviations}
+The Group A execution copy adopts the submitted protocol. Amendment GA-A001 extends the cutoff from 27 September to 11 October 2026. GA-A002 records the user's instruction that Codex conduct screening and quality appraisal as a single AI reviewer. There is no independent second reviewer, inter-rater agreement statistic or adjudicated human consensus. GA-A003 permits supplementary full-text work while unavailable database coverage remains open. GA-A004 records the actual public-interface execution and metadata capture in place of signed-in publisher exports. None changes the inclusion criteria to meet a target count.
+
+Eligibility requires an English peer-reviewed original journal or full conference report, a local sharing/partition/process/API mechanism, explicit concurrent inference or justified mixed inference evidence, and sufficient configuration/outcome detail. Training-only, cluster-only, surveys and vendor claims are excluded from the primary set. Unretrieved reports are pending access outcomes, not assessed full-text rejections. Related conference, journal and preprint reports are one underlying study until an independent contribution is established.
+
+\section{Search execution and provenance}
+NED's E-Resources page lists the four planned publisher platforms. The listing was checked on 11 October 2026: \url{https://eaklibrary.neduet.edu.pk/eakl/E-Resources.html}. It confirms platform availability in the list, not entitlement to each requested article. No university credentials or licensed full-text PDFs enter this public repository.
+
+\begin{longtable}{P{0.27\linewidth}P{0.38\linewidth}P{0.25\linewidth}}
+\toprule Source/run & Actual implementation & Observed hits\\\midrule\endhead
+IEEE MPS & All metadata; years 2020--2026 &25\\
+IEEE MIG & All metadata; years 2020--2026 &23\\
+IEEE temporal & All metadata; years 2020--2026 &45\\
+IEEE API & All metadata; years 2020--2026 &9\\
+Springer master & General search; English; research articles/conference papers;2020--2026 &587\\
+ACM pilot & Search blocked by challenge loop &Unknown; no import\\
+ScienceDirect pilot & Search page unavailable &Unknown; no import\\
+\bottomrule
+\end{longtable}
+The common block is GPU or graphics-processing-unit AND inference, model serving, deep learning, DNN or LLM. IEEE uses one family block per run. Springer uses all family blocks in one OR group. Exact strings, filters, source URLs, dates and export limitations are in \texttt{search\_runs.csv}. The IEEE field implementation differs from the planned field-qualified Command Search and is disclosed, not described as an equivalent validated command. Research type/language and precise 2026 cutoff checks are manual where facets are unavailable. No accepted study is dated after 2025.
+
+All 30 Springer result pages (20 hits/page,7 on the final page) and all IEEE pages were captured, yielding 587+25+23+45+9=689 occurrences. These are rendered-result metadata imports, not publisher-generated RIS/CSV exports. Springer export redirects to sign-in; IEEE results export requires personal sign-in and public citation export timed out. The imports retain IDs, database/run, page, title, DOI/URL and displayed date/item metadata. Clock time was not retained and is marked unrecorded.
+
+Springer's broad index includes reference/full-text matches and unrelated acronym expansions such as welding MIG. Search hits therefore do not imply eligible GPU studies. Seed checks recovered ParvaGPU and KRISP in IEEE; papers in other publisher proceedings require supplementary discovery and completion of ACM coverage. Supplementary records are selected named-paper lookups checked after adoption, including submitted seeds and related systems. They are not an exhaustive search-engine result export or completed backward/forward citation search. Their follow-up query strings are reproducible suggestions, not invented historical exact queries.
+
+\section{Screening checkpoint and reconciliation}
+Every formal occurrence receives a record ID. Exact DOI/URL and normalized-title checks link duplicate occurrences without deleting provenance. Bibliographic report IDs identify candidate reports; study IDs identify accepted underlying studies. The pending REEF journal extension is linked to its conference study and cannot add another included study automatically.
+\begin{longtable}{P{0.7\linewidth}r}\toprule Checkpoint quantity & Count\\\midrule\endhead
+Formal query occurrences & 689\\
+Duplicate occurrences & 10\\
+Unique formal records & 679\\
+Selected supplementary records & 20\\
+Excluded before full text & 575\\
+Full texts assessed & 22\\
+Full-text exclusions & 6\\
+Accepted unique studies & 16\\
+Pending / not retrieved & 102\\
+\bottomrule\end{longtable}
+The reconciled captured subset is: 689-10+20=699 records; 699 equals pre-full-text exclusions plus assessed reports plus pending records. Assessed reports equal included reports plus full-text exclusions. Missing ACM/ScienceDirect populations are unknown and outside these arithmetic identities. This checkpoint is intentionally not a completed PRISMA2020 flow. Reports sought include pending retrieval attempts, but complete formal-database retrieval and final study-version resolution remain open.
+
+Title decisions are first-pass relevance judgments, explicitly labelled as title stage. Abstract decisions cite publisher scope; full-text decisions identify a section or experiment. Training and inference are not interchangeable: PipeSwitch and SIRIUS are retained for explicit inference outcomes, whereas TGS is rejected for training-only evidence. The Fermilab paper was retained after its multi-model slice experiment was inspected, rather than merely because it mentioned MIG. DIPPM was rejected because profile prediction alone does not test concurrent tenant sharing.
+
+Full-text rejection examples include DIPPM (no concurrent tenant comparison), the accelerator-pool vRAN simulation and the low-latency FEC offloading paper (no inference evidence), DRMaestro's Rodinia workload evaluation (no serving inference), CalcGraph (assigned GPU partitioning left to future work), and the mediated-device passthrough benchmark (HPC applications without inference). The complete reasons and stages are in \texttt{rejected.csv}. Pending files have no fabricated technical results or QA scores.
+
+\section{Current accepted primary studies}
+The following studies are accepted for this intermediate evidence set. Selection remains subject to access completion and checking more complete peer-reviewed versions. KRISP is a scope-boundary inclusion under protocol 7.2 because it evaluates local spatial resource control and inference workers; its emulated AMD feature and non-NVIDIA baseline are explicitly isolated in synthesis. No vendor document or preprint-only unpublished work counts toward this table.
+\begin{longtable}{P{0.15\linewidth}P{0.25\linewidth}P{0.4\linewidth}r}
+\toprule Study & Report/year & Mechanism / scope & QA\\\midrule\endhead
+GA-S001 & REEF 2022 \cite{reef} & Temporal preemption & 8.0\\
+GA-S002 & GPULET 2022 \cite{gpulet} & MPS + temporal & 8.5\\
+GA-S003 & PIPESWITCH 2020 \cite{pipeswitch} & Temporal context switching & 9.0\\
+GA-S004 & CLOCKWORK 2020 \cite{clockwork} & Temporal exclusive scheduling & 8.5\\
+GA-S005 & TORPOR 2025 \cite{torpor} & API remoting + temporal swapping & 8.5\\
+GA-S006 & STREAMBOX 2024 \cite{streambox} & API/runtime sandbox virtualization & 8.0\\
+GA-S007 & KRYPTON 2025 \cite{krypton} & Kernel API virtualization + hybrid & 9.0\\
+GA-S008 & SIRIUS 2025 \cite{sirius} & Temporal + MPS memory handover & 8.5\\
+GA-S009 & TALLY 2025 \cite{tally} & CUDA API interception + priority & 9.0\\
+GA-S010 & PARVA 2024 \cite{parva} & MIG + MPS & 8.0\\
+GA-S011 & ORION 2024 \cite{orion} & CUDA API interception + temporal & 9.0\\
+GA-S012 & GSLICE 2020 \cite{gslice} & MPS adaptive provisioning & 9.0\\
+GA-S013 & KRISP 2023 \cite{krisp} & Spatial partition/API control (AMD) & 8.0\\
+GA-S014 & XSCHED 2025 \cite{xsched} & Temporal API interposition & 9.0\\
+GA-S015 & PAELLA 2023 \cite{paella} & Temporal software scheduling + MPS comparison & 8.5\\
+GA-S016 & GNNTRITON 2024 \cite{gnntriton} & MIG + concurrent model serving & 8.5\\
+\bottomrule\end{longtable}
+USENIX proceedings PDFs are official published copies. ACM/IEEE author or camera-ready copies are linked to verified proceedings metadata and do not become separate preprint studies. ParvaGPU's author manuscript is provisional for publisher-version comparison; its reported runtime-version anomaly remains flagged. The REEF journal extension requires a completeness check. Accessible copies of Orion, GSLICE, KRISP, Tally and Paella avoid unnecessary institutional download requests.
+
+\subsection{Source-anchored finding register}\begin{longtable}{P{0.18\linewidth}P{0.48\linewidth}P{0.24\linewidth}}\toprule Study & Bounded finding & Source location\\\midrule\endhead
+GA-S001 \cite{reef} & DISB-A: RT overhead 0.5\% vs RT-only; throughput 1.60x sequential. & PDF pp 11-12; sections 7.1-7.2; Fig 11\\
+GA-S002 \cite{gpulet} & Local gpulets support interference-aware provisioning; cluster throughput is a different outcome. & PDF p 10 Table 2/3; section 5; local profiling section 3\\
+GA-S003 \cite{pipeswitch} & Fig 7: inference preemption latency reduced by up to 38.2ms. & PDF pp 11-13; sections 6-6.2; Fig 7\\
+GA-S004 \cite{clockwork} & Fig 5 measures goodput satisfying SLO, rather than raw request throughput. & PDF p 10; section 6.1; Fig 5\\
+GA-S005 \cite{torpor} & BERT Table 4: native 42ms, remote 43ms, PCIe swap 144ms, NVLink swap 45ms. & PDF pp 10-11; Table 4; sections 7.2-7.3\\
+GA-S006 \cite{streambox} & Table 2 evaluates runtime sandbox workflows on shared GPUs. & PDF p 10 onward; section 9; Table 2\\
+GA-S007 \cite{krypton} & Inference-specific sharing comparisons; section 2.2 tests fault propagation. & PDF p 10 Tables 1-2; section 5; section 2.2 Fig 3\\
+GA-S008 \cite{sirius} & Inference p 99/SLO outcomes accompany training progress; separate TTFT/TBT LLM case. & Section 6.1 Fig 10; section 6.6\\
+GA-S009 \cite{tally} & At 10\% idle time: normalized throughput Tally 1.19 vs TGS1.65. & PDF pp 9-11; sections 5-5.3; Fig 6\\
+GA-S010 \cite{parva} & Fig 7 separates internal/external fragmentation; Fig 5 counts GPUs. & PDF p 8 onward; sectionIV; TableIV; Figs 5/7\\
+GA-S011 \cite{orion} & Interference-aware scheduling compares inference latency and BE throughput. & PDF pp 8-9; sections 5.3-6.1; Tables 1/3\\
+GA-S012 \cite{gslice} & GUE measures efficiency; shadow instance loading takes about 12s in Fig 15. & PDF pp 8-12; section 4; Table 3; Fig 15\\
+GA-S013 \cite{krisp} & Kernel-wise right-sizing evaluates throughput and p 95 inference latency. & PDF pp 9-10; sectionsV-VI; TableIII\\
+GA-S014 \cite{xsched} & Fig 15: relative p 99 1.53/1.51/1.07 respectively versus solo. & PDF pp 14-15; section 8 Case 3 Fig 15; section 9\\
+GA-S015 \cite{paella} & p 99 latency and throughput under bursty model mixes; Fig 12 includes MPS. & PDF pp 9-12; section 7 Table 3/Figs 11-12; section 8\\
+GA-S016 \cite{gnntriton} & Fig 10: thrashing after two models/20GB or five/40GB. & HTML Multi-model Scaling/Fig 10; Triton implementation; limitations\\
+\bottomrule\end{longtable}
+\section{Quality appraisal and extraction controls}
+Q1--Q10 cover tenant question, mechanism/configuration, environment, workload/arrivals, comparator fairness, metric clarity, measurement controls, result support, validity limits and reproducibility/interpretability. Scores are 1 adequate,0.5 partial and 0 absent; totals 8--10 are high,6--7.5 moderate and below 6 low. The single-reviewer scores, concise rationales and source anchors are in \texttt{quality.csv}. Scores assess reporting and interpretability; they do not prove unbiased results, system security, reproducible artifacts or complete searching.
+
+The current totals are all at least 8. Environment and measurement-control fields are frequently partial. No authors' experiments or code artifacts were rerun. Artifact availability alone is not experimental replication. The extraction register captures source/version, mechanism, hardware/runtime, tenant workload, comparator, a bounded finding, caveat and precise source location. Fields not yet fully transcribed are labelled NOT EXTRACTED, distinct from a source's not-reported value. A further detailed extraction pass is needed before final numerical comparisons.
+
+Isolation observations remain four different columns: performance interference, resource/memory separation, adversarial security and fault containment. Most current findings establish workload performance rather than comparative security or fault containment. The KRYPTON fault experiment is specifically identified; it does not validate all mechanisms or all GPU generations.
+
+\section{Provisional answers to the research questions}
+\subsection{RQ1: mechanism and control boundaries}
+The set contains temporal scheduling, MPS resource provisioning, MIG plus MPS, and API/runtime interception or remoting. Hybrids are counted as studies once, not once per mechanism. Software scheduling may control task admission, kernel dispatch, preemption or memory handover; these are different operating boundaries. A process-sharing prototype, a kernel-intercepted container and a hardware slice cannot be assigned the same security meaning. The detailed mapping is in \texttt{extraction.csv} and \texttt{claims.md}.
+
+\subsection{RQ2: outcome definitions and comparability}
+Keep requests/second, SLO-compliant goodput, allocated GPU count, GPU busy time, SM occupancy, memory utilization and paper-specific efficiency ratios separate. Likewise p 95, p 98, p 99, average latency, time-to-first-token and time-between-tokens are not substitute measurements. A reduction in context-switch latency does not by itself establish p 99 end-to-end latency isolation. Normalize only within an explicitly comparable experiment and retain the original denominator and statistic.
+
+\begin{longtable}{P{0.27\linewidth}P{0.63\linewidth}}
+\toprule Comparison check & Required condition before numerical comparison\\\midrule\endhead
+Hardware & Same GPU/vendor/memory/profile or explicit indirect label; separate AMD emulation from NVIDIA mechanisms.\\
+Workload & Same models/input sizes, batching, tenants and co-tenant mix; mixed training comparisons retain inference outcomes.\\
+Load & Same open/closed-loop arrival process, rate, burstiness, warm-up and measurement window.\\
+Comparator & Same resource budget; disclose reimplementations, wrappers and baseline adaptations.\\
+Outcome & Same latency percentile/SLO and throughput denominator; occupancy and device-count reduction remain separate.\\
+\bottomrule\end{longtable}
+
+\subsection{RQ3: operating conditions}
+Current evidence suggests that model memory demand, launch granularity, arrival burstiness, batching, priority mix and transfer path alter the sharing result. GPU generation constrains which resource boundaries are available. Local slice experiments are informative for memory pressure, while cluster scaling results require their own placement/network interpretation. Recommendation confidence falls when driver/runtime, quota/profile and experiment windows have not yet been completely transcribed.
+
+\subsection{RQ4: trade-offs and counterevidence}
+Stricter priority protection may trade lower-priority throughput for predictability. Remoting or swapping adds path-dependent transfer cost. Resource partitioning may reduce packing flexibility. Fine-grained control can require compiler changes, API interception, driver hooks or baseline adaptations. These implementation costs must accompany reported gains. The source-anchored counterexample and parameter-specific results reside in the extraction register, avoiding an invented common percentage improvement across studies.
+
+\subsection{RQ5: conditional engineering choices}
+The following are provisional reviewer interpretations, not validated deployment instructions.
+\begin{longtable}{P{0.28\linewidth}P{0.35\linewidth}P{0.27\linewidth}}
+\toprule Operating objective & Candidate to investigate & Evidence / unresolved condition\\\midrule\endhead
+Priority-sensitive inference & Temporal/API scheduling with admission and memory controls &GA-S001,  S003,  S004,  S008,  S009,  S011,  S014; direct per-paper tests, indirect transfer.\\
+Density with controlled workload mix & Tuned MPS provisioning &GA-S002, 012; check memory/compute contention and reconfiguration cost.\\
+Slice boundary with concurrent models & MIG, optionally MPS inside a slice &GA-S010, 016; profile, packing and memory pressure; no universal isolation result.\\
+Serverless remoting and elasticity & API remoting/runtime virtualization &GA-S005, 006,007; runtime compatibility and transport budget.\\
+Strong adversarial/fault guarantee & No universal selection supported &Comparative evidence insufficient; retrieve security candidates and distinguish failure types.\\
+\bottomrule\end{longtable}
+
+\section{Sensitivity, limitations and continuation}
+Removing QA<6 removes no current study, so that sensitivity test is uninformative. Removing provisional author-manuscript evidence weakens hybrid MIG and the recorded negative throughput comparison. Excluding AMD-only feature evidence limits cross-vendor conclusions. Removing all incompletely transcribed environment profiles would sharply reduce evidence; final recommendations require completing those fields. No pooled effect or universal winner is asserted.
+
+The main limitations are incomplete ACM/ScienceDirect searches, single-AI-reviewer bias, inaccessible full texts, supplementary-selection bias, baseline and hardware heterogeneity, incomplete parameter extraction and unresolved report versions. The accessible set is concentrated in systems proceedings and older DNN workloads; LLM and adversarial isolation evidence requires further checking. A minimum paper count cannot offset these limitations.
+
+Next, obtain the prioritized publisher PDFs and blocked database exports, log their receipt and version, apply the same full-text criteria, complete extraction and rerun counts/claims/sensitivity. Link any new report to its underlying study before adding a citation. Exact 2026 dates must be verified. Scope changes still require a documented amendment and instructor guidance; this report does not relax eligibility.
+
+\section{Evidence package and institutional requests}
+The evidence directory supplies search runs, imported records, duplicates, all decisions and reasons, accepted/rejected/pending views, retrieval lookups, QA, extraction, claims and checkpoint counts. \texttt{references.bib} contains only the 16 currently chosen primary reports, each cited here. The spreadsheet is a review view; CSV/JSON records remain the authority. Scripts validate linkage and reconciliation and regenerate derived views.
+
+The full unresolved link queue is in \texttt{download\_requests.csv}; \texttt{download\_requests.md} lists at most 10 requested papers; other unresolved entries are deferred and are not requests. All requested publisher platforms appear on NED's list, but article-level access must be checked using university access. PDFs should be supplied privately through the conversation, not committed to the public repository. Query exports must preserve exact syntax, collection, facets and counts; sending papers alone does not repair incomplete systematic search coverage.
+
+\bibliographystyle{IEEEtran}\bibliography{references}
+\end{document}

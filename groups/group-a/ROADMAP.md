@@ -1,15 +1,22 @@
-# group-a research track
+# Group A roadmap — 11 October 2026
 
-**Status:** All items planned. Root `ROADMAP.md` defines shared gates; this checklist belongs only to group-a. Do not copy completion marks, screening counts, quality scores or conclusions from the other group.
+- [x] Confirm team identifier and submitted protocol baseline with user.
+- [x] Record cutoff extension and single AI reviewer amendments.
+- [x] Execute four IEEE queries and Springer master query; capture all displayed result pages.
+- [x] Preserve 689 formal occurrences and 10 duplicate links; record blocked pilots separately.
+- [x] Screen captured titles and accessible candidate abstracts/full texts with reasons and stages.
+- [x] Record 16 accepted studies, 22 full-text assessments, quality and initial extraction.
+- [x] Produce BibTeX, conditional RQ/claims matrix and intermediate LaTeX/PDF.
+- [x] List prioritized institutional downloads and the complete unresolved queue.
+- [ ] Recover ACM/ScienceDirect query exports; rerun/deduplicate under unchanged eligibility.
+- [ ] Resolve 102 inaccessible reports with prioritization and scope checks; verify 2026 dates.
+- [ ] Assess preferred report versions (REEF journal; Parva publisher), linking studies.
+- [ ] Finish driver/runtime, MPS quotas/MIG profiles, workload/window/variance and isolation extraction.
+- [ ] Human audit of single-AI decisions and any title-screen false exclusions.
+- [ ] Complete systematic citation chasing, final PRISMA and sensitivity synthesis.
+- [ ] Write/check final CEP report: 15–20 primary studies, minimum 15, 12-point, 20–30 pages.
+- [ ] Human review and merge of Group A PR; no agent merge.
 
-- [ ] Map this identifier to its real three-person group; assign two independent screeners and the third adjudicator; record dates and access.
-- [ ] Confirm instructor approval of topic overlap and this group's distinct questions/emphasis, keeping time-slicing, MPS, MIG and API remoting in scope.
-- [ ] Review recent surveys for context and pilot database interfaces, exact strings, filters, seed recall, access and export routes. Mark pilots as scoping.
-- [ ] Write `protocol.md` with all twelve required protocol components, independent eligibility/QA/extraction/synthesis choices and exact validated queries; date, approve and freeze it before formal selection.
-- [ ] Execute frozen searches into this group's `evidence/` logs; import records, link duplicates/reports/studies, conduct two-reviewer title/abstract and full-text screening and adjudication.
-- [ ] Reconcile this group's PRISMA counts; target 15–20 included peer-reviewed primary studies (15 minimum); seek instructor guidance before revising scope if infeasible.
-- [ ] Appraise and extract with source anchors; synthesize RQs, comparability, counterevidence, quality sensitivity and conditional recommendations.
-- [ ] Compile and inspect this group's 12-point, approximately 20–30-page IEEE-cited LaTeX report and PDF with appendices.
-- [ ] Open a `group-a/<task>` branch PR for each scoped change; record status/provenance/checks, obtain human review; group owner merges.
+The current set meets the numerical minimum provisionally; coverage and extraction gaps prevent a final completion claim. Group B remains unchanged.
 
-**Next gate:** Confirm people and database access, then complete the independent interface pilots before freezing this group's protocol. No formal search or included study is claimed here.
+User access constraint (11 October 2026): at most 10 paper downloads total. Prioritize those in evidence/download_requests.md; retain other inaccessible candidates as deferred, not excluded or requested. Record incomplete coverage explicitly.
