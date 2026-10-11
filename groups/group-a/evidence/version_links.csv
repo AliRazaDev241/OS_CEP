@@ -1,0 +1,3 @@
+record_id,related_record_id,relation,decision
+GA-R0234,GA-R0166,Identical title but distinct Springer DOI/report,Keep both records; no study identity asserted; both rejected at title
+GA-X007,GA-SUP001,REEF journal extension candidate,Pending most-complete-report assessment; must not double-count GA-S001

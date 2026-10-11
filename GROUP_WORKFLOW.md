@@ -1,5 +1,14 @@
 # Two-group OS CEP workflow
 
+## Current state — 11 October 2026
+
+GitHub is the canonical working repository; the initial import and protocol-polish PRs have already been merged. The user confirms that root `report/main.tex` / `main.pdf` is the completed submitted SLR protocol and that **Group A** is their team. Group A adopts that baseline in `groups/group-a/protocol.md`. The current request is an intermediate search/evidence report before the final CEP report, for the same instructor. The cutoff extends through 11 October 2026. The user authorizes one AI reviewer to screen and appraise; do not invent a second reviewer or human consensus. These Group A instructions supersede the historical pending-protocol and reviewer gates below. They do not authorize relaxing eligibility.
+
+Group A checkpoint: 689 formal query occurrences (587 Springer, 102 IEEE), 10 duplicate occurrences, 20 selected supplementary records, 16 currently accepted unique studies, 22 assessed full texts including 6 full-text exclusions, 575 earlier-stage exclusions, and 102 unresolved retrieval cases. ACM and ScienceDirect database searches remain blocked with UNKNOWN hit counts. This is not a completed four-database SLR or final CEP submission. See `groups/group-a/evidence/` and its roadmap for authoritative records and outstanding extraction/access/version checks. Group B remains independent and unchanged; no Group A evidence or status is transferred to it.
+
+All updates use a Group A feature branch and PR for human review; agents never merge or push directly to main. Root submitted protocol/report and assignment authorities are preserved. The older planning sections below are historical unless compatible with this current-state override.
+
+
 ## Repository and authority
 
 The planned canonical repository is [AliRazaDev241/OS_CEP](https://github.com/AliRazaDev241/OS_CEP). It is currently empty; `C:\Projects\OS_CEP` is the staging copy until the initial import is reviewed and merged. After import, work from a checked-out branch of that repository. Do not assume that a local edit has reached GitHub.
@@ -54,3 +63,4 @@ The repository is currently public. Do not commit credentials, NED VPN details, 
 - Confirm whether the instructor accepts two reviews of the same assigned topic and any group-specific RQ emphases; do not assume that duplicating one submission is acceptable.
 - Confirm institutional database access and publication-export permissions for both groups.
 - Confirm the week-13 date and any specific LaTeX/report template; record each group's protocol freeze separately.
+

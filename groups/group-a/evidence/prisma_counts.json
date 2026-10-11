@@ -1,0 +1,17 @@
+{
+  "date": "2026-10-11",
+  "status": "INTERMEDIATE_NOT_FINAL",
+  "formal_occurrences": 689,
+  "formal_duplicates": 10,
+  "formal_unique": 679,
+  "supplementary_selected": 20,
+  "accepted_unique_studies": 16,
+  "fulltext_assessed": 22,
+  "fulltext_excluded": 6,
+  "excluded_before_fulltext": 575,
+  "pending": 102,
+  "not_retrieved": 102,
+  "pending_not_yet_sought": 0,
+  "acm_hits": null,
+  "sciencedirect_hits": null
+}

@@ -1,21 +1,13 @@
-# group-a: independent OS CEP review
+# Group A — GPU-sharing SLR evidence
 
-**Status:** Planning only. This neutral identifier has not yet been mapped to the user's or friend's three-person group. Record the three members, two independent screeners, adjudicator, and schedule here before formal selection.
+The user confirmed Group A, the completed submitted root report/main.tex / main.pdf protocol, the same instructor, an extended cutoff of 11 October 2026 and a new intermediate deliverable before the final CEP report. Project author names remain those on the submitted protocol. Human screening roles have not been assigned; the user delegates screening and QA to a single AI reviewer, Codex. No two-person review is claimed.
 
-- Repository: https://github.com/AliRazaDev241/OS_CEP
-- Assigned topic and assignment rules: root `topics.md` and `guidelines.md` (unchanged).
-- Shared candidate context: root `protocol.md`, `evidence/` and `report/` are drafts/history only. Consult `GROUP_WORKFLOW.md` and `PRD.md` at root.
-- This group's outputs: `protocol.md`, `evidence/` search and screening provenance, QA/extraction/PRISMA, and `report/` LaTeX, bibliography and final PDF. These outputs do not yet exist.
-- This group must independently validate database access and searches, freeze its own protocol, retrieve and screen sources, and synthesize its own 15–20 included peer-reviewed primary studies (minimum 15). Papers may overlap with the other group only after separate decisions and extraction.
-- Changes to this directory go on a `group-a/<task>` branch with a PR to `main`; a human teammate reviews and the group owner merges. No direct push to `main` or agent merge.
+The current deliverable is report/report.pdf, with LaTeX and an included-primary-only references.bib. evidence/README.md explains linked decisions/reasons, quality, extraction, claims, counts and the institutional-download queue. review_workbook.xlsx is a filterable review view; CSV/JSON registers are authoritative.
 
-## Ownership to fill
+Checkpoint: 689 formal occurrences; 10 duplicates; 20 supplementary selected records; 16 accepted studies; 22 full texts assessed; 6 full-text exclusions; 575 earlier-stage exclusions; 102 pending access cases. IEEE and Springer captures cover all pages for the executed queries; ACM/ScienceDirect coverage remains blocked. Detailed extraction and version checking remain open. This is an intermediate report, not the final SLR or CEP submission.
 
-| Role | Member / reviewer ID | Confirmed date |
-|---|---|---|
-| Group owner | Pending | Pending |
-| Screener 1 | Pending | Pending |
-| Screener 2 | Pending | Pending |
-| Adjudicator (third member) | Pending | Pending |
+All four mechanisms remain in scope. Eligibility is never relaxed to meet the 15–20-study target. Group B is untouched. Licensed publisher PDFs must not be committed to this public repository; provide them privately through the conversation. Requested links use platforms listed by NED; paper-level entitlement must still be checked.
 
-The two screeners and adjudicator are the same three students in this group; the owner may also fill a screening role. Confirm instructor approval for both groups working on this topic and choose a group-specific RQ emphasis while retaining all four assigned mechanisms.
+Compile from this group's report directory using latexmk -pdf main.tex; the unmodified LPPL IEEEtran bibliography style is bundled for portability. The PDF uses 12-point Times-compatible type. scripts/validate_evidence.py checks register/count/citation integrity. Derived-register scripts encode recorded reviewer decisions, not automated paper selection.
+
+User access constraint (11 October 2026): at most 10 paper downloads total. Prioritize those in evidence/download_requests.md; retain other inaccessible candidates as deferred, not excluded or requested. Record incomplete coverage explicitly.
