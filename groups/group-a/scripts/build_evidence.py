@@ -151,5 +151,5 @@ for s in S:
         if s['key']=='reef':fields['note']='Art. no. 1; publication date November 2025 as printed in supplied report'
     if s['key']=='gnntriton':fields['journal']=fields.pop('booktitle');fields['volume']=8;fields.pop('pages',None);fields['note']='Art. no. 14'
     bib.append(('@article{' if s['key']=='gnntriton' or s.get('journal') else '@inproceedings{')+s['key']+',\n'+',\n'.join('  '+k+' = {'+str(v)+'}' for k,v in fields.items())+'\n}')
-(ROOT/'report/references.bib').write_text('\n\n'.join(bib)+'\n')
+(ROOT.parents[1]/'report/query_references.bib').write_text('\n\n'.join(bib)+'\n')
 print(json.dumps(counts,indent=2))

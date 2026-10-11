@@ -3,6 +3,7 @@ import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {Workbook,SpreadsheetFile} from '@oai/artifact-tool';
 const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const report=path.resolve(root,'../../report');
 const data=JSON.parse(await fs.readFile(path.join(root,'evidence/workbook_source.json'),'utf8'));
 const wb=Workbook.create();
 for(const name of Object.keys(data))wb.worksheets.add(name);
@@ -41,10 +42,10 @@ for(const [name,matrix] of Object.entries(data)){
 wb.recalculate();
 console.log((await wb.inspect({kind:'region',sheetId:'Summary',range:'A1:B12',maxChars:3000,tableMaxRows:12,tableMaxCols:2})).ndjson);
 const preview=await wb.render({sheetName:'Summary',autoCrop:'all',scale:1,format:'png'});
-await fs.writeFile(path.join(root,'report/workbook-preview.png'),new Uint8Array(await preview.arrayBuffer()));
+await fs.writeFile(path.join(report,'workbook-preview.png'),new Uint8Array(await preview.arrayBuffer()));
 for(const [sheetName,range] of [['Quality','A17:N22'],['Received','A1:E7']]){
  console.log((await wb.inspect({kind:'region',sheetId:sheetName,range,maxChars:7000,tableMaxRows:7,tableMaxCols:14})).ndjson);
  const picture=await wb.render({sheetName,range,scale:1,format:'png'});
- await fs.writeFile(path.join(root,'report',sheetName.toLowerCase()+'-preview.png'),new Uint8Array(await picture.arrayBuffer()));
+ await fs.writeFile(path.join(report,sheetName.toLowerCase()+'-preview.png'),new Uint8Array(await picture.arrayBuffer()));
 }
-await (await SpreadsheetFile.exportXlsx(wb)).save(path.join(root,'evidence/review_workbook.xlsx'));
+await (await SpreadsheetFile.exportXlsx(wb)).save(path.join(report,'query_review_workbook.xlsx'));

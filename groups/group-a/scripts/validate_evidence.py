@@ -29,7 +29,7 @@ for r in R:
     assert r['reason']
     if r['decision']=='excluded':assert re.fullmatch('E(10|[1-9])',r['reason_code'])
     if r['decision']=='pending':assert r['access']=='not_retrieved'
-T=(P/'report/main.tex').read_text();B=(P/'report/references.bib').read_text()
+T=(P.parents[1]/'report/query_report.tex').read_text();B=(P.parents[1]/'report/query_references.bib').read_text()
 keys=set(re.findall(r'@\w+\{([^,]+),',B))
 cited={k for block in re.findall(r'\\cite\{([^}]+)\}',T) for k in block.split(',')}
 assert keys==cited=={s['key'] for s in json.loads((E/'included_studies.json').read_text())}

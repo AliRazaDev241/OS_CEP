@@ -2,7 +2,7 @@
 import csv,json,re
 from pathlib import Path
 from urllib.parse import urlencode
-P=Path(__file__).resolve().parents[1]; E=P/'evidence'; R=P/'report'
+P=Path(__file__).resolve().parents[1]; E=P/'evidence'; R=P.parents[1]/'report'
 C=json.loads((E/'prisma_counts.json').read_text()); S=json.loads((E/'included_studies.json').read_text())
 rows=list(csv.DictReader((E/'studies.csv').open()))
 def csvout(name,data):
@@ -70,7 +70,7 @@ Reporting sensitivity: the four newly included moderate-QA studies (VastPipe6.5,
 (E/'claims.md').write_text(claims)
 (E/'README.md').write_text('''# Group A evidence — 11 October 2026
 
-Start with search_runs.csv, prisma_counts.json and studies.csv. imported_records.json preserves all689 formal query occurrences; duplicates.csv links10 repeated records without deleting provenance. studies.csv is the decision authority; accepted.csv, rejected.csv and pending.csv are derived views. Twenty-one study IDs link accepted reports to extraction.csv, quality.csv and the included-only report/references.bib. Supplementary selected records are20, not an exhaustive web export. Six uploaded conversions resolved six pending access cases; the preferred REEF journal report replaces its conference extraction without double-counting. See six_paper_review.md, uploaded_paper_receipts.csv and uploaded_review_assessments.json; source Markdown files are not committed.
+Start with search_runs.csv, prisma_counts.json and studies.csv. imported_records.json preserves all689 formal query occurrences; duplicates.csv links10 repeated records without deleting provenance. studies.csv is the decision authority; accepted.csv, rejected.csv and pending.csv are derived views. Twenty-one study IDs link accepted reports to extraction.csv, quality.csv and the included-only ../../report/query_references.bib. Supplementary selected records are20, not an exhaustive web export. Six uploaded conversions resolved six pending access cases; the preferred REEF journal report replaces its conference extraction without double-counting. See six_paper_review.md, uploaded_paper_receipts.csv and uploaded_review_assessments.json; source Markdown files are not committed.
 
 Screening is one AI reviewer authorized by the user, not independent student review. Title exclusions are explicitly title-stage judgments; no unavailable paper has an invented full-text result. Access failures remain pending. A report ID identifies a bibliographic report candidate; a study ID is assigned only when identity is assessed. REEF version links select GA-X007 for GA-S001 and mark GA-SUP001 E8, retaining companion extraction/QA history.
 
@@ -107,7 +107,7 @@ This intermediate deliverable records execution of the submitted SLR protocol an
 \section{Purpose and requirements}
 The engineering problem is to share a physical GPU among inference tenants while balancing useful work and density against predictable latency and isolation. The assigned alternatives are time-slicing, MPS, MIG and API remoting/virtualization, including hybrids. The unit of technical comparison is local sharing on one GPU. A study containing cluster experiments qualifies only when local inference-sharing evidence is identifiable; cluster-wide GPU counts are never substituted for local occupancy.
 
-The submitted \texttt{report/main.tex} and \texttt{report/main.pdf} are the protocol baseline identified by the user. They remain historical artifacts. This Group A deliverable resides under \texttt{groups/group-a/}. The final assignment still requires 15--20 unique peer-reviewed primary studies, at least15, a 12-point IEEE-cited LaTeX report, and approximately20--30 pages of main content. Meeting a provisional paper count does not complete searching or the final deliverable. No additional intermediate-page requirement was supplied.
+The submitted \texttt{report/SLR\_protocol.tex} and \texttt{report/SLR\_protocol.pdf} are the protocol baseline identified by the user. The protocol contents are preserved. Query deliverables reside in the root \texttt{report/} folder; Group A evidence remains under \texttt{groups/group-a/evidence/}. The final assignment still requires 15--20 unique peer-reviewed primary studies, at least15, a 12-point IEEE-cited LaTeX report, and approximately20--30 pages of main content. Meeting a provisional paper count does not complete searching or the final deliverable. No additional intermediate-page requirement was supplied.
 
 The five questions ask which mechanisms are evaluated (RQ1), how outcomes are measured and compared (RQ2), which operating conditions change results (RQ3), what trade-offs and gaps remain (RQ4), and what conditional choice is supported (RQ5). All five map to extraction and the claim register, rather than to an unconditional ranking of mechanisms.
 
@@ -209,7 +209,7 @@ The evidence directory supplies search runs, imported records, duplicates, all d
 
 The full unresolved link queue is in \texttt{download\_requests.csv}; \texttt{download\_requests.md} lists at most 10 requested papers; other unresolved entries are deferred and are not requests. All requested publisher platforms appear on NED's list, but article-level access must be checked using university access. PDFs should be supplied privately through the conversation, not committed to the public repository. Query exports must preserve exact syntax, collection, facets and counts; sending papers alone does not repair incomplete systematic search coverage.
 
-\bibliographystyle{IEEEtran}\bibliography{references}
+\bibliographystyle{IEEEtran}\bibliography{query_references}
 \end{document}
 '''
 findings=r'\Needspace{16\baselineskip}\subsection{Source-anchored finding register}\begin{longtable}{P{0.18\linewidth}P{0.48\linewidth}P{0.24\linewidth}}\toprule Study & Bounded finding & Source location\\\midrule\endhead'+'\n'
@@ -241,7 +241,7 @@ tex=tex.replace(r'\section{Quality appraisal and extraction controls}',update+r'
 tex=re.sub(r'(?<=[a-z])(?=\d)', ' ', tex)
 tex=tex.replace('S001,003,004,008,009,011,014','S001, S003, S004, S008, S009, S011, S014')
 tex=re.sub(r'(S\d{3}),',r'\1, ',tex)
-(R/'main.tex').write_text(tex)
+(R/'query_report.tex').write_text(tex)
 # Compact workbook source; separate fields remain in CSV for reproducible processing.
 book={
 'Summary':[['Group A evidence checkpoint','2026-10-11'],['Status','Intermediate; incomplete search coverage'],['Formal occurrences',C['formal_occurrences']],['Formal duplicates',C['formal_duplicates']],['Selected supplementary',C['supplementary_selected']],['Pre-full-text exclusions',C['excluded_before_fulltext']],['Assessed reports',C['fulltext_assessed']],['Pending retrieval',C['pending']],['Accepted studies',C['accepted_unique_studies']],['Full-text exclusions',C['fulltext_excluded']],['Record reconciliation',None],['Assessment reconciliation',None]],
