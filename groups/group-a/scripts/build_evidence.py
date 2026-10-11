@@ -90,6 +90,29 @@ extra=[
 ('Real-time Work-conserving GPU Scheduling for DNN Inference','https://doi.org/10.1145/3768622','pending','abstract','','Related REEF journal report; assess completeness before replacing conference extraction; never count twice.','not_retrieved')]
 for j,(title,url,decision,stage,code,reason,access) in enumerate(extra,1):
     records.append(dict(record_id=f'GA-X{j:03}',database='Supplementary web / publisher',run_id='SUP-SELECTED',page='',title=title,url=url,doi=url.split('doi.org/')[-1] if 'doi.org/' in url else '',publication_date='',record_route='supplementary',report_id=f'GA-PX{j:03}',study_id='GA-S001' if j==7 else '',decision=decision,stage=stage,reason_code=code,reason=reason,access=access,reviewer='AI-CODEX',decision_date=DATE,duplicate_of=''))
+# Apply recorded full-text reviews to existing records, preserving discovery counts
+# and stable study IDs. Uploaded licensed conversions are never copied into git.
+reviews=json.loads((E/'uploaded_review_assessments.json').read_text())
+for review in reviews:
+    r=next(x for x in records if x['record_id']==review['record_id'])
+    if review['study_id']=='GA-S001':
+        old=next(x for x in records if x['record_id']=='GA-SUP001')
+        old.update(decision='excluded',stage='full_text',reason_code='E8',
+            reason='Less complete OSDI2022 report of GA-S001; journal GA-X007 explicitly extends it with NVIDIA implementation/evaluation. Retained as linked companion, not a second study.',access='retrieved')
+        s=S[0]
+    else:
+        s=dict(formal=0)
+        S.append(s)
+    s.update(review)
+    s.update(report_id=r['report_id'],fulltext_url=review['publisher_url'],
+        source_type='User-supplied Markdown conversion of published journal report',
+        journal=True)
+    r.update(title=s['title'],doi=s['doi'],publication_date=s['publication_date'],
+        study_id=s['study_id'],decision='accepted',stage='full_text',reason_code='',
+        reason=s['eligibility']+' '+s['limitation'],access='retrieved',
+        reviewer='AI-CODEX',decision_date=DATE)
+    for d in records:
+        if d.get('duplicate_of')==r['record_id']:d['study_id']=s['study_id']
 write('studies.csv',records);write('duplicates.csv',dup)
 write('accepted.csv',[r for r in records if r['decision']=='accepted'])
 write('rejected.csv',[r for r in records if r['decision']=='excluded'])
@@ -99,10 +122,17 @@ rubric=['Explicit tenant question','Mechanism specified','Environment completene
 for s in S:
     scores=s.pop('scores'); total=sum(scores)
     q=dict(study_id=s['study_id'],report_id=s['report_id'],reviewer='AI-CODEX',date=DATE,total=total,band='high' if total>=8 else 'moderate' if total>=6 else 'low',anchor=s['anchor'],source_url=s['fulltext_url'])
-    for n,score in enumerate(scores,1):q[f'Q{n}']=score;q[f'Q{n}_rationale']=rubric[n-1] if score==1 else 'Partial: '+rubric[n-1].lower()
+    for n,score in enumerate(scores,1):
+        q[f'Q{n}']=score
+        q[f'Q{n}_rationale']=s['qa_rationales'][n-1] if s.get('qa_rationales') else rubric[n-1] if score==1 else 'Partial: '+rubric[n-1].lower()
     quality.append(q)
-    r={k:v for k,v in s.items() if k not in ['formal','pages']}
+    r={k:v for k,v in s.items() if k not in ['formal','pages','qa_rationales']}
     r.update(retrieved_date=DATE,peer_review='Published journal article' if s['key']=='gnntriton' else 'Published full conference paper',version='Open publisher HTML' if s['key']=='gnntriton' else 'Author/camera-ready copy' if s['doi'] else 'Official USENIX proceedings PDF',eligibility='Protocol7.2: local partition/process/scheduling control; inference outcome explicit',performance_isolation='Measured workload interference/latency',resource_memory='Mechanism described; independent enforcement outcome not fully extracted',security='Not established by extracted results',fault_containment='Measured Fig3 section2.2' if s['key']=='krypton' else 'Not established by extracted results',untranscribed_fields='Exact driver/MIG profiles/batch/warm-up/variance missing from this row remain NOT EXTRACTED, not assumed absent',qa=total,evidence_strength='Within-study comparison; cross-study inference indirect')
+    if s.get('journal'):
+        r.update(peer_review='Published journal article',version=s['source_type'],
+            eligibility=s['eligibility'],performance_isolation=s['performance_isolation'],
+            resource_memory=s['resource_memory'],security=s['security'],fault_containment=s['fault_containment'],
+            untranscribed_fields='See environment/workload/limitation; absent chart data and corrupted equations are not reconstructed. NOT EXTRACTED does not imply missing from original PDF.')
     extract.append(r)
 write('extraction.csv',extract);write('quality.csv',quality)
 (E/'included_studies.json').write_text(json.dumps(S,indent=2,ensure_ascii=False))
@@ -113,7 +143,13 @@ for s in S:
     fields=dict(title='{'+s['title']+'}',author=s['authors'],year=s['year'],booktitle=s['venue'],url=s['publisher_url'])
     if s['doi']:fields['doi']=s['doi']
     if s['pages']:fields['pages']=s['pages']
+    if s.get('journal'):
+        fields['journal']=fields.pop('booktitle')
+        for k in ['volume','number']:
+            if s.get(k):fields[k]=s[k]
+        if s.get('article_number'):fields['note']='Art. no. '+s['article_number']
+        if s['key']=='reef':fields['note']='Art. no. 1; publication date November 2025 as printed in supplied report'
     if s['key']=='gnntriton':fields['journal']=fields.pop('booktitle');fields['volume']=8;fields.pop('pages',None);fields['note']='Art. no. 14'
-    bib.append(('@article{' if s['key']=='gnntriton' else '@inproceedings{')+s['key']+',\n'+',\n'.join('  '+k+' = {'+str(v)+'}' for k,v in fields.items())+'\n}')
-(ROOT/'report/references.bib').write_text('\n\n'.join(bib)+'\n')
+    bib.append(('@article{' if s['key']=='gnntriton' or s.get('journal') else '@inproceedings{')+s['key']+',\n'+',\n'.join('  '+k+' = {'+str(v)+'}' for k,v in fields.items())+'\n}')
+(ROOT.parents[1]/'report/query_references.bib').write_text('\n\n'.join(bib)+'\n')
 print(json.dumps(counts,indent=2))

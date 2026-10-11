@@ -2,7 +2,7 @@
 import csv,json,re
 from pathlib import Path
 from urllib.parse import urlencode
-P=Path(__file__).resolve().parents[1]; E=P/'evidence'; R=P/'report'
+P=Path(__file__).resolve().parents[1]; E=P/'evidence'; R=P.parents[1]/'report'
 C=json.loads((E/'prisma_counts.json').read_text()); S=json.loads((E/'included_studies.json').read_text())
 rows=list(csv.DictReader((E/'studies.csv').open()))
 def csvout(name,data):
@@ -27,12 +27,16 @@ pending=[r for r in rows if r['decision']=='pending'];pending.sort(key=lambda r:
 requests=[]
 for i,r in enumerate(pending,1):
     platform='IEEE Xplore' if 'ieee' in r['url'] or '10.1109/' in r['url'] else 'ACM DL' if '10.1145/' in r['url'] else 'ScienceDirect' if 'sciencedirect' in r['url'] else 'Springer Nature Link'
-    requests.append(dict(priority='requested_max10' if r['record_id'] in priority else 'deferred_not_requested',record_id=r['record_id'],title=r['title'],platform=platform,url=r['url'],reason='Full text not retrieved/assessed; resolve eligibility and then extract. '+r['reason'],ned_platform_listing='https://eaklibrary.neduet.edu.pk/eakl/E-Resources.html',listing_checked='2026-10-11',individual_entitlement='UNVERIFIED; platform listing is not a subscription guarantee'))
+    requests.append(dict(priority='unavailable_not_requested_again' if r['record_id'] in priority else 'deferred_not_requested',record_id=r['record_id'],title=r['title'],platform=platform,url=r['url'],reason='Access backlog only; user supplied six of original ten and no further download is requested. '+r['reason'],ned_platform_listing='https://eaklibrary.neduet.edu.pk/eakl/E-Resources.html',listing_checked='2026-10-11',individual_entitlement='UNVERIFIED; platform listing is not a subscription guarantee'))
 csvout('download_requests.csv',requests)
-md='# Group A — institutional downloads and search recovery\n\nChecked 11 October 2026. NED’s [E-Resources page](https://eaklibrary.neduet.edu.pk/eakl/E-Resources.html) lists IEEE Xplore, ACM DL, ScienceDirect and Springer Nature Link. Every link below points to a publisher on those listed platforms (DOI links are used for unavailable publisher landing pages). Individual-paper entitlement is not verified; use your university access. These are candidates, not accepted results.\n\n**Maximum request: 10 papers total**, as instructed by the user on 11 October 2026. This list prioritizes inference-specific provisioning, isolation, virtualization and the REEF report-version check. The other entries in `download_requests.csv` are an unresolved-candidate register, labelled `deferred_not_requested`; they are not additional requests. No replacement or second batch will be requested without a change to this limit. Do not put licensed PDFs into the public repository. Send them through the conversation; retain only links, decisions and permitted notes in git.\n\n'
-for r in requests:
-    if r['priority']=='requested_max10':md+=f"- **{r['record_id']}** [{r['title']}]({r['url']}) — {r['platform']}.\n"
-md+='\nACM and ScienceDirect also need query exports (RIS/BibTeX/CSV with titles, abstracts, identifiers and counts) for the protocol master query or the four split queries in `search_runs.csv`. A PDF batch cannot repair missing database-search coverage. Retain executed query, collection, filters and search date. No account credentials are needed.\n\nThe complete queue includes boundary candidates that may be rejected after retrieval, and 2026 IEEE records whose exact publication dates still require verification. It is not a demand to include or download every hit before prioritization.\n'
+md='''# Group A — received papers and remaining access backlog
+
+The original request was capped at ten papers. The user could obtain six and supplied their Markdown conversions: VastPipe, ArkGPU, Dyna-P, iGniter, InferFair and the REEF journal extension. All six have now been assessed. Five add unique studies; REEF replaces the less complete conference report within GA-S001. See uploaded_paper_receipts.csv and six_paper_review.md.
+
+The remaining original requests (GhostWriter GA-R0011, HAS-GPU GA-R0004, CNN prediction GA-R0292, vGPU GA-R0009) remain inaccessible. They are not exclusions and are not requested again. No replacement batch or additional paper download is requested. download_requests.csv is now an access backlog with zero active requests; all other unresolved records are deferred.
+
+ACM/ScienceDirect formal query totals remain UNKNOWN. Six full texts resolve six access cases, not missing database search coverage. Recover exports only if accessible, preserving exact query, collection, filters, date and counts; otherwise retain the coverage limitation. NED platform listing does not prove article-level entitlement. Licensed source files remain private; git contains metadata, hashes and reviewer paraphrases only.
+'''
 (E/'download_requests.md').write_text(md)
 claims='''# Group A — provisional claim and RQ matrix
 
@@ -54,12 +58,21 @@ Sensitivity: all current QA totals are at least8, so dropping QA<6 removes none 
 
 Next extraction pass: finish driver/runtime versions, MIG profile names, MPS quotas, batching, exact arrival rates, warm-up/windows/variance and measured-vs-claimed isolation fields before final recommendations. Check all newer/related reports and repeat synthesis after resolving the access queue. No experiments or code artifacts have been rerun.
 '''
+claims=claims.replace('all current QA totals are at least8','all current QA totals are at least6.5')
+claims=claims.replace('GA-S002,012','GA-S002,012,017,020').replace('GA-S010,016','GA-S010,016,019')
+claims=claims.replace('GhostWriter awaits retrieval','GhostWriter remains inaccessible, with no further user download requested')
+claims+='''
+
+Six-paper update: GA-S017 VastPipe supplies local A100 MPS and separate MI100 CU-mask throughput strata; its 1000-NPU cluster results are outside the local GPU comparison. GA-S018 ArkGPU supplies mixed inference/training p99/QPS evidence; its four-GPU goodput gains are separate. GA-S019 Dyna-P supplies local MIG inference-job results and a concurrency/JCT trade-off; cluster simulations and makespan are not online p99 measurements. GA-S020 iGniter supplies local MPS interference and transient p99 failure/recovery evidence; fleet cost savings are not local utilization. GA-S021 InferFair supplies local fairness/SLO goodput with distinct unfairness definition. Updated GA-S001 journal REEF supplies NVIDIA comparisons and a throughput cost of latency protection; the OSDI report is a linked E8 companion, never an additional study.
+
+Reporting sensitivity: the four newly included moderate-QA studies (VastPipe6.5, ArkGPU7, Dyna-P7, InferFair7.5) are removed by a stricter QA>=8 sensitivity stratum; iGniter and journal REEF score8.5. Removing these moderate rows weakens dynamic-MIG placement, API-throttled inference/training and relative-goodput fairness evidence. QA<6 removes none. Scores do not resolve missing full-text plot data. No universal or pooled percentage improvement is defensible.
+'''
 (E/'claims.md').write_text(claims)
 (E/'README.md').write_text('''# Group A evidence — 11 October 2026
 
-Start with search_runs.csv, prisma_counts.json and studies.csv. imported_records.json preserves all689 formal query occurrences; duplicates.csv links10 repeated records without deleting provenance. studies.csv is the decision authority; accepted.csv, rejected.csv and pending.csv are derived views. Sixteen study IDs link accepted reports to extraction.csv, quality.csv and the included-only report/references.bib. Supplementary selected records are20, not an exhaustive web export.
+Start with search_runs.csv, prisma_counts.json and studies.csv. imported_records.json preserves all689 formal query occurrences; duplicates.csv links10 repeated records without deleting provenance. studies.csv is the decision authority; accepted.csv, rejected.csv and pending.csv are derived views. Twenty-one study IDs link accepted reports to extraction.csv, quality.csv and the included-only ../../report/query_references.bib. Supplementary selected records are20, not an exhaustive web export. Six uploaded conversions resolved six pending access cases; the preferred REEF journal report replaces its conference extraction without double-counting. See six_paper_review.md, uploaded_paper_receipts.csv and uploaded_review_assessments.json; source Markdown files are not committed.
 
-Screening is one AI reviewer authorized by the user, not independent student review. Title exclusions are explicitly title-stage judgments; no unavailable paper has an invented full-text result. Access failures remain pending. A report ID identifies a bibliographic report candidate; a study ID is assigned only when identity is assessed (the pending REEF journal extension links to its conference study).
+Screening is one AI reviewer authorized by the user, not independent student review. Title exclusions are explicitly title-stage judgments; no unavailable paper has an invented full-text result. Access failures remain pending. A report ID identifies a bibliographic report candidate; a study ID is assigned only when identity is assessed. REEF version links select GA-X007 for GA-S001 and mark GA-SUP001 E8, retaining companion extraction/QA history.
 
 Public result-page capture substitutes for unavailable publisher exports; it does not preserve abstracts that were never displayed. metadata contains only the matched result item, never signed-in account or network details. retrieval_lookups.json is a sanitized public-access ledger, not an archive of copyrighted full texts. Download requests are linked to NED-listed platforms; individual entitlements are unverified.
 
@@ -75,7 +88,7 @@ tex=r'''\documentclass[12pt,a4paper]{article}
 \usepackage[margin=1in]{geometry}
 \usepackage{iftex}
 \ifPDFTeX\usepackage[T1]{fontenc}\usepackage[utf8]{inputenc}\usepackage{mathptmx}\else\usepackage{fontspec}\setmainfont{Times New Roman}\fi
-\usepackage{longtable,booktabs,array,enumitem,microtype,xcolor}
+\usepackage{longtable,booktabs,array,enumitem,microtype,xcolor,needspace}
 \usepackage[hidelinks]{hyperref}
 \usepackage{parskip}
 \setlength{\emergencystretch}{3em}
@@ -94,7 +107,7 @@ This intermediate deliverable records execution of the submitted SLR protocol an
 \section{Purpose and requirements}
 The engineering problem is to share a physical GPU among inference tenants while balancing useful work and density against predictable latency and isolation. The assigned alternatives are time-slicing, MPS, MIG and API remoting/virtualization, including hybrids. The unit of technical comparison is local sharing on one GPU. A study containing cluster experiments qualifies only when local inference-sharing evidence is identifiable; cluster-wide GPU counts are never substituted for local occupancy.
 
-The submitted \texttt{report/main.tex} and \texttt{report/main.pdf} are the protocol baseline identified by the user. They remain historical artifacts. This Group A deliverable resides under \texttt{groups/group-a/}. The final assignment still requires 15--20 unique peer-reviewed primary studies, at least15, a 12-point IEEE-cited LaTeX report, and approximately20--30 pages of main content. Meeting a provisional paper count does not complete searching or the final deliverable. No additional intermediate-page requirement was supplied.
+The submitted \texttt{report/SLR\_protocol.tex} and \texttt{report/SLR\_protocol.pdf} are the protocol baseline identified by the user. The protocol contents are preserved. Query deliverables reside in the root \texttt{report/} folder; Group A evidence remains under \texttt{groups/group-a/evidence/}. The final assignment still requires 15--20 unique peer-reviewed primary studies, at least15, a 12-point IEEE-cited LaTeX report, and approximately20--30 pages of main content. Meeting a provisional paper count does not complete searching or the final deliverable. No additional intermediate-page requirement was supplied.
 
 The five questions ask which mechanisms are evaluated (RQ1), how outcomes are measured and compared (RQ2), which operating conditions change results (RQ3), what trade-offs and gaps remain (RQ4), and what conditional choice is supported (RQ5). All five map to extraction and the claim register, rather than to an unconditional ranking of mechanisms.
 
@@ -196,19 +209,39 @@ The evidence directory supplies search runs, imported records, duplicates, all d
 
 The full unresolved link queue is in \texttt{download\_requests.csv}; \texttt{download\_requests.md} lists at most 10 requested papers; other unresolved entries are deferred and are not requests. All requested publisher platforms appear on NED's list, but article-level access must be checked using university access. PDFs should be supplied privately through the conversation, not committed to the public repository. Query exports must preserve exact syntax, collection, facets and counts; sending papers alone does not repair incomplete systematic search coverage.
 
-\bibliographystyle{IEEEtran}\bibliography{references}
+\bibliographystyle{IEEEtran}\bibliography{query_references}
 \end{document}
 '''
-findings=r'\subsection{Source-anchored finding register}\begin{longtable}{P{0.18\linewidth}P{0.48\linewidth}P{0.24\linewidth}}\toprule Study & Bounded finding & Source location\\\midrule\endhead'+'\n'
+findings=r'\Needspace{16\baselineskip}\subsection{Source-anchored finding register}\begin{longtable}{P{0.18\linewidth}P{0.48\linewidth}P{0.24\linewidth}}\toprule Study & Bounded finding & Source location\\\midrule\endhead'+'\n'
 for s in S:
     findings+=tx(s['study_id'])+r' \cite{'+s['key']+'} & '+tx(s['finding'])+' & '+tx(s['anchor'])+r'\\'+'\n'
 findings+=r'\bottomrule\end{longtable}'+'\n'
 tex=tex.replace(r'\section{Quality appraisal and extraction controls}',findings+r'\section{Quality appraisal and extraction controls}')
+tex=tex.replace('Sixteen distinct peer-reviewed studies','Twenty-one distinct peer-reviewed studies')
+tex=tex.replace('The pending REEF journal extension is linked to its conference study and cannot add another included study automatically.', 'The REEF journal extension is selected for GA-S001; its less complete conference report is a linked E8 companion and adds no study.')
+tex=tex.replace('The REEF journal extension requires a completeness check.', 'The supplied REEF journal conversion establishes a more complete implementation/evaluation; it is now the preferred report for GA-S001. The conference report is retained as a linked companion.')
+tex=tex.replace('The current totals are all at least8.', 'Current totals range from6.5 to9.0. Four newly included studies score below8; their configuration or measurement controls and missing plot data require caution.')
+tex=tex.replace('only the16 currently chosen primary reports','only the21 currently chosen primary reports')
+tex=tex.replace('Next, obtain the prioritized publisher PDFs and blocked database exports, log their receipt and version, apply the same full-text criteria, complete extraction and rerun counts/claims/sensitivity.', 'Next, continue public-access recovery and available database exports, complete parameter extraction and rerun claims/sensitivity. The user supplied six of the ten requested papers; all six are assessed. The remaining four are unavailable and no further paper download is requested.')
+tex=tex.replace(r'The full unresolved link queue is in \texttt{download\_requests.csv}; \texttt{download\_requests.md} lists at most 10 requested papers; other unresolved entries are deferred and are not requests.', r'The unresolved access backlog is in \texttt{download\_requests.csv}; there are zero active requests. \texttt{download\_requests.md} records the six received conversions and four unavailable original requests. No additional paper download is requested.')
+update=r'''\section{Review of six supplied full texts}
+Five reports add unique studies: VastPipe, ArkGPU, Dyna-P, iGniter and InferFair. REEF's journal report explicitly extends OSDI2022 with a complete NVIDIA implementation, additional kernel handling and newer comparisons; the journal is preferred within GA-S001. Six previously pending reports are now assessed; the earlier conference report becomes a full-text E8 companion. There are21 accepted studies,28 assessed reports including7 full-text exclusions, and96 pending access cases. Search occurrence and discovery counts are unchanged.
+
+The source files are Markdown conversions. Two-column interleaving, missing plot pixels and damaged mathematical symbols prevent exact extraction of some equations, CDFs, error bars and configurations. Only readable labelled tables, captions and explicitly stated numeric results enter the register. Missing values are not interpolated. The receipt ledger records filenames and SHA-256 hashes; licensed source contents are not published.
+
+Local GPU strata determine inclusion. VastPipe's NPU-cluster outcomes, ArkGPU's four-GPU goodput, Dyna-P's multi-GPU aggregates and cluster simulation, iGniter's fleet cost, and InferFair's four-GPU trace are distinguished from local results. ArkGPU qualifies through the explicit mixed inference/training exception; transfer is limited to priority inference protection. Dyna-P's job completion and makespan do not establish online p99. InferFair's unfairness is a relative slowdown ratio and does not establish adversarial isolation.
+
+Journal REEF's same-engine GV100 PyTorch comparison reports DISB-C p99 below1.05 times solo versus1.17 for Orion, alongside separately normalized total throughput. Its TensorRT comparison also reports lower mean normalized throughput than Triton; preserving this counterexample prevents a universal superiority claim. iGniter's initial p99 violation followed by shadow-process correction likewise qualifies any steady-state SLO statement. Source locations and QA rationales are recorded per report.
+
+At the stricter QA threshold8, VastPipe, ArkGPU, Dyna-P and InferFair are omitted; their mechanism-specific conclusions weaken. At the protocol low-quality threshold6, none is omitted. This is a reporting-quality sensitivity, not a pooled causal result. The set now exceeds the protocol's15--20-study target range; retain all eligible studies at this checkpoint and document any final narrowing transparently rather than removing evidence to fit a count.
+
+'''
+tex=tex.replace(r'\section{Quality appraisal and extraction controls}',update+r'\section{Quality appraisal and extraction controls}')
 # Improve ordinary prose spacing and allow breaks in study-ID lists.
 tex=re.sub(r'(?<=[a-z])(?=\d)', ' ', tex)
 tex=tex.replace('S001,003,004,008,009,011,014','S001, S003, S004, S008, S009, S011, S014')
 tex=re.sub(r'(S\d{3}),',r'\1, ',tex)
-(R/'main.tex').write_text(tex)
+(R/'query_report.tex').write_text(tex)
 # Compact workbook source; separate fields remain in CSV for reproducible processing.
 book={
 'Summary':[['Group A evidence checkpoint','2026-10-11'],['Status','Intermediate; incomplete search coverage'],['Formal occurrences',C['formal_occurrences']],['Formal duplicates',C['formal_duplicates']],['Selected supplementary',C['supplementary_selected']],['Pre-full-text exclusions',C['excluded_before_fulltext']],['Assessed reports',C['fulltext_assessed']],['Pending retrieval',C['pending']],['Accepted studies',C['accepted_unique_studies']],['Full-text exclusions',C['fulltext_excluded']],['Record reconciliation',None],['Assessment reconciliation',None]],
@@ -217,5 +250,7 @@ book={
 'Quality':[['Study']+[f'Q{n}' for n in range(1,11)]+['Total','Band','Anchor']]+[[q['study_id']]+[float(q[f'Q{n}']) for n in range(1,11)]+[float(q['total']),q['band'],q['anchor']] for q in csv.DictReader((E/'quality.csv').open())],
 'Downloads':[['Priority','Record','Title','Platform','URL','Entitlement']]+[[r[k] for k in ['priority','record_id','title','platform','url','individual_entitlement']] for r in requests],
 'Searches':[['Run','Source','Date','Status','Hits','Imported','Query','Filters']]+[[r[k] for k in ['run_id','database','date','status','hits','imported_occurrences','query','filters']] for r in runs]}
+receipt=list(csv.DictReader((E/'uploaded_paper_receipts.csv').open()))
+book['Received']=[['Record','Study','Filename','Decision','QA','Source SHA256']]+[[r[k] for k in ['record_id','study_id','filename','decision','qa_total','sha256']] for r in receipt]
 (E/'workbook_source.json').write_text(json.dumps(book,ensure_ascii=False))
 print('Report and supporting documentation generated; counts',C)

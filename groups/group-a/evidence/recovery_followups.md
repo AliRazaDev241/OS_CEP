@@ -24,7 +24,8 @@ The first retrieval identified a 22-page PDF, but subsequent extraction timed ou
 
 ## GA-X005 — iGniter
 Author-hosted copy: https://fangmingliu.github.io/files/GPU-inference-cloud-tpds2023.pdf .
-Retrieval failed because its 15,022,853-byte size exceeded the service limit. https://arxiv.org/pdf/2211.01713 also failed; HTML rendering unavailable. It remains one of the capped ten user requests. The authors' project confirms journal identity: https://github.com/icloud-ecnu/igniter .
+Retrieval failed because its 15,022,853-byte size exceeded the service limit. https://arxiv.org/pdf/2211.01713 also failed; HTML rendering unavailable. Historical access failure, now resolved by the user-supplied Markdown conversion; assessed as GA-S020. No further download requested. The authors' project confirms journal identity: https://github.com/icloud-ecnu/igniter .
 
 ## User download constraint
 At most 10 papers total; the exact requested set is in download_requests.md. The other pending candidates are deferred, not rejected for lack of access. Query exports for ACM/ScienceDirect remain a separate coverage requirement and do not require uploading additional paper PDFs.
+

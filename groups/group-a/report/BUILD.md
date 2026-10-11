@@ -1,7 +1,5 @@
-# Build and status
+# Group A report location
 
-Run `latexmk -pdf -interaction=nonstopmode -halt-on-error main.tex` in this directory. Output `main.pdf` is copied to the deliverable `report.pdf` after validation. The document uses 12-point Times-compatible text with numerical IEEEtran citations. XeLaTeX requires a Times New Roman installation; pdfLaTeX uses the bundled TeX Times-compatible fonts.
+At the user's request, the query report, source and workbook now live together in the repository-root `report/` directory as `query_report.pdf`, `query_report.tex` and `query_review_workbook.xlsx`. The original submitted protocol is `report/SLR_protocol.pdf` / `report/SLR_protocol.tex`.
 
-`IEEEtran.bst` is Michael Shell's unmodified version1.14, LPPL1.3, retrieved from https://raw.githubusercontent.com/DanySK/Template-LaTeX-IEEE-Computer-Society-Magazines/master/IEEEtran.bst on11 October2026. Its license and notices are retained. Upstream: https://ctan.org/pkg/ieeetran . The style is code, not a research reference.
-
-The PDF is the intermediate search/evidence deliverable; the final20–30-page CEP report remains pending coverage, access and detailed extraction. Do not label this PDF the final SLR.
+See root `report/BUILD.md` for build commands. Group A decisions and evidence remain in `groups/group-a/evidence/`; builders and validation remain in `groups/group-a/scripts/`. Group B is unchanged.
