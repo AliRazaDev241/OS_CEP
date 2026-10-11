@@ -2,7 +2,7 @@
 \usepackage[margin=1in]{geometry}
 \usepackage{iftex}
 \ifPDFTeX\usepackage[T1]{fontenc}\usepackage[utf 8]{inputenc}\usepackage{mathptmx}\else\usepackage{fontspec}\setmainfont{Times New Roman}\fi
-\usepackage{longtable,booktabs,array,enumitem,microtype,xcolor}
+\usepackage{longtable,booktabs,array,enumitem,microtype,xcolor,needspace}
 \usepackage[hidelinks]{hyperref}
 \usepackage{parskip}
 \setlength{\emergencystretch}{3em}
@@ -14,7 +14,7 @@
 \begin{document}
 \maketitle
 \begin{abstract}
-This intermediate deliverable records execution of the submitted SLR protocol and prepares traceable evidence for the final CEP report. Two databases yielded 689 captured query occurrences; supplementary public venue and author searches supplied additional named candidates. Sixteen distinct peer-reviewed studies currently meet full-text eligibility. Unavailable full texts, incomplete publisher coverage and extraction gaps remain explicit. The paper set and conditional synthesis are provisional; the completed four-database SLR and final CEP submission are not claimed.
+This intermediate deliverable records execution of the submitted SLR protocol and prepares traceable evidence for the final CEP report. Two databases yielded 689 captured query occurrences; supplementary public venue and author searches supplied additional named candidates. Twenty-one distinct peer-reviewed studies currently meet full-text eligibility. Unavailable full texts, incomplete publisher coverage and extraction gaps remain explicit. The paper set and conditional synthesis are provisional; the completed four-database SLR and final CEP submission are not claimed.
 \end{abstract}
 \textbf{Status: evidence checkpoint, not final SLR.} The publication window is 1 January 2020--11 October 2026 inclusive. One AI reviewer conducted screening and appraisal at the user's direction; the listed students are the project authors, not claimed independent reviewers.
 \newpage\tableofcontents\newpage
@@ -51,17 +51,17 @@ All 30 Springer result pages (20 hits/page,7 on the final page) and all IEEE pag
 Springer's broad index includes reference/full-text matches and unrelated acronym expansions such as welding MIG. Search hits therefore do not imply eligible GPU studies. Seed checks recovered ParvaGPU and KRISP in IEEE; papers in other publisher proceedings require supplementary discovery and completion of ACM coverage. Supplementary records are selected named-paper lookups checked after adoption, including submitted seeds and related systems. They are not an exhaustive search-engine result export or completed backward/forward citation search. Their follow-up query strings are reproducible suggestions, not invented historical exact queries.
 
 \section{Screening checkpoint and reconciliation}
-Every formal occurrence receives a record ID. Exact DOI/URL and normalized-title checks link duplicate occurrences without deleting provenance. Bibliographic report IDs identify candidate reports; study IDs identify accepted underlying studies. The pending REEF journal extension is linked to its conference study and cannot add another included study automatically.
+Every formal occurrence receives a record ID. Exact DOI/URL and normalized-title checks link duplicate occurrences without deleting provenance. Bibliographic report IDs identify candidate reports; study IDs identify accepted underlying studies. The REEF journal extension is selected for GA-S001; its less complete conference report is a linked E8 companion and adds no study.
 \begin{longtable}{P{0.7\linewidth}r}\toprule Checkpoint quantity & Count\\\midrule\endhead
 Formal query occurrences & 689\\
 Duplicate occurrences & 10\\
 Unique formal records & 679\\
 Selected supplementary records & 20\\
 Excluded before full text & 575\\
-Full texts assessed & 22\\
-Full-text exclusions & 6\\
-Accepted unique studies & 16\\
-Pending / not retrieved & 102\\
+Full texts assessed & 28\\
+Full-text exclusions & 7\\
+Accepted unique studies & 21\\
+Pending / not retrieved & 96\\
 \bottomrule\end{longtable}
 The reconciled captured subset is: 689-10+20=699 records; 699 equals pre-full-text exclusions plus assessed reports plus pending records. Assessed reports equal included reports plus full-text exclusions. Missing ACM/ScienceDirect populations are unknown and outside these arithmetic identities. This checkpoint is intentionally not a completed PRISMA2020 flow. Reports sought include pending retrieval attempts, but complete formal-database retrieval and final study-version resolution remain open.
 
@@ -73,7 +73,7 @@ Full-text rejection examples include DIPPM (no concurrent tenant comparison), th
 The following studies are accepted for this intermediate evidence set. Selection remains subject to access completion and checking more complete peer-reviewed versions. KRISP is a scope-boundary inclusion under protocol 7.2 because it evaluates local spatial resource control and inference workers; its emulated AMD feature and non-NVIDIA baseline are explicitly isolated in synthesis. No vendor document or preprint-only unpublished work counts toward this table.
 \begin{longtable}{P{0.15\linewidth}P{0.25\linewidth}P{0.4\linewidth}r}
 \toprule Study & Report/year & Mechanism / scope & QA\\\midrule\endhead
-GA-S001 & REEF 2022 \cite{reef} & Temporal preemption & 8.0\\
+GA-S001 & REEF 2025 \cite{reef} & Reset-based temporal preemption + dynamic kernel padding; NVIDIA binary instrumentation & 8.5\\
 GA-S002 & GPULET 2022 \cite{gpulet} & MPS + temporal & 8.5\\
 GA-S003 & PIPESWITCH 2020 \cite{pipeswitch} & Temporal context switching & 9.0\\
 GA-S004 & CLOCKWORK 2020 \cite{clockwork} & Temporal exclusive scheduling & 8.5\\
@@ -89,11 +89,16 @@ GA-S013 & KRISP 2023 \cite{krisp} & Spatial partition/API control (AMD) & 8.0\\
 GA-S014 & XSCHED 2025 \cite{xsched} & Temporal API interposition & 9.0\\
 GA-S015 & PAELLA 2023 \cite{paella} & Temporal software scheduling + MPS comparison & 8.5\\
 GA-S016 & GNNTRITON 2024 \cite{gnntriton} & MIG + concurrent model serving & 8.5\\
+GA-S017 & VASTPIPE 2025 \cite{vastpipe} & MPS adaptive quotas; separate AMD CU-mask stratum & 6.5\\
+GA-S018 & ARKGPU 2023 \cite{arkgpu} & CUDA API interception + NVML monitoring and admission throttling & 7.0\\
+GA-S019 & DYNAP 2025 \cite{dynap} & MIG dynamic placement/reconfiguration with reconfiguration-last policy & 7.0\\
+GA-S020 & IGNITER 2023 \cite{igniter} & MPS active-thread quotas + interference-aware batch/provisioning and shadow process & 8.5\\
+GA-S021 & INFERFAIR 2024 \cite{inferfair} & Temporal SLO-aware scheduling + feedback goodput balancing; MPS comparator & 7.5\\
 \bottomrule\end{longtable}
-USENIX proceedings PDFs are official published copies. ACM/IEEE author or camera-ready copies are linked to verified proceedings metadata and do not become separate preprint studies. ParvaGPU's author manuscript is provisional for publisher-version comparison; its reported runtime-version anomaly remains flagged. The REEF journal extension requires a completeness check. Accessible copies of Orion, GSLICE, KRISP, Tally and Paella avoid unnecessary institutional download requests.
+USENIX proceedings PDFs are official published copies. ACM/IEEE author or camera-ready copies are linked to verified proceedings metadata and do not become separate preprint studies. ParvaGPU's author manuscript is provisional for publisher-version comparison; its reported runtime-version anomaly remains flagged. The supplied REEF journal conversion establishes a more complete implementation/evaluation; it is now the preferred report for GA-S001. The conference report is retained as a linked companion. Accessible copies of Orion, GSLICE, KRISP, Tally and Paella avoid unnecessary institutional download requests.
 
-\subsection{Source-anchored finding register}\begin{longtable}{P{0.18\linewidth}P{0.48\linewidth}P{0.24\linewidth}}\toprule Study & Bounded finding & Source location\\\midrule\endhead
-GA-S001 \cite{reef} & DISB-A: RT overhead 0.5\% vs RT-only; throughput 1.60x sequential. & PDF pp 11-12; sections 7.1-7.2; Fig 11\\
+\Needspace{16\baselineskip}\subsection{Source-anchored finding register}\begin{longtable}{P{0.18\linewidth}P{0.48\linewidth}P{0.24\linewidth}}\toprule Study & Bounded finding & Source location\\\midrule\endhead
+GA-S001 \cite{reef} & GV100 PyTorch DISB-C: Orion p 99 normalized latency 1.17x vs Reef below 1.05x; normalized total throughput 0.97x vs 1.14x(Fig 29). TensorRT comparison trades throughput: mean 1.21x Triton vs 1.11x Reef(Fig 28). All ratios retain model-solo normalization; do not mix engines/AMD strata. & Article pp 1:23-1:24,1:31-1:34; sections 6.2,6.6,7; Figs 28-29; Markdown lines 1111-1180,1600-1820\\
 GA-S002 \cite{gpulet} & Local gpulets support interference-aware provisioning; cluster throughput is a different outcome. & PDF p 10 Table 2/3; section 5; local profiling section 3\\
 GA-S003 \cite{pipeswitch} & Fig 7: inference preemption latency reduced by up to 38.2ms. & PDF pp 11-13; sections 6-6.2; Fig 7\\
 GA-S004 \cite{clockwork} & Fig 5 measures goodput satisfying SLO, rather than raw request throughput. & PDF p 10; section 6.1; Fig 5\\
@@ -109,11 +114,27 @@ GA-S013 \cite{krisp} & Kernel-wise right-sizing evaluates throughput and p 95 in
 GA-S014 \cite{xsched} & Fig 15: relative p 99 1.53/1.51/1.07 respectively versus solo. & PDF pp 14-15; section 8 Case 3 Fig 15; section 9\\
 GA-S015 \cite{paella} & p 99 latency and throughput under bursty model mixes; Fig 12 includes MPS. & PDF pp 9-12; section 7 Table 3/Figs 11-12; section 8\\
 GA-S016 \cite{gnntriton} & Fig 10: thrashing after two models/20GB or five/40GB. & HTML Multi-model Scaling/Fig 10; Triton implementation; limitations\\
+GA-S017 \cite{vastpipe} & A100 VGG16+GoogLeNet: throughput 2.7x no MPS and 1.5x default MPS; not a universal average or p 99 result. NLP/CV mean 2.43x no MPS, 1.45x default MPS. MI100 mean 1.89x no mask, 1.24x default mask. & Published pp 457-459; sections 6.7-6.9; Figs 14-16; uploaded Markdown lines 1150-1290\\
+GA-S018 \cite{arkgpu} & Section 5.2 reports all 30 tested pairs satisfy the 2x-solo p 99 QoS target with ArkGPU. Low-contention pairs can lose about 5\% QPS from throttling. Four-GPU app-mix goodput gains 94.98\% vs k 8s-native and 38.65\% vs MPS are separate system-level results. & Published pp 313-319; sections 4.3,5.1-5.4; Table 3; Figs 14-21; Markdown lines 920-1360\\
+GA-S019 \cite{dynap} & Single-A30 batch experiments: smaller partitions increase concurrency but can increase mean JCT; not online p 99 evidence. Fig 8 broader job set reports 39.03\% lower makespan vs StaCon,12.14\% vs MISO and 14.7\% higher normalized STP vs StaCon. Prediction-error sensitivity:15\% perturbation adds 8.09\% makespan. & PDF pp 11-16; sections 4.1-4.3.2; Table 2; Figs 8-13; Markdown lines 700-865\\
+GA-S020 \cite{igniter} & Local four-model latency prediction error 1.53\%-5.02\%(Fig 13). Fig 14 deployment: iGniter 6 GPUs/0 SLO violations vs gpu-lets+8/3,FFD+5/10,GSLICE+6/3;25\% lower hourly instance cost vs gpu-lets+, not 25\% higher local utilization. Fig 17 shows an initial p 99 violation before shadow-process recovery. & Published pp 820-824; sections 4.2,5.1-5.4; Figs 13-18; Markdown lines 938-1245\\
+GA-S021 \cite{inferfair} & Local Table 3 load 3:1:2: unfairness 1.05 vs Clockwork 1.50; SLO goodput 524.29 vs 457.24req/s. Other load ratios give smaller differences. Local unfairness is max/min model slowdown(Eq 2), not p 99 or security. Four-GPU MAF outcome kept separate. & Published pp 17-18; sections 5.1-5.4; Table 3; Eq 2; Markdown lines 718-899\\
 \bottomrule\end{longtable}
+\section{Review of six supplied full texts}
+Five reports add unique studies: VastPipe, ArkGPU, Dyna-P, iGniter and InferFair. REEF's journal report explicitly extends OSDI2022 with a complete NVIDIA implementation, additional kernel handling and newer comparisons; the journal is preferred within GA-S001. Six previously pending reports are now assessed; the earlier conference report becomes a full-text E8 companion. There are 21 accepted studies,28 assessed reports including 7 full-text exclusions, and 96 pending access cases. Search occurrence and discovery counts are unchanged.
+
+The source files are Markdown conversions. Two-column interleaving, missing plot pixels and damaged mathematical symbols prevent exact extraction of some equations, CDFs, error bars and configurations. Only readable labelled tables, captions and explicitly stated numeric results enter the register. Missing values are not interpolated. The receipt ledger records filenames and SHA-256 hashes; licensed source contents are not published.
+
+Local GPU strata determine inclusion. VastPipe's NPU-cluster outcomes, ArkGPU's four-GPU goodput, Dyna-P's multi-GPU aggregates and cluster simulation, iGniter's fleet cost, and InferFair's four-GPU trace are distinguished from local results. ArkGPU qualifies through the explicit mixed inference/training exception; transfer is limited to priority inference protection. Dyna-P's job completion and makespan do not establish online p 99. InferFair's unfairness is a relative slowdown ratio and does not establish adversarial isolation.
+
+Journal REEF's same-engine GV100 PyTorch comparison reports DISB-C p 99 below 1.05 times solo versus 1.17 for Orion, alongside separately normalized total throughput. Its TensorRT comparison also reports lower mean normalized throughput than Triton; preserving this counterexample prevents a universal superiority claim. iGniter's initial p 99 violation followed by shadow-process correction likewise qualifies any steady-state SLO statement. Source locations and QA rationales are recorded per report.
+
+At the stricter QA threshold 8, VastPipe, ArkGPU, Dyna-P and InferFair are omitted; their mechanism-specific conclusions weaken. At the protocol low-quality threshold 6, none is omitted. This is a reporting-quality sensitivity, not a pooled causal result. The set now exceeds the protocol's 15--20-study target range; retain all eligible studies at this checkpoint and document any final narrowing transparently rather than removing evidence to fit a count.
+
 \section{Quality appraisal and extraction controls}
 Q1--Q10 cover tenant question, mechanism/configuration, environment, workload/arrivals, comparator fairness, metric clarity, measurement controls, result support, validity limits and reproducibility/interpretability. Scores are 1 adequate,0.5 partial and 0 absent; totals 8--10 are high,6--7.5 moderate and below 6 low. The single-reviewer scores, concise rationales and source anchors are in \texttt{quality.csv}. Scores assess reporting and interpretability; they do not prove unbiased results, system security, reproducible artifacts or complete searching.
 
-The current totals are all at least 8. Environment and measurement-control fields are frequently partial. No authors' experiments or code artifacts were rerun. Artifact availability alone is not experimental replication. The extraction register captures source/version, mechanism, hardware/runtime, tenant workload, comparator, a bounded finding, caveat and precise source location. Fields not yet fully transcribed are labelled NOT EXTRACTED, distinct from a source's not-reported value. A further detailed extraction pass is needed before final numerical comparisons.
+Current totals range from 6.5 to 9.0. Four newly included studies score below 8; their configuration or measurement controls and missing plot data require caution. Environment and measurement-control fields are frequently partial. No authors' experiments or code artifacts were rerun. Artifact availability alone is not experimental replication. The extraction register captures source/version, mechanism, hardware/runtime, tenant workload, comparator, a bounded finding, caveat and precise source location. Fields not yet fully transcribed are labelled NOT EXTRACTED, distinct from a source's not-reported value. A further detailed extraction pass is needed before final numerical comparisons.
 
 Isolation observations remain four different columns: performance interference, resource/memory separation, adversarial security and fault containment. Most current findings establish workload performance rather than comparative security or fault containment. The KRYPTON fault experiment is specifically identified; it does not validate all mechanisms or all GPU generations.
 
@@ -155,12 +176,12 @@ Removing QA<6 removes no current study, so that sensitivity test is uninformativ
 
 The main limitations are incomplete ACM/ScienceDirect searches, single-AI-reviewer bias, inaccessible full texts, supplementary-selection bias, baseline and hardware heterogeneity, incomplete parameter extraction and unresolved report versions. The accessible set is concentrated in systems proceedings and older DNN workloads; LLM and adversarial isolation evidence requires further checking. A minimum paper count cannot offset these limitations.
 
-Next, obtain the prioritized publisher PDFs and blocked database exports, log their receipt and version, apply the same full-text criteria, complete extraction and rerun counts/claims/sensitivity. Link any new report to its underlying study before adding a citation. Exact 2026 dates must be verified. Scope changes still require a documented amendment and instructor guidance; this report does not relax eligibility.
+Next, continue public-access recovery and available database exports, complete parameter extraction and rerun claims/sensitivity. The user supplied six of the ten requested papers; all six are assessed. The remaining four are unavailable and no further paper download is requested. Link any new report to its underlying study before adding a citation. Exact 2026 dates must be verified. Scope changes still require a documented amendment and instructor guidance; this report does not relax eligibility.
 
 \section{Evidence package and institutional requests}
-The evidence directory supplies search runs, imported records, duplicates, all decisions and reasons, accepted/rejected/pending views, retrieval lookups, QA, extraction, claims and checkpoint counts. \texttt{references.bib} contains only the 16 currently chosen primary reports, each cited here. The spreadsheet is a review view; CSV/JSON records remain the authority. Scripts validate linkage and reconciliation and regenerate derived views.
+The evidence directory supplies search runs, imported records, duplicates, all decisions and reasons, accepted/rejected/pending views, retrieval lookups, QA, extraction, claims and checkpoint counts. \texttt{references.bib} contains only the 21 currently chosen primary reports, each cited here. The spreadsheet is a review view; CSV/JSON records remain the authority. Scripts validate linkage and reconciliation and regenerate derived views.
 
-The full unresolved link queue is in \texttt{download\_requests.csv}; \texttt{download\_requests.md} lists at most 10 requested papers; other unresolved entries are deferred and are not requests. All requested publisher platforms appear on NED's list, but article-level access must be checked using university access. PDFs should be supplied privately through the conversation, not committed to the public repository. Query exports must preserve exact syntax, collection, facets and counts; sending papers alone does not repair incomplete systematic search coverage.
+The unresolved access backlog is in \texttt{download\_requests.csv}; there are zero active requests. \texttt{download\_requests.md} records the six received conversions and four unavailable original requests. No additional paper download is requested. All requested publisher platforms appear on NED's list, but article-level access must be checked using university access. PDFs should be supplied privately through the conversation, not committed to the public repository. Query exports must preserve exact syntax, collection, facets and counts; sending papers alone does not repair incomplete systematic search coverage.
 
 \bibliographystyle{IEEEtran}\bibliography{references}
 \end{document}

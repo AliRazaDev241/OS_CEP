@@ -4,10 +4,10 @@ The user confirmed Group A, the completed submitted root report/main.tex / main.
 
 The current deliverable is report/report.pdf, with LaTeX and an included-primary-only references.bib. evidence/README.md explains linked decisions/reasons, quality, extraction, claims, counts and the institutional-download queue. review_workbook.xlsx is a filterable review view; CSV/JSON registers are authoritative.
 
-Checkpoint: 689 formal occurrences; 10 duplicates; 20 supplementary selected records; 16 accepted studies; 22 full texts assessed; 6 full-text exclusions; 575 earlier-stage exclusions; 102 pending access cases. IEEE and Springer captures cover all pages for the executed queries; ACM/ScienceDirect coverage remains blocked. Detailed extraction and version checking remain open. This is an intermediate report, not the final SLR or CEP submission.
+Checkpoint: 689 formal occurrences; 10 duplicates; 20 supplementary selected records; 21 accepted studies; 28 full texts assessed; 7 full-text exclusions; 575 earlier-stage exclusions; 96 pending access cases. IEEE and Springer captures cover all pages for the executed queries; ACM/ScienceDirect coverage remains blocked. Detailed extraction and version checking remain open. This is an intermediate report, not the final SLR or CEP submission.
 
 All four mechanisms remain in scope. Eligibility is never relaxed to meet the 15–20-study target. Group B is untouched. Licensed publisher PDFs must not be committed to this public repository; provide them privately through the conversation. Requested links use platforms listed by NED; paper-level entitlement must still be checked.
 
 Compile from this group's report directory using latexmk -pdf main.tex; the unmodified LPPL IEEEtran bibliography style is bundled for portability. The PDF uses 12-point Times-compatible type. scripts/validate_evidence.py checks register/count/citation integrity. Derived-register scripts encode recorded reviewer decisions, not automated paper selection.
 
-User access constraint (11 October 2026): at most 10 paper downloads total. Prioritize those in evidence/download_requests.md; retain other inaccessible candidates as deferred, not excluded or requested. Record incomplete coverage explicitly.
+User access constraint (11 October 2026): at most 10 paper downloads total. Six of the ten were supplied and assessed; no further download is requested. Retain other inaccessible candidates as deferred, not excluded or requested. Record incomplete coverage explicitly.
