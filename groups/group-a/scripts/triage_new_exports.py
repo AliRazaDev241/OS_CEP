@@ -64,6 +64,7 @@ def main():
     prior_bibkey = {}
     exclusions = {x["record_id"]:x for x in read_csv(e / "priority_title_abstract_decisions.csv")}
     queue = {x["record_id"]:x for x in read_csv(e / "priority_fulltext_queue.csv")}
+    assessments = {x["record_id"]:x for x in read_csv(e / "new_fulltext_assessments.csv")}
     fields = ["record_id", "canonical_record", "stage", "decision", "reason_code", "rationale", "abstract_available", "evidence_basis", "reviewer", "review_date", "full_text_status"]
     out = []
     for row in rows:
@@ -82,7 +83,11 @@ def main():
             prior = key_prior
             vals = ("pre_screen", "remove_exact_bibkey_duplicate", "D-BIBKEY", f"Identical ACM BibTeX entry key to {prior}; occurrence retained for provenance.", "exact same-source BibTeX key", "deterministic", "2026-10-16", "not applicable")
         elif rid in queue:
-            vals = ("title_abstract", "retrieve_for_eligibility", "", queue[rid]["reason"], "reviewed title/abstract", "AI-CODEX", "2026-10-16", "not assessed")
+            if rid in assessments:
+                a = assessments[rid]
+                vals = ("full_text", a["decision"], a["reason_code"], "Full published report assessed; see new_fulltext_assessments.csv for source-anchored eligibility and extraction. Formal QA and version linkage remain open.", "full published proceedings report", a["reviewer"], a["review_date"], a["decision"])
+            else:
+                vals = ("title_abstract", "retrieve_for_eligibility", "", queue[rid]["reason"], "reviewed title/abstract", "AI-CODEX", "2026-10-16", "not assessed")
         elif not ACCELERATOR.search(text) and not (INFERENCE.search(text) and PROTECT.search(text)) and title:
             vals = ("title_abstract", "exclude", "E2", "Title and supplied abstract do not indicate a GPU/accelerator sharing mechanism for the assigned local inference question; broad full-text query match only.", "title and available abstract" if abstract else "title only; abstract absent", "AI-CODEX rule-assisted", "2026-10-16", "not assessed")
         elif abstract and ACCELERATOR.search(text) and not INFERENCE.search(text):

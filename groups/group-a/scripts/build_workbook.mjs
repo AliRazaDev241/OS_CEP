@@ -43,6 +43,10 @@ for(const [name,matrix] of Object.entries(data)){
   sh.getRange('D:F').format.columnWidth=24;sh.getRange('G:G').format.columnWidth=85;
   sh.getRange('H:I').format.columnWidth=30;body.format.rowHeight=65;
  }
+ if(name==='AssessedNew'){
+  sh.getRange('A:D').format.columnWidth=24;sh.getRange('E:F').format.columnWidth=66;
+  sh.getRange('G:L').format.columnWidth=76;body.format.rowHeight=145;
+ }
  if(name==='Quality'){
   sh.getRange('B:K').format.columnWidth=7;sh.getRange('N:N').format.columnWidth=65;
   sh.getRange(`L2:L${rows}`).formulas=Array.from({length:rows-1},(_,i)=>[`=SUM(B${i+2}:K${i+2})`]);
