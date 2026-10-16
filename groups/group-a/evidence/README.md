@@ -1,5 +1,7 @@
 # Current evidence — batches 1 and 2, 17 October 2026
 
+`interim_four_source_prisma.json` is the auditable count snapshot for the report's new four-source interim stage diagram. Regenerate with `scripts/build_interim_prisma.py`. It combines the historical Flow A and the received Step 5 overlay with batches 1--3. Four extra links, 45 unsought reports, 96 unresolved retrievals, two eligible reports pending integration, and publisher count discrepancies keep it provisional; `prisma_counts.json` remains the historical 11 October checkpoint.
+
 Current accepted set: 43; use the current-prefixed combined ledgers and batch1_review.md / batch2_review.md / batch3_review.md. Original Flow A is historical. Extension decision authority: new_fulltext_assessments.csv. Thirty-one received/assessed, 45 remaining in the supplied 76-entry queue; two earlier preliminary assessments are outside the 43. See report/BUILD.md for rebuild order.
 
 # Group A evidence — 11 October 2026

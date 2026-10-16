@@ -13,6 +13,8 @@ From the repository root, rebuild evidence with `python groups/group-a/scripts/b
 
 The 17 October Step 3--5 notes are supplementary review inputs. Their individual decisions are not yet reflected in `new_screening_triage.csv` or the workbook. The report distinguishes the note-level 78 advanced/assessed occurrences from the older first-pass CSV until the row-level reconciliation is performed.
 
+The report also includes `query_prisma_interim.tex`, an interim four-source stage map. Run `python groups/group-a/scripts/build_interim_prisma.py` from the root to validate its stage arithmetic and refresh `groups/group-a/evidence/interim_four_source_prisma.json` before compiling. Four additional links and Step 5 exclusions still need canonical row-level reconciliation; the figure does not claim final PRISMA completion.
+
 The query PDF uses12-point Times-compatible text with numerical IEEEtran citations. It remains an intermediate deliverable; final20-30-page CEP submission and incomplete database coverage are separate outstanding work. The original protocol contents and Group B evidence are preserved.
 
 
