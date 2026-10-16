@@ -1,0 +1,7 @@
+record_id,title,source_file,stage,decision,primary_reason_code,rationale,reviewer,date,full_text_assessed
+GA-N00013,Deep Learning Workload Scheduling in GPU Datacenters: A Survey,ACM_MASTER_01.bib,title_abstract,exclude,E6,Survey; not an original primary evaluation.,AI-CODEX,2026-10-16,no
+GA-N00030,Online evolutionary batch size orchestration for scheduling deep learning workloads in GPU clusters,ACM_MASTER_01.bib,title_abstract,exclude,E4,"Abstract addresses deep-learning training cost and cluster scheduling, without inference-serving evidence.",AI-CODEX,2026-10-16,no
+GA-N00069,Characterizing Training Performance and Energy for Foundation Models and Image Classifiers on Multi-Instance GPUs,ACM_MASTER_01.bib,title_abstract,exclude,E4,"Title/abstract characterize training performance and energy on MIG, without inference-serving evidence.",AI-CODEX,2026-10-16,no
+GA-N00081,Kale: Elastic GPU Scheduling for Online DL Model Training,ACM_MASTER_01.bib,title_abstract,exclude,E4,Title/abstract concern online and offline model training scheduling.,AI-CODEX,2026-10-16,no
+GA-N00092,RAP: Resource-aware Automated GPU Sharing for Multi-GPU Recommendation Model Training and Input Preprocessing,ACM_MASTER_01.bib,title_abstract,exclude,E4,Title/abstract concern recommendation-model retraining and input preprocessing.,AI-CODEX,2026-10-16,no
+GA-N00874,Performance Prediction of Concurrent DNN Training Tasks in GPU Spatial Sharing Environments,ACM_MASTER_02.bib,title_abstract,exclude,E4,Title/abstract concern concurrent DNN training task prediction.,AI-CODEX,2026-10-16,no
