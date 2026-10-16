@@ -32,6 +32,14 @@ The numbered [RED] passages below correspond to red text in the PDF. They are pr
 
 [RED 14] Before submission: reconcile four Step 5 links, canonical title/abstract and report-version rows; assess 45 queued reports and resolve 96 earlier retrieval cases; integrate or exclude the two eligible-pending reports with explicit reasons; generate a final PRISMA 2020 diagram whose boxes derive from the same ledgers; audit the single-reviewer decisions and quality scores; complete missing GPU, driver, profile, quota, arrival, warm-up and variance fields; rerun the conditional synthesis and sensitivity analysis.
 
+[RED 15] The working set has not passed that final sensitivity gate.
+
+[RED 16] A documented re-export or a formal coverage-limitation decision remains necessary.
+
+[RED 17] Repeat this sensitivity analysis against the final included set and the final extraction, not just the 43-study checkpoint.
+
+[RED 18] their final ranking under any particular deployment remains conditional on completing the review and measuring that deployment.
+
 FULL REPORT TEXT (PDF extraction)
 
 GPU Sharing Mechanisms for Multi-Tenant Inference
@@ -76,43 +84,68 @@ review, not a claim that the unresolved PRISMA flow is complete.
 
                                                     1
 Contents
-1   Introduction and engineering problem                                                       3
+1   Introduction                                                                                4
 
-2   Review protocol and search execution                                                       3
-    2.1 Protocol, eligibility and review procedure . . . . . . . . . . . . . . . . . . . .     3
-    2.2 Databases, strings and counts . . . . . . . . . . . . . . . . . . . . . . . . . . .    4
-    2.3 Selection status and PRISMA 2020 . . . . . . . . . . . . . . . . . . . . . . . .       4
+2   Research Questions                                                                          4
 
-3   Evidence base, extraction and comparability                                                6
+3   Research Methodology                                                                        4
+    3.1 Protocol, eligibility and review procedure . . . . . . . . . . . . . . . . . . . .      4
+    3.2 Databases, strings and counts . . . . . . . . . . . . . . . . . . . . . . . . . . .     5
+    3.3 Evidence units and study selection . . . . . . . . . . . . . . . . . . . . . . . .      5
+    3.4 Quality assessment and extraction . . . . . . . . . . . . . . . . . . . . . . . .       6
+    3.5 Synthesis plan and sensitivity . . . . . . . . . . . . . . . . . . . . . . . . . . .    6
+    3.6 Search provenance and deviations . . . . . . . . . . . . . . . . . . . . . . . .        6
 
-4   Mechanism taxonomy and RQ1                                                                 6
-    4.1 Temporal admission, switching and priority . . . . . . . . . . . . . . . . . . .       6
-    4.2 MPS and software spatial quotas . . . . . . . . . . . . . . . . . . . . . . . . .      7
-    4.3 MIG and combinations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . .       7
-    4.4 API remoting, virtualization and runtime control . . . . . . . . . . . . . . . . .     7
+4   PRISMA 2020 Study Selection                                                                 7
+    4.1 Selection status and provisional stage map . . . . . . . . . . . . . . . . . . . .      7
+    4.2 Evidence base, extraction and comparability . . . . . . . . . . . . . . . . . . .       9
 
-5   Metrics, operating conditions and RQ2–RQ3                                                  8
+5   Classification and Taxonomy of Existing Approaches                                      9
+    5.1 Temporal admission, switching and priority . . . . . . . . . . . . . . . . . . . 9
+    5.2 MPS and software spatial quotas . . . . . . . . . . . . . . . . . . . . . . . . . 10
+    5.3 MIG and combinations . . . . . . . . . . . . . . . . . . . . . . . . . . . . . . 10
+    5.4 API remoting, virtualization and runtime control . . . . . . . . . . . . . . . . . 10
 
-6   Comparative evidence matrix and RQ4                                                        8
-    6.1 Trade-offs and conflicting evidence . . . . . . . . . . . . . . . . . . . . . . . .    9
+6   Results and Evidence Synthesis                                                             11
+    6.1 Metrics, operating conditions and RQ2–RQ3 . . . . . . . . . . . . . . . . . .          11
+    6.2 RQ1: control boundary rather than product label . . . . . . . . . . . . . . . . .      11
+    6.3 RQ2: outcome and baseline matrix . . . . . . . . . . . . . . . . . . . . . . . .       12
+    6.4 RQ3: hardware and workload strata . . . . . . . . . . . . . . . . . . . . . . .        13
 
-7 Answers to RQ5 and engineering recommendation                                               10
+7   Comparative Analysis                                                                       13
 
-8   Research gaps and threats to validity                                                     11
+8   Engineering Trade-off Analysis                                                          14
+    8.1 Trade-offs and conflicting evidence . . . . . . . . . . . . . . . . . . . . . . . . 14
 
-9   Conclusion                                                                                11
+9   Discussion                                                                                 15
+    9.1 Interpreting apparently conflicting results . . . . . . . . . . . . . . . . . . . .    15
+    9.2 Evidence strength and transfer . . . . . . . . . . . . . . . . . . . . . . . . . .     15
+    9.3 From evidence to an operational decision . . . . . . . . . . . . . . . . . . . .       16
 
-A Current primary-study register and quality scores                                           12
+10 Evidence-Based Engineering Recommendation                                                   16
 
-B Source-anchored evidence and limitations                                                    16
+11 Research Gaps and Future Research Directions                                                17
 
-C Completion and audit register                                                               26
+12 Threats to Validity                                                                         17
 
+13 Conclusion                                                                                  18
 
+A Search runs and exact executed strings                                                       22
 
+B Quality-assessment checklist and scores                                                      24
 
                                                2
-1     Introduction and engineering problem
+C Current included primary-study register    26
+
+D Source-anchored evidence and limitations   31
+
+E Completion and audit register              41
+
+
+
+
+                                        3
+1     Introduction
 In a multi-tenant inference server, requests from distinct models or clients compete for execution
 slots, accelerator memory, caches and memory bandwidth. Exclusive GPU allocation simplifies
 attribution of latency to a tenant but can leave capacity idle when individual jobs are small or
@@ -137,15 +170,29 @@ Which choice is defensible under stated requirements and evidence limits? The an
 synthesized in Sections 5–10, rather than determined by counting papers in each category.
 
 
-2     Review protocol and search execution
-2.1    Protocol, eligibility and review procedure
+2     Research Questions
+The review answers five questions derived from the assigned comparison. RQ1 asks which
+temporal, MPS, MIG, API and hybrid controls have direct local inference evaluations. RQ2
+asks how density, goodput, latency, fairness and isolation are measured and which comparisons
+are commensurable. RQ3 asks which hardware, model, concurrency and arrival conditions
+change results. RQ4 asks which conflicting effects and engineering costs are observed. RQ5
+asks what choice is supported for a stated SLO, capacity, hardware and isolation requirement.
+Each question requires evaluation rather than a list of titles; the evidence requirements and
+corresponding outputs are detailed in Sections 3–10.
+
+
+3     Research Methodology
+3.1    Protocol, eligibility and review procedure
 The submitted SLR_protocol.tex/pdf is the baseline. Its Group A execution record and dated
 amendments are in groups/group-a/protocol.md and evidence/protocol_amendments.
 md. The literature cutoff was extended to 11 October 2026. The study must be an English-
 language, peer-reviewed original full journal or conference report with relevant concurrent
 inference evidence and adequate technical detail; mixed inference/training work is used only
 where the inference result is separately identifiable. Training-only, cluster-only, editorial, survey
-and vendor-only material does not enter the primary set. A report-version link does not create
+
+
+                                                 4
+and vendor-only material does not enter the primary set. A report-version link does not create
 an additional underlying study. Source retrieval failure remains an access outcome, not an
 eligibility exclusion.
 One AI reviewer carried out the recorded screening and quality appraisal under the user’s
@@ -155,11 +202,7 @@ and CSV files. Quality uses ten criteria scored 0, 0.5 or 1, yielding a total ou
 reporting and experimental adequacy, not proof of a mechanism’s causal superiority. A human
 audit of screening, quality scoring and the remaining reports is still needed.
 
-
-
-
-                                                 3
-2.2    Databases, strings and counts
+3.2    Databases, strings and counts
 The NED E.A. Khan Library E-Resources listing motivated IEEE Xplore, Springer Nature
 Link, ACM Digital Library and ScienceDirect. The exact platform-specific Boolean strings,
 filters, interface URLs, dates and export filenames are preserved in search_runs.csv and
@@ -180,7 +223,77 @@ preserved rather than silently normalized. A displayed hit count, parsed export 
 report have different denominators. No publisher entitlement or complete coverage is inferred
 from an E-Resources listing.
 
-2.3    Selection status and PRISMA 2020
+3.3    Evidence units and study selection
+The protocol uses three linked identities. An occurrence is one result as exported or captured
+from a run; a report is a specific full publication, including a later journal version; and a study is
+the distinct underlying evaluation. This distinction prevents counting a paper found in several
+databases more than once or treating a conference paper and its journal extension as independent
+experiments. DOI and title matching propose duplicate links, but ambiguous versions require
+a recorded decision. For example, the journal REEF report is preferred for GA-S001 and its
+earlier conference report remains linked history [1]. A different title or DOI is not sufficient by
+itself to prove a separate evaluation.
+Title and abstract decisions use the protocol’s scope criteria, with uncertainty advanced rather
+than forced into an exclusion. Retrieval attempts are recorded separately; inability to obtain a
+full text cannot be presented as an assessment of its evidence. At full text the reviewer applies
+one principal reason: E1 no inference-serving evidence; E2 no local multi-tenant sharing; E3
+mechanism outside scope; E4 training only; E5 cluster only without separable local data; E6
+
+                                                  5
+non-primary or non-peer-reviewed report; E7 insufficient detail; E8 duplicate or less complete
+report; E9 period or language; E10 a documented other reason. These are decision categories,
+not an estimate of the unresolved queue’s fate. The working set admits mixed training/inference
+studies only for separable inference outcomes and labels any transferred inference claim as such.
+
+3.4    Quality assessment and extraction
+All 43 working studies have a Q1–Q10 appraisal row with item scores and rationales. Each item
+receives 1, 0.5, or 0, with high (8–10), moderate (6–7.5), and low (below 6) reporting bands. Q1
+checks the tenant question; Q2 the mechanism; Q3 hardware and software; Q4 workload; Q5
+comparator; Q6 metrics; Q7 measurement controls; Q8 support for a result; Q9 limitations; and
+Q10 interpretability. The item-level matrix and checklist are in Appendix B. The total is a guide
+to how fully an evaluation can be interpreted; a high-scoring paper can still be indirect for this
+project’s one-GPU decision or omit adversarial tests. No study was made eligible because it had
+a high score.
+The extraction form records identity and report version; source type and access; GPU/SKU/count,
+OS, driver, runtime, partition/quota; model size and inference task; tenants, co-tenants, batch,
+arrival and measurement window; comparator; statistic and unit; bounded result; caveat; and
+page, figure or table anchor. Source-derived observation and reviewer inference are kept apart.
+The published CSV has separate performance interference, resource/memory, security, and
+fault-containment fields. A blank chart coordinate or unspecified driver is marked untranscribed
+where appropriate, rather than supplied from product defaults. The Appendix C cards reproduce
+a single bounded outcome and caveat per preferred report; the full workbook remains the
+evidence record for individual results.
+
+3.5    Synthesis plan and sensitivity
+The protocol calls for a structured narrative synthesis because workloads, accelerators, control
+layers, latency percentiles and resource budgets differ. Within-study matched comparisons can
+support a bounded direction or numeric effect in that paper’s stratum. Across studies we compare
+conditions and mechanisms qualitatively; we do not average heterogeneous ratios or equate a
+server’s GPU count to local occupancy. Findings are classified as direct within-study evidence,
+indirect transfer to the assigned decision, contextual mechanism description, or insufficient
+evidence. RQ1 uses the control-boundary taxonomy; RQ2 the metric and comparator audit;
+RQ3 the hardware/workload strata; RQ4 adverse examples and competing objectives; RQ5
+a conditional decision table. A final sensitivity analysis must revisit recommendations after
+excluding moderate-score or weakly anchored evidence and after resolving the current access
+queue. The working set has not passed that final sensitivity gate.
+
+3.6    Search provenance and deviations
+The IEEE and Springer runs on 11 October and the later ACM and ScienceDirect exports on 14
+October are separate events; an earlier blocked pilot is not a successful search. The exact run
+expressions, fields, filters, date, display observations and source links are rendered in Appendix
+A and kept in the two search-run CSVs. Springer and ACM use a broad master expression, while
+IEEE and ScienceDirect use family-specific expressions. The IEEE public search covered all
+metadata rather than the planned field-qualified command form. ScienceDirect split the master
+to satisfy its connector limit and omitted DNN/LLM in its shared inference block; this changes
+
+                                                6
+recall. ACM’s displayed hit total and parsed exports diverge. The ScienceDirect temporal
+URL indicates an open-access facet whose use at the time of export is not established. These
+issues cannot be repaired by renaming imported rows. A documented re-export or a formal
+coverage-limitation decision remains necessary.
+
+
+4     PRISMA 2020 Study Selection
+4.1    Selection status and provisional stage map
 Figure 1 is an interim stage map, with arithmetic cross-checked against interim_four_
 source_prisma.json. It is deliberately labelled as provisional: four additional links, row-level
 Step 3–5 decisions, report versions and retrieval statuses still need canonical reconciliation. The
@@ -194,7 +307,7 @@ yet be certified.
 
 
 
-                                                4
+                                                7
               Formal records identified, n = 4,416            Selected supple-
                 IEEE 102; Springer 587; ACM                   mentary records
                   1,829; ScienceDirect 1,898                      n = 20
@@ -249,15 +362,14 @@ interim_four_source_prisma.json.
 
 
 
-                                                     5
+                                                     8
 The identities are 4,416+20-525-4=3,907; 3,705+202=3,907; 45+157=202; 96+61=157; and
 16+2+43=61. These equations demonstrate arithmetic consistency of the interim map, not that
 each link, screening event or source coverage has been fully audited. The historical 21-study
 figure remains a separate checkpoint in the query report; this interim map must not be submitted
 as a final PRISMA flow.
 
-
-3     Evidence base, extraction and comparability
+4.2    Evidence base, extraction and comparability
 The working set contains 43 distinct accepted study IDs, each with a preferred report, a quality
 row and a bounded extraction row. The bibliography preserves those report keys. The complete
 study register in Appendix A gives the title, year, mechanism and quality score; Appendix B
@@ -283,30 +395,29 @@ tests are scarce; interference reduction, resource separation, adversarial confi
 containment are separate properties.
 
 
-4     Mechanism taxonomy and RQ1
-4.1    Temporal admission, switching and priority
+5     Classification and Taxonomy of Existing Approaches
+5.1    Temporal admission, switching and priority
 Clockwork schedules predictable GPU work with SLO-aware goodput as a central outcome
-[1]. PipeSwitch explores pipelined context switches [2]. REEF, Sirius, Orion, XSched, Paella,
+[2]. PipeSwitch explores pipelined context switches [3]. REEF, Sirius, Orion, XSched, Paella,
 SPLIT, Miriam, SwitchFlow and ElasticRoom use different combinations of preemption, priority,
-kernel or subgraph control, compilers and feedback [3, 4, 5, 6, 7, 8, 9, 10, 11]. These are not
+kernel or subgraph control, compilers and feedback [1, 4, 5, 6, 7, 8, 9, 10, 11]. These are not
 interchangeable implementations of a generic time slice: a scheduler that can intercept launches,
 preempt selected kernels and control memory handover has a different cost and failure mode
 from exclusive model execution. SwitchFlow’s concurrent inference evidence is in its inference-
 specific experiment; its larger mixed inference/training p95 example is a separate stratum
 [10].
+Temporal control is attractive when a small high-priority request should interrupt or avoid
 
 
-
-                                                 6
-Temporal control is attractive when a small high-priority request should interrupt or avoid
-best-effort interference. It still needs admitted kernels to finish or be preempted in time, enough
+                                                 9
+best-effort interference. It still needs admitted kernels to finish or be preempted in time, enough
 memory for models and a credible worst-case workload profile. More aggressive interruption
 can lower throughput of the best-effort tenant. A priority guarantee is a performance property
 under evaluated arrivals, not an adversarial security boundary. The strength of this inference is
 direct for the cited within-study experiments and indirect when generalized to a new GPU or
 model.
 
-4.2    MPS and software spatial quotas
+5.2    MPS and software spatial quotas
 MPS enables simultaneous work and configurable active-thread limits; research systems use it to
 provision GPUlets, adapt quotas, right-size kernels or shape interference [12, 13, 14, 15, 16, 17,
 18]. Bless and DeInfer add scheduling or prediction, so their gains cannot be assigned to MPS
@@ -321,7 +432,7 @@ initial p99 violation before shadow-process recovery qualifies its later operati
 supports an engineering control for capacity but the extracted experiments do not establish it as
 a memory-security or fault-isolation guarantee.
 
-4.3    MIG and combinations
+5.3    MIG and combinations
 MIG allocates hardware-defined GPU instances on supported devices. It can give explicit
 resource partitions, but a slice is finite: model weights, batch memory and number of concurrently
 provisioned instances must fit. GNN-Triton reports thrashing beyond the local slice’s model
@@ -339,14 +450,14 @@ not automatically establish that every security or fault-containment property wa
 papers. Exact supported profiles, reconfiguration disruption and threat model need to be checked
 against the target hardware before a final deployment recommendation.
 
-4.4    API remoting, virtualization and runtime control
+5.4    API remoting, virtualization and runtime control
 An API layer can intercept or route calls, isolate runtime objects, schedule kernels or move
 contexts/data across boundaries. Torpor gives a directly measured warning: a BERT example
+reports native 42 ms, remote 43 ms, PCIe swap 144 ms and NVLink swap 45 ms in its Table 4
 
 
-                                                7
-reports native 42 ms, remote 43 ms, PCIe swap 144 ms and NVLink swap 45 ms in its Table 4
-[30]. These are the paper’s setting, not universal interface overheads. StreamBox, KRYPTON,
+                                                10
+[30]. These are the paper’s setting, not universal interface overheads. StreamBox, KRYPTON,
 Tally, Orion, XSched, ArkGPU and SGDRC differ substantially in intercepted APIs, process
 assumptions, memory behavior and scheduling policy [31, 32, 33, 5, 6, 34, 35]. An API wrapper
 changes the trusted implementation surface and can impose transfer, copying, synchronization
@@ -355,11 +466,12 @@ cannot be generalized to all wrappers [32]. StreamBox’s sandbox separation lik
 be promoted to proof of adversarial security [31].
 
 
-5    Metrics, operating conditions and RQ2–RQ3
+6     Results and Evidence Synthesis
+6.1    Metrics, operating conditions and RQ2–RQ3
 Several studies report measured improvements that are deliberately non-comparable across
 strata. REEF’s GV100 PyTorch DISB-C experiment compares normalized p99 and separately
 normalized throughput against Orion; a TensorRT stratum gives a throughput counterexample
-[3]. InferFair’s local Table 3 reports a goodput and slowdown-fairness result under a particular
+[1]. InferFair’s local Table 3 reports a goodput and slowdown-fairness result under a particular
 load ratio, with smaller differences at other ratios [36]. AdMix’s local TP1 and TP2 experiments
 use distinct LLM models and device counts; their best-effort throughput ratios are not pooled
 [17]. The SoCC interference study measures P90 TBT under synthetic co-tenants and finds that
@@ -382,63 +494,152 @@ or system SLO effects that combine local GPU sharing with pipeline design and pl
 [26, 42]. These reports remain relevant to mechanism deployment, but their totals do not identify
 the isolated gain from a partition or quota.
 
+6.2    RQ1: control boundary rather than product label
+The temporal category contains exclusive execution, queueing, context switch, kernel-priority
+and subgraph policies. Clockwork’s predictable worker design and REEF’s priority/preemption
+design share a latency objective but control different execution units [2, 1]. PipeSwitch’s context
+switch latency concerns a transition mechanism; it is not automatically a request p99 outcome [3].
+SPLIT changes the model graph and scheduling blocks, and SwitchFlow interleaves inference
+subgraphs [8, 10]. Grouping them only as “time-slicing” would hide the preemption and memory
+requirements that determine whether a tail bound transfers to another service.
 
-6    Comparative evidence matrix and RQ4
+                                                11
+The MPS family controls process concurrency and active-thread allocation. GPUlet, GSLICE, iG-
+niter and DeInfer add provisioning, admission or interference modeling around those primitives
+[12, 13, 15, 18]. MIG divides a supported GPU into predefined instance layouts; GNN-Triton ex-
+poses slice fit, whereas Dyna-P and MIGServe add dynamic placement or migration [20, 21, 28].
+Hybrid systems such as BOER add MPS inside MIG, and a second software controller may
+change the outcome even when the hardware profile is held fixed [25]. API systems have still
+another control point: Torpor measures transfer paths, while Tally and Orion use intercepted
+calls to regulate execution [30, 33, 5]. These categories are therefore a map of what can be
+controlled and measured, not a guarantee of equivalent implementations.
+
+6.3    RQ2: outcome and baseline matrix
+                 Table 1: Why apparently similar outcomes cannot be pooled
+                 without a matched denominator.
+
+  Outcome                 Example of direct measurement      Comparison boundary
+  SLO goodput         Clockwork measures requests            Requires the same SLO and
+                      that satisfy the deadline;             arrivals; neither is raw request
+                      InferFair reports local goodput        throughput or an adversarial
+                      and a slowdown-fairness ratio          property.
+                      [2, 36].
+  Latency percentile  REEF and XSched use p99;               Percentile, request/token unit,
+                      Torpor reports a p98 tail; SoCC        load and baseline must align. A
+                      interference uses P90 TBT              mean or TBT cannot substitute
+                      [1, 6, 30, 37].                        for p99 request latency.
+  Capacity and        GSLICE uses GUE and iGniter            Efficiency ratio, number of
+  density             counts instances/violations;           GPUs and requests/s under an
+                      MIGServe reports sustainable           attainment threshold are
+                      server rate at 90% SLO                 different denominators.
+                      attainment [13, 15, 28].
+  Job time and energy Dyna-P reports JCT/makespan;           Completion time is not online
+                      EnerTune measures pairing              tail latency, and server power
+                      energy and latency; WattWiser          cannot establish isolated
+                      evaluates whole-server power           one-slice energy.
+                      [21, 29, 39].
+  Isolation           KRYPTON includes a specific            A process boundary or SM
+                      propagation experiment;                quota does not by itself imply
+                      DeInfer and SoCC characterize          security or fault containment.
+                      performance interference
+                      [32, 18, 37].
+
+
+Metric choice can reverse an apparent ranking. A controller may complete more total requests
+while fewer meet a hard SLO. A profiler that raises occupancy may introduce head-of-line
+blocking under bursty arrivals. Cross-study normalized speedups are especially fragile when
+one paper uses a solo-model reference and another uses a static-partition or adaptive scheduling
+baseline. The extraction register retains the original comparator and statistic, allowing a reader
+to reconstruct each bounded statement.
+
+                                               12
+6.4    RQ3: hardware and workload strata
+Server-class NVIDIA GPUs with MIG support are not equivalent to an RTX model lacking MIG
+or to AMD CU masks. Dyna-P’s A30 profile result and GNN-Triton’s MIG slice capacity inform
+partitioning, while DeInfer’s RTX 3080 MPS experiment informs software sharing without a
+MIG comparison [21, 20, 18]. VastPipe reports A100 MPS and a distinct MI100 CU-mask
+stratum; treating them as repeated measurements of one product would misstate its evaluation
+[14]. Edge studies on Jetson or other small accelerators contribute scheduling ideas but change
+memory capacity, supported partition controls and launch overhead [9, 8, 38]. The evidence
+for a given GPU family should therefore be presented with the exact SKU and runtime when
+available, and otherwise as an indirect hypothesis.
+Model memory footprint and batch size alter overlap. GNN-Triton documents a local slice
+thrashing point as more models are loaded [20]; a smaller MIG instance can raise simultaneous
+placement count but cause capacity pressure. ITIF shares transformer computation itself and
+cannot transfer its reported performance ratio to unrelated model families [40]. Deft’s optimal
+synchronization frequency varies with image or batch size [41]. FaST-GShare’s eight RNNT
+pods and their quota are a specific concurrency configuration [16]. LLM decode introduces
+variable token lengths and sustained memory traffic: the SoCC co-tenant study directly measures
+P90 TBT rather than merely end-to-end average latency [37]. These are reasons to stratify by
+architecture and request shape before concluding that a mechanism “improves utilization.”
+Arrival and tenancy also matter. A solo baseline, a pair of fixed-rate models, a bursty Poisson
+trace, and a multi-stage serverless workflow pose different scheduling problems. iGniter’s four
+vision-model constant-arrival deployment and its initial p99 recovery transient delimit the result
+[15]. AdMix distinguishes a local single-GPU LLM stratum from a two-GPU tensor-parallel
+stratum [17]. FluidFaaS and ESG combine pipeline or workflow placement with local sharing;
+their end-to-end SLO percentages are relevant to deployed systems but do not isolate a MIG or
+MPS effect [26, 42]. A final decision should repeat the comparison under a representative trace
+and record both steady-state and transition measurements.
+
+
+7     Comparative Analysis
+                 Table 2: Conditional comparison; each cell describes a sup-
+                 ported design consideration, not a universal ranking.
+
+    Mechanism         Useful condition /      Latency and density     Boundary and
+                      evidence                trade-off               important limitation
+    Temporal          Prioritized, bursty     Priority p99 or SLO     Software scheduling
+    control           requests when           may improve while       controls execution
+                      scheduler can           best-effort             order; it does not by
+                      control or preempt      throughput falls        itself prove memory
+                      work [2, 1, 6, 8].      [1, 33]; memory         confidentiality or fault
+                                              handover and            containment.
+                                              transition cost
+                                              remain.
 
 
 
 
-                                               8
-                   Table 1: Conditional comparison; each cell describes a sup-
-                   ported design consideration, not a universal ranking.
-
-   Mechanism           Useful condition /     Latency and density      Boundary and
-                       evidence               trade-off                important limitation
-   Temporal            Prioritized, bursty   Priority p99 or SLO       Software scheduling
-   control             requests when         may improve while         controls execution
-                       scheduler can         best-effort               order; it does not by
-                       control or preempt    throughput falls          itself prove memory
-                       work [1, 3, 6, 8].    [3, 33]; memory           confidentiality or fault
-                                             handover and              containment.
-                                             transition cost
-                                             remain.
-   MPS/quotas          Compatible small      Density can improve;      Active-thread shares do
-                       models, concurrent    oversubscription,         not isolate all resources;
-                       execution and         load transients and       security and fault
-                       measured quota        shared bandwidth          claims require direct
-                       tuning                may harm tails            tests.
-                       [12, 13, 14, 18].     [15, 37].
-   MIG/partitions      Supported device,     Profile                   More explicit hardware
-                       well-sized models     fragmentation,            resource boundary; a
-                       and explicit instance memory fit and            cited performance
-                       resource budgets      reconfiguration can       experiment is not an
-                       [20, 21].             reduce usable             adversarial security
-                                             density or increase       evaluation.
-                                             JCT.
-   MIG+MPS             Model grouping and Light models may             Multiple controls and
-   hybrids             profile/quota search benefit; larger            service-level placement
-                       with monitoring       models may lose to        confound attribution;
-                       [22, 23, 25].         MIG-only [25];            evaluate each local
-                                             optimizer cost            stratum.
-                                             matters.
-   API con-            Interception needed Transfer fabric and         Compatibility, shared
-   trol/remoting       for fine-grained      context path can          process assumptions
-                       scheduling or         dominate; PCIe            and trusted wrapper
-                       process multiplexing versus NVLink              matter; only targeted
-                       [30, 32, 5].          differs within Torpor     faults were evaluated.
-                                             [30].
+                                               13
+    Mechanism         Useful condition /      Latency and density      Boundary and
+                      evidence                trade-off                important limitation
+    MPS/quotas        Compatible small     Density can improve;        Active-thread shares do
+                      models, concurrent   oversubscription,           not isolate all resources;
+                      execution and        load transients and         security and fault
+                      measured quota       shared bandwidth            claims require direct
+                      tuning               may harm tails              tests.
+                      [12, 13, 14, 18].    [15, 37].
+    MIG/partitions    Supported device,    Profile                     More explicit hardware
+                      well-sized models    fragmentation,              resource boundary; a
+                      and explicit instancememory fit and              cited performance
+                      resource budgets     reconfiguration can         experiment is not an
+                      [20, 21].            reduce usable               adversarial security
+                                           density or increase         evaluation.
+                                           JCT.
+    MIG+MPS           Model grouping and Light models may              Multiple controls and
+    hybrids           profile/quota search benefit; larger             service-level placement
+                      with monitoring      models may lose to          confound attribution;
+                      [22, 23, 25].        MIG-only [25];              evaluate each local
+                                           optimizer cost              stratum.
+                                           matters.
+    API con-          Interception needed Transfer fabric and          Compatibility, shared
+    trol/remoting     for fine-grained     context path can            process assumptions
+                      scheduling or        dominate; PCIe              and trusted wrapper
+                      process multiplexing versus NVLink               matter; only targeted
+                      [30, 32, 5].         differs within Torpor       faults were evaluated.
+                                           [30].
 
 
-6.1    Trade-offs and conflicting evidence
+
+8     Engineering Trade-off Analysis
+8.1    Trade-offs and conflicting evidence
 Priority latency versus background throughput is an observed conflict rather than a rhetorical
 possibility. Tally’s 10% idle-time stratum reports normalized background throughput 1.19 versus
 1.65 for TGS, even though its policy targets protected inference latency [33]. REEF’s PyTorch
 priority result and its separate TensorRT throughput comparison show that the conclusion
-changes with runtime and denominator [3]. We infer that a latency-first controller may knowingly
+changes with runtime and denominator [1]. We infer that a latency-first controller may knowingly
 leave capacity or best-effort progress on the table; the size of that sacrifice must be measured at
-
-                                                9
-the target arrival rates. This does not establish Tally or REEF as globally better or worse.
+the target arrival rates. This does not establish Tally or REEF as globally better or worse.
 Packing versus interference is another genuine conflict. VastPipe reports local pair gains over
 default MPS in its A100 configuration [14]; DeInfer observes that MPS limits still permit
 shared-resource latency interference [18]. The SoCC Green Context experiments separate SM
@@ -446,7 +647,9 @@ sets but not L2 and off-chip bandwidth, with substantial P90 TBT sensitivity und
 copy or sleep co-tenant [37]. Their models, GPU generations, metrics and intervention layers
 differ. We infer that quota-only or SM-only allocation should be accompanied by per-tenant
 tail measurements and a memory-traffic stress case, rather than that the papers disagree on one
-controlled experiment.
+
+                                                14
+controlled experiment.
 Partition density versus model fit is visible in GNN-Triton’s local thrashing threshold and Dyna-
 P’s concurrency/JCT tension [20, 21]. BOER’s larger-model counterexample further prevents
 “MIG+MPS always beats MIG” [25]. MIGServe and FluidFaaS evaluate broader server systems,
@@ -461,18 +664,85 @@ busy time. The objective function should include electricity, SLO penalties and 
 devices when those matter.
 
 
-7    Answers to RQ5 and engineering recommendation
+9     Discussion
+9.1    Interpreting apparently conflicting results
+The evidence does not constitute a four-way controlled contest. REEF and Tally protect priority
+inference using different interception/preemption paths and different comparators; Tally’s
+background-throughput disadvantage at one idle-time point does not refute REEF’s p99 result
+in a GV100 PyTorch mix [1, 33]. It instead shows that a latency objective and best-effort
+throughput can conflict. REEF also reports a separate TensorRT comparison that weakens any
+unconditional throughput claim for its own design [1]. The responsible synthesis names the
+engine, arrival process, percentile and denominator for each finding, and evaluates whether the
+objective was a hard priority SLO or total throughput.
+MPS packing and MPS interference are compatible observations. VastPipe’s measured through-
+put in an A100 inference pair suggests room for quota optimization, while DeInfer’s RTX
+3080 experiment shows residual latency interference under MPS limits [14, 18]. Their devices,
+models, scheduler logic and reported statistics differ. The SoCC Green Context characterization
+provides a mechanistic explanation for some remaining contention: separated SM sets do not
+separate shared cache and off-chip bandwidth in its H100 experiments [37]. This is a plausible
+explanation across studies, explicitly an inference rather than a direct cross-paper causal test.
+Hybrid MIG/MPS outcomes similarly depend on the partition profile and model fit. BOER
+reports a local adverse large-model case against MIG-only serving, while other hybrid systems
+optimize different objective functions and often report server-wide gains [25, 22, 23]. GNN-
+Triton’s thrashing and Dyna-P’s JCT trade-off show how profile size and placement can change
+the answer even before the next scheduling layer is added [20, 21]. MIGServe’s four-GPU
+SLO-attainment rate and Protean’s serverless evaluation should inform system design, but cannot
+be used to assign a single-device causal multiplier to MIG [28, 27].
+
+9.2    Evidence strength and transfer
+The strongest claims in this review are bounded within a study: a specified source location,
+hardware, workload and comparator support the stated result. Transferring the direction to an
+unseen GPU generation, model or arrival trace is weaker. The 43 current quality scores total
+
+                                               15
+355 points (mean 8.26); 36 are high and seven moderate under the protocol’s reporting rubric.
+These scores do not imply that 36 studies directly compare all four mechanisms. Only five
+studies receive a full point for measurement controls (Q7), while 35 receive 0.5 and three receive
+zero. Nine receive a full point for comparator adequacy (Q5), while 34 receive 0.5. These item
+patterns are more informative for engineering confidence than the mean score alone; they follow
+the item matrix in Appendix B.
+Dropping the seven moderate studies leaves 36 current high-score studies. That changes which
+observations support serverless sharing, fairness or dynamic placement: VastPipe, ArkGPU,
+Dyna-P, InferFair, Deft, FaST-GShare and Edge-sky are among the moderate rows in the current
+quality sheet. It does not make the surviving results directly comparable, and it cannot answer
+whether the still-unassessed reports contain contrary evidence. Repeat this sensitivity analysis
+against the final included set and the final extraction, not just the 43-study checkpoint.
+
+9.3    From evidence to an operational decision
+The decision starts with non-negotiable constraints. A strict p99 service with heterogeneous
+best-effort co-tenants is not adequately specified by a target average utilization. A deployment
+with a hard memory partition or fault-containment requirement is not adequately specified
+by lower measured interference. A server with an unsupported MIG GPU cannot choose a
+MIG profile, however favorable a different hardware study appears. Once those constraints
+are written, choose a representative model and request trace, measure solo latency, then vary
+tenant count and mechanism under the same SLO and resource budget. Record tail distributions,
+SLO goodput, transition/reconfiguration costs and the particular shared resources stressed. The
+current evidence supplies candidates and known failure modes for that test; it does not replace it.
+The review’s contribution is a decision boundary rather than a global leaderboard. Temporal
+systems have the most direct route to reserving or reclaiming execution time for a priority
+request but may sacrifice background work. MPS can fill unused compute with modest partition
+management but does not remove all contention. MIG offers explicit instances where hardware
+and memory profile fit, yet partition granularity and switching costs can waste capacity. API
+remoting can centralize control at the cost of another data and trust path. Hybrids inherit more
+knobs and a larger configuration-search burden. The citations in Sections 5–8 support these
+qualitative contrasts; their final ranking under any particular deployment remains conditional on
+completing the review and measuring that deployment.
+
+
+10     Evidence-Based Engineering Recommendation
 For a strict per-tenant latency SLO and a high-priority versus best-effort mix, begin with exclu-
 sive admission or a temporal controller whose measured preemption, handover and model-fit
 behavior satisfy the target percentile. REEF, Clockwork, Sirius, XSched and related experiments
-support the possibility of protecting priority work in their own settings [3, 1, 4, 6]. Reserve
+support the possibility of protecting priority work in their own settings [1, 2, 4, 6]. Reserve
 capacity or accept lower background throughput when necessary; Tally supplies a direct caution
 [33]. This is an inference from heterogeneous studies, not a certified SLO for a new GPU.
 A final target workload trace, percentile and allowed throughput loss are needed to make the
 deployment choice concrete.
 For density with compatible small models and flexible SLOs, trial MPS with explicit per-model
 caps and interference monitoring, using solo and concurrent baselines at realistic burst rates
-[12, 13, 14, 18]. Report achieved goodput and tail latency alongside density. If memory footprint
+
+                                                16
+[12, 13, 14, 18]. Report achieved goodput and tail latency alongside density. If memory footprint
 or cache/bandwidth contention dominates, a cap alone is insufficient. If supported hardware and
 model fit permit it, trial MIG partitions for more explicit allocation; test several profiles and
 the cost of reconfiguration, then compare MIG-only and MIG+MPS on the same service mix
@@ -482,11 +752,7 @@ integration and measured call, transfer and context overhead fits the SLO. Bench
 PCIe/NVLink path, tensor sizes and client/runtime compatibility. Torpor illustrates why fabric
 selection changes latency [30]. A security or fault-containment requirement additionally calls for
 a specified threat model and direct testing; performance-interference control cannot substitute
-
-
-
-                                               10
-for that evidence. No cross-mechanism adversarial security ranking is justified by the current
+for that evidence. No cross-mechanism adversarial security ranking is justified by the current
 extraction.
 Use an explicit decision record: target GPU and supported features; peak and burst arrival trace;
 model and batch memory; p95/p99 or TTFT/TBT SLO; minimum goodput and tenant count;
@@ -499,7 +765,7 @@ procedure is our engineering interpretation of the evidence, not a benchmark out
 by one paper.
 
 
-8    Research gaps and threats to validity
+11     Research Gaps and Future Research Directions
 The working extraction shows incomplete apples-to-apples comparisons of time slicing, MPS,
 MIG and remoting on one GPU under the same models, arrivals, SLOs, resource budget and
 driver/runtime. Tail and fairness metrics are inconsistent. Several systems combine local sharing
@@ -509,6 +775,9 @@ experiments. Recent LLM decoding introduces TTFT/TBT and memory-bandwidth behavi
 that does not map neatly to older image-classifier throughput. These gaps follow from the
 recorded comparison fields and negative cases; the final gap inventory is subject to the remaining
 full texts and parameter extraction.
+
+
+12     Threats to Validity
 Review-level threats include incomplete formal export coverage, the ACM displayed/export
 mismatch, ScienceDirect filter ambiguity, an amended cutoff, a single AI reviewer, rule-assisted
 title exclusions, 45 unassessed extension reports, 96 unresolved retrieval cases and two pending
@@ -520,8 +789,8 @@ not interpolate plots, and label untranscribed parameters. Quality totals assess
 threshold alone cannot resolve indirectness or missing experiments. A final sensitivity analysis
 after screening and human review is required before calling the synthesis complete.
 
-
-9    Conclusion
+                                               17
+13     Conclusion
 Current primary evidence supports conditional engineering selection rather than a universal
 winner. Temporal admission and preemption can protect prioritized inference with throughput
 or integration costs. Tuned MPS can pack compatible models but retains shared-resource
@@ -533,216 +802,619 @@ The 43-study working set and interim PRISMA map must be reconciled with all pend
 retrieval, screening and version decisions before this becomes the final submitted SLR.
 
 
-                                               11
-A     Current primary-study register and quality scores
+References
+ [1] M. Han, R. Chen, W. Shen, H. Zhang, J. Yang, and H. Chen, “Real-time, Work-conserving
+     GPU Scheduling for Concurrent DNN Inference,” ACM Transactions on Computer
+     Systems, vol. 44, no. 1, pp. 1–42, 2025, art. no. 1; publication date November 2025 as
+     printed in supplied report. [Online]. Available: https://doi.org/10.1145/3768622
+ [2] A. Gujarati, R. Karimi, S. Alzayat, W. Hao, A. Kaufmann, Y. Vigfusson,
+     and J. Mace, “Serving DNNs like Clockwork: Performance Predictability from
+     the Bottom Up,” in USENIX OSDI, 2020, pp. 443–462. [Online]. Available:
+     https://www.usenix.org/conference/osdi20/presentation/gujarati
+ [3] Z. Bai, Z. Zhang, Y. Zhu, and X. Jin, “PipeSwitch: Fast Pipelined Context Switching for
+     Deep Learning Applications,” in USENIX OSDI, 2020, pp. 499–514. [Online]. Available:
+     https://www.usenix.org/conference/osdi20/presentation/bai
+ [4] J. Wang, Y. Wang, M. Han, and R. Chen, “SIRIUS: Colocating ML Inference and Training
+     with Fast GPU Memory Handover,” in USENIX ATC, 2025, pp. 1657–1675. [Online].
+     Available: https://www.usenix.org/conference/atc25/presentation/wang-jiali
+ [5] F. Strati, X. Ma, and A. Klimovic, “Orion: Interference-aware Fine-grained GPU Sharing
+     for ML Applications,” in ACM EuroSys, 2024, pp. 1075–1092. [Online]. Available:
+     https://doi.org/10.1145/3627703.3629578
+ [6] W. Shen, M. Han, J. Liu, R. Chen, and H. Chen, “XSched: Preemptive Scheduling
+     for Diverse XPUs,” in USENIX OSDI, 2025, pp. 671–692. [Online]. Available:
+     https://www.usenix.org/conference/osdi25/presentation/shen-weihang
+ [7] K. K. W. Ng, H. M. Demoulin, and V. Liu, “Paella: Low-latency Model Serving
+     with Software-defined GPU Scheduling,” in ACM SOSP, 2023, pp. 595–610. [Online].
+     Available: https://doi.org/10.1145/3600006.3613163
+ [8] D. Luo, T. Yu, Y. Wu, H. Wu, T. Wang, and W. Zhang, “SPLIT: QoS-Aware DNN
+     Inference on Shared GPU via Evenly-Sized Model Splitting,” in Proceedings of ICPP
+     2023, 2023, pp. 605–614. [Online]. Available: https://doi.org/10.1145/3605573.3605627
+ [9] Z. Zhao, N. Ling, N. Guan, and G. Xing, “Miriam: Exploiting elastic kernels for real-time
+     multi-dnn inference on edge gpu,” in Proceedings of ACM/IEEE Symposium on Edge
+     Computing 2023, 2023. [Online]. Available: https://doi.org/10.1145/3625687.3625789
+
+
+                                             18
+[10] X. Wu, J. Rao, W. Chen, and H. Huang, “Switchflow: Preemptive multitasking
+     for deep learning,” in Proceedings of Middleware 2021, 2021. [Online]. Available:
+     https://doi.org/10.1145/3464298.3493391
+[11] L. Ma, H. Chen, E. Shao, L. Wang, Q. Chen, and G. Tan, “Elasticroom: Multi-tenant
+     dnn inference engine via co-design with resource-constrained compilation and strong
+     priority scheduling,” in Proceedings of HPDC 2024, 2024. [Online]. Available:
+     https://doi.org/10.1145/3625549.3658654
+[12] S. Choi, S. Lee, Y. Kim, J. Park, Y. Kwon, and J. Huh, “Serving Heterogeneous Machine
+     Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing,” in USENIX
+     ATC, 2022, pp. 199–216. [Online]. Available: https://www.usenix.org/conference/atc22/
+     presentation/choi-seungbeom
+[13] A. Dhakal, S. G. Kulkarni, and K. K. Ramakrishnan, “GSLICE: Controlled Spatial
+     Sharing of GPUs for a Scalable Inference Platform,” in ACM SoCC, 2020, pp. 492–506.
+     [Online]. Available: https://doi.org/10.1145/3419111.3421284
+[14] L.-X. Ma, L.-P. Wang, E. Shao, R.-Y. Cao, and G.-M. Tan, “VastPipe: A High-Throughput
+     Inference System via Adaptive Space-Division Multiplexing for Diverse Accelerators,”
+     Journal of Computer Science and Technology, vol. 40, no. 2, pp. 444–463, 2025. [Online].
+     Available: https://doi.org/10.1007/s11390-024-3773-5
+[15] F. Xu, J. Xu, J. Chen, L. Chen, R. Shang, Z. Zhou, and F. Liu, “iGniter: Interference-Aware
+     GPU Resource Provisioning for Predictable DNN Inference in the Cloud,” IEEE
+     Transactions on Parallel and Distributed Systems, vol. 34, no. 3, pp. 812–827, 2023.
+     [Online]. Available: https://doi.org/10.1109/TPDS.2022.3232715
+[16] J. Gu, Y. Zhu, P. Wang, M. Chadha, and M. Gerndt, “FaST-GShare: Enabling
+     Efficient Spatio-Temporal GPU Sharing in Serverless Computing for Deep Learning
+     Inference,” in Proceedings of ICPP 2023, 2023, pp. 635–644. [Online]. Available:
+     https://doi.org/10.1145/3605573.3605638
+[17] S. Li, T. Hanawa, and Y. Miki, “Adaptive GPU Sharing for Real-time LLM Serving with
+     Best-effort Workloads,” in ICPP Workshops 2026, 2026, pp. 1–6. [Online]. Available:
+     https://doi.org/10.1145/3816891.3834895
+[18] Y. Chen, W. Li, H. Zhou, X. Yang, and Y. Yin, “Deinfer: A gpu resource allocation
+     algorithm with spatial sharing for near-deterministic inferring tasks,” in Proceedings of
+     ICPP 2024, 2024. [Online]. Available: https://doi.org/10.1145/3673038.3673091
+[19] S. Zhang, Q. Chen, W. Cui, H. Zhao, C. Xue, Z. Zheng, W. Lin, and
+     M. Guo, “Improving GPU Sharing Performance through Adaptive Bubbleless Spatial-
+     Temporal Sharing,” in Proceedings of EuroSys 2025, 2025. [Online]. Available:
+     https://doi.org/10.1145/3689031.3696070
+[20] C. Savard, N. Manganelli, B. Holzman, L. Gray, A. Perloff, K. Pedro, K. Stenson,
+     and K. Ulmer, “Optimizing High-Throughput Inference on Graph Neural Networks at
+     Shared Computing Facilities with the NVIDIA Triton Inference Server,” Computing
+     and Software for Big Science, vol. 8, 2024, art. no. 14. [Online]. Available:
+     https://link.springer.com/article/10.1007/s41781-024-00123-2
+
+
+
+
+                                              19
+[21] T. Adufu and Y. Kim, “Dyna-P: placement-aware dynamic partitioning for lightweight
+     applications with modern GPUs,” Cluster Computing, vol. 28, 2025, art. no. 608. [Online].
+     Available: https://doi.org/10.1007/s10586-025-05284-2
+[22] M. Lee, S. Seong, M. Kang, J. Lee, G.-J. Na, I.-G. Chun, D. S. Nikolopoulos,
+     and C.-H. Hong, “ParvaGPU: Efficient Spatial GPU Sharing for Large-Scale DNN
+     Inference in Cloud Environments,” in IEEE/ACM SC, 2024. [Online]. Available:
+     https://ieeexplore.ieee.org/document/10793202
+[23] B. Zhang, S. Li, and Z. Li, “MIGER: Integrating Multi-Instance GPU and Multi-Process
+     Service for Deep Learning Clusters,” in Proceedings of ICPP 2024, 2024, pp. 504–513.
+     [Online]. Available: https://doi.org/10.1145/3673038.3673089
+[24] Z. Jiang, Z. Cai, Y. Li, Z. Wang, R. Ma, H. Guan, and R. Buyya, “MMK: A Hybrid
+     Scheduling Framework for Fine-Grained GPU Sharing for Deep Learning Applications,”
+     ACM Transactions on Architecture and Code Optimization, vol. 23, no. 3, pp. 1–25, 2026,
+     art. no. 84. [Online]. Available: https://doi.org/10.1145/3820163
+[25] B. Zhang, Y. Wang, and Z. Li, “BOER: Enhancing Resource Utilization for Deep Learning
+     Inference with Hybrid Spatial GPU Sharing,” in Proceedings of SC 2025, 2025, pp.
+     519–532. [Online]. Available: https://doi.org/10.1145/3712285.3759857
+[26] X. Hui, Y. Xu, and X. Shen, “FluidFaaS: A Dynamic Pipelined Solution for Serverless
+     Computing with Strong Isolation-based GPU Sharing,” in Proceedings of HPDC 2025,
+     2025. [Online]. Available: https://doi.org/10.1145/3731545.3731580
+[27] V. M. Bhasi, A. Sharma, R. Jain, J. R. Gunasekaran, A. Pattnaik, M. T. Kandemir, and
+     C. Das, “Towards slo-compliant and cost-effective serverless computing on emerging
+     gpu architectures,” in Proceedings of Middleware 2024, 2024. [Online]. Available:
+     https://doi.org/10.1145/3652892.3700760
+[28] J. Chen, Y. Liang, B. Gao, Z. Zhou, F. Xu, X. Chen, and D. Guo, “MIGServe:
+     Layout-Aware Multi-Instance GPU Management for Efficient LLM Serving,” in
+     Proceedings of ICPP 2026, 2026, pp. 844–854. [Online]. Available: https:
+     //doi.org/10.1145/3832810.3832898
+[29] P. Sinha, D. Liakopoulos, N. Lemma, and N. J. Yadwadkar, “Beyond Utilization:
+     Energy-Conscious GPU Sharing for Inference Serving,” in Proceedings of SOSP 2026,
+     2026, pp. 65–89. [Online]. Available: https://doi.org/10.1145/3830418.3843913
+[30] M. Yu, A. Wang, D. Chen, H. Yu, X. Luo, Z. Li, W. Wang, R. Chen, D. Nie,
+     H. Yang, and Y. Ding, “Torpor: GPU-Enabled Serverless Computing for Low-Latency,
+     Resource-Efficient Inference,” in USENIX ATC, 2025, pp. 597–612. [Online]. Available:
+     https://www.usenix.org/conference/atc25/presentation/yu
+[31] H. Wu, Y. Yu, J. Deng, S. Ibrahim, S. Wu, H. Fan, Z. Cheng, and H. Jin, “StreamBox: A
+     Lightweight GPU SandBox for Serverless Inference Workflow,” in USENIX ATC, 2024, pp.
+     59–73. [Online]. Available: https://www.usenix.org/conference/atc24/presentation/wu-hao
+[32] S. Zhang, A. Xu, Q. Chen, H. Zhao, W. Cui, Z. Wang, Y. Li, L. Xiao, and M. Guo,
+     “KRYPTON: Efficient Performance-Aware GPU Sharing with Compatibility and Isolation
+     through Kernel Space Interception,” in USENIX ATC, 2025, pp. 1003–1019. [Online].
+     Available: https://www.usenix.org/conference/atc25/presentation/zhang-shulai
+
+
+                                             20
+[33] W. Zhao, A. Jayarajan, and G. Pekhimenko, “Tally: Non-Intrusive Performance Isolation
+     for Concurrent Deep Learning Workloads,” in ACM ASPLOS Volume 1, 2025, pp.
+     1052–1068. [Online]. Available: https://doi.org/10.1145/3669940.3707282
+[34] J. Lou, Y. Sun, J. Zhang, H. Cao, Y. Zhang, and N. Sun, “ArkGPU: enabling applications’
+     high-goodput co-location execution on multitasking GPUs,” CCF Transactions on
+     High Performance Computing, vol. 5, pp. 304–321, 2023. [Online]. Available:
+     https://doi.org/10.1007/s42514-023-00154-y
+[35] Y. Zhang, H. Yu, C. Han, C. Wang, B. Lu, Y. Li, Z. Jiang, Y. Li, X. Chu, and H. Li,
+     “SGDRC: Software-Defined Dynamic Resource Control for Concurrent DNN Inference on
+     NVIDIA GPUs,” in Proceedings of PPoPP 2025, 2025, pp. 267–281. [Online]. Available:
+     https://doi.org/10.1145/3710848.3710863
+[36] Y. Peng and H. Peng, “InferFair: Towards QoS-aware scheduling for performance
+     isolation guarantee in heterogeneous model serving systems,” Future Generation
+     Computer Systems, vol. 150, pp. 10–20, 2024. [Online]. Available: https:
+     //www.sciencedirect.com/science/article/pii/S0167739X23003187
+[37] P. Elvinger, F. Strati, N. E. Jerger, and A. Klimovic, “Understanding GPU Resource
+     Interference One Level Deeper,” in Proceedings of SoCC 2025, 2025, printed SoCC 2025
+     event; export year 2026. [Online]. Available: https://doi.org/10.1145/3772052.3772270
+[38] J. Hao, P. Subedi, L. Shramaswamy, and I. K. Kim, “Reaching for the sky:
+     Maximizing deep learning inference throughput on edge devices with ai multi-
+     tenancy,” ACM Transactions on Internet Technology, 2023. [Online]. Available:
+     https://doi.org/10.1145/3546192
+[39] A. Jahanshahi, M. Rezvani, and D. Wong, “Wattwiser: Power & resource-efficient
+     scheduling for multi-model multi-gpu inference servers,” in Proceedings of IGSC 2023,
+     2023. [Online]. Available: https://doi.org/10.1145/3634769.3634807
+[40] Y. Zhang, Z. Zhang, W. Bao, and D. Yuan, “Itif: Integrated transformers inference
+     framework for multiple tenants on gpu,” in Proceedings of ICPP 2023, 2023. [Online].
+     Available: https://doi.org/10.1145/3605573.3605585
+[41] Z. Xia, Y. Hao, J. Duan, C. Wang, and J. Jiang, “Towards Optimal Preemptive GPU
+     Time-Sharing for Edge Model Serving,” in Proceedings of the 9th International Workshop
+     on Container Technologies and Container Clouds (WoC 2023), 2024, pp. 13–18, woC
+     2023 event; export publication year 2024; printed reference year 2023. [Online]. Available:
+     https://doi.org/10.1145/3631311.3632401
+[42] X. Hui, Y. Xu, Z. Guo, and X. Shen, “Esg: Pipeline-conscious efficient scheduling of dnn
+     workflows on serverless platforms with shareable gpus,” in Proceedings of HPDC 2024,
+     2024. [Online]. Available: https://doi.org/10.1145/3625549.3658657
+[43] M. Chow, A. Jahanshahi, and D. Wong, “KRISP: Enabling Kernel-wise RIght-sizing for
+     Spatial Partitioned GPU Inference Servers,” in IEEE HPCA, 2023, pp. 624–637. [Online].
+     Available: https://doi.org/10.1109/HPCA56546.2023.10071121
+
+
+
+
+                                              21
+A     Search runs and exact executed strings
+The complete source URLs, parsed file receipts and individual screening rows accompany this
+report in the Group A evidence directory and query workbook. The table below reproduces the
+exact entered strings for all ten executed runs; blocked pilots are not counted as completed runs.
+
+                 Table 3: Exact executed search expressions, dates, filters and
+                 observed/parsed counts. Full raw URLs and export receipts
+                 are in the companion search logs.
+
+    Run           Exact entered query                             Provenance and
+                                                                  observations
+    IEEE-MPS (GPU OR "graphics processing unit") AND IEEE Xplore; 2026-10-11;
+             (inference OR "model serving" OR "deep  fields: All metadata
+             learning" OR DNN OR LLM) AND (MPS (Search by All); not
+             OR "multi-process service")             field-qualified Command
+                                                     Search; filters: Publication
+                                                     years2020-2026;
+                                                     date/language/type checked
+                                                     during screening; displayed
+                                                     hits: 25; imported: 25.
+    IEEE-MIG (GPU OR "graphics processing unit") AND IEEE Xplore; 2026-10-11;
+             (inference OR "model serving" OR "deep  fields: All metadata
+             learning" OR DNN OR LLM) AND (MIG (Search by All); not
+             OR "multi-instance GPU" OR "GPU         field-qualified Command
+             partitioning")                          Search; filters: Publication
+                                                     years2020-2026;
+                                                     date/language/type checked
+                                                     during screening; displayed
+                                                     hits: 23; imported: 23.
+    IEEE-    (GPU OR "graphics processing unit") AND IEEE Xplore; 2026-10-11;
+    TEMPORAL (inference OR "model serving" OR "deep  fields: All metadata
+             learning" OR DNN OR LLM) AND ("time (Search by All); not
+             slicing" OR "time sharing" OR "context  field-qualified Command
+             switching")                             Search; filters: Publication
+                                                     years2020-2026;
+                                                     date/language/type checked
+                                                     during screening; displayed
+                                                     hits: 45; imported: 45.
+    IEEE-API (GPU OR "graphics processing unit") AND IEEE Xplore; 2026-10-11;
+             (inference OR "model serving" OR "deep  fields: All metadata
+             learning" OR DNN OR LLM) AND ("API (Search by All); not
+             remoting" OR "CUDA remoting" OR "GPU field-qualified Command
+             proxy" OR "GPU virtualization")         Search; filters: Publication
+                                                     years2020-2026;
+                                                     date/language/type checked
+                                                     during screening; displayed
+                                                     hits: 9; imported: 9.
+
+                                               22
+Run          Exact entered query                     Provenance and
+                                                     observations
+SPR-     (GPU OR "graphics processing unit") AND Springer Nature Link;
+MASTER   (inference OR "model serving" OR "deep  2026-10-11; fields: General
+         learning" OR DNN OR LLM) AND ("time search/full-text indexed
+         slicing" OR "time sharing" OR "context  collection; filters: English;
+         switching" OR MPS OR "multi-process     Research article OR
+         service" OR MIG OR "multi-instance      Conference
+         GPU" OR "GPU partitioning" OR "API      paper;2020-2026; manual
+         remoting" OR "CUDA remoting" OR "GPU cutoff; displayed hits: 587;
+         proxy" OR "GPU virtualization")         imported: 587.
+ACM-     (GPU OR "graphics processing unit") AND ACM Digital Library (The
+MASTER   (inference OR "model serving" OR "deep  ACM Full-Text Collection);
+         learning" OR DNN OR LLM) AND ("time 14 October 2026, 10:30
+         slicing" OR "time sharing" OR "context  PM; fields: All Fields;
+         switching" OR MPS OR "multi-process     filters: 2020 - 2026;
+         service" OR MIG OR "multi-instance      displayed hits: 1600;
+         GPU" OR "GPU partitioning" OR "API      parsed entries: 1829. 1600
+         remoting" OR "CUDA remoting" OR "GPU displayed; 1603 claimed
+         proxy" OR "GPU virtualization")         exported; 1829 parsed in
+                                                 two master files; page
+                                                 ranges/extra records
+                                                 unverified
+SD-      (GPU OR "graphics processing unit") AND ScienceDirect; 14 October
+TEMPORAL (inference OR "model serving" OR "deep  2026, 11:45 PM; fields:
+         learning") AND ("time slicing" OR "time Find articles with these
+         sharing" OR "context switching")        terms; filters: 2020 - 2026;
+                                                 displayed hits: 1053;
+                                                 parsed entries: 1053. URL
+                                                 includes openaccess facet
+                                                 absent from written filter
+                                                 description; confirm
+                                                 applied facet
+SD-MPS   (GPU OR "graphics processing unit") AND ScienceDirect; 14 October
+         (inference OR "model serving" OR "deep  2026, 11:52 PM; fields:
+         learning") AND (MPS OR "multi-process   Find articles with these
+         service")                               terms; filters: 2020 - 2026;
+                                                 displayed hits: 517; parsed
+                                                 entries: 563. 517 displayed;
+                                                 563 parsed/exported;
+                                                 investigate count or
+                                                 selection mismatch
+SD-MIG   (GPU OR "graphics processing unit") AND ScienceDirect; 14 October
+         (inference OR "model serving" OR "deep  2026, 11:55 PM; fields:
+         learning") AND (MIG OR "multi-instance Find articles with these
+         GPU" OR "GPU partitioning")             terms; filters: 2020 - 2026;
+                                                 displayed hits: 241; parsed
+                                                 entries: 241.
+
+                                     23
+    Run        Exact entered query                             Provenance and
+                                                               observations
+    SD-API     (GPU OR "graphics processing unit") AND         ScienceDirect; 14 October
+               (inference OR "model serving" OR "deep          2026, 11:56 PM; fields:
+               learning") AND ("API remoting" OR               Find articles with these
+               "CUDA remoting" OR "GPU proxy" OR               terms; filters: 2020 - 2026;
+               "GPU virtualization")                           displayed hits: 41; parsed
+                                                               entries: 41.
+
+
+
+B     Quality-assessment checklist and scores
+              Table 4: Adopted Q1–Q10 appraisal checklist; each item is
+              scored 0, 0.5 or 1.
+
+     Item     Question
+     Q1       Engineering question and tenant setting
+     Q2       Mechanism and isolation/configuration
+     Q3       GPU, OS, driver and runtime
+     Q4       Model, batching, arrivals and co-tenants
+     Q5       Baseline and fair resource budget
+     Q6       Metric definition, units and percentile
+     Q7       Warm-up, duration, repetition and variance
+     Q8       Data/figure/table support
+     Q9       Limitations and confounders
+     Q10      Reproducibility or critical interpretation
+
+
+              Table 5: Current study scores for Q1–Q5; the full rationales
+              and anchors are in current_quality.csv.
+
+    Study                Q1          Q2        Q3       Q4            Q5      Total /10
+    GA-S001              1           1         0.5         1          1       8.5
+    GA-S002              1           1          1          1         0.5      8.5
+    GA-S003              1           1         0.5         1          1       9.0
+    GA-S004              1           1         0.5         1         0.5      8.5
+    GA-S005              1           1         0.5         1          1       8.5
+    GA-S006              1           1         0.5         1         0.5      8.0
+    GA-S007              1           1          1          1         0.5      9.0
+    GA-S008              1           1         0.5         1         0.5      8.5
+    GA-S009              1           1         0.5         1          1       9.0
+    GA-S010              1           1         0.5         1         0.5      8.0
+    GA-S011              1           1         0.5         1         0.5      9.0
+    GA-S012              1           1         0.5         1          1       9.0
+    GA-S013              1           1          1          1         0.5      8.0
+    GA-S014              1           1         0.5         1          1       9.0
+
+
+                                          24
+Study               Q1         Q2           Q3       Q4         Q5        Total /10
+GA-S015              1          1           0.5       1         0.5       8.5
+GA-S016              1          1           0.5       1         0.5       8.5
+GA-S017              1          1           0.5       1         0.5       6.5
+GA-S018              1          1            1        1         0.5       7.0
+GA-S019              1          1           0.5       1         0.5       7.0
+GA-S020              1          1           0.5       1         0.5       8.5
+GA-S021              1          1           0.5       1         0.5       7.5
+GA-S022              1          1           0.5       1         0.5       8.0
+GA-S023              1          1           0.5       1         0.5       7.0
+GA-S024              1          1           0.5       1         0.5       7.5
+GA-S025              1          1           0.5       1         0.5       8.5
+GA-S026              1          1           0.5       1         0.5       8.0
+GA-S027              1          1            1        1         0.5       8.0
+GA-S028              1          1           0.5       1         0.5       8.5
+GA-S029              1          1           0.5       1         0.5       8.5
+GA-S030              1          1           0.5       1         0.5       8.5
+GA-S031              1          1            1        1         0.5       9.0
+GA-S032              1          1           0.5       1         0.5       8.0
+GA-S033              1          1            1        1         0.5       8.0
+GA-S034              1          1            1       0.5        0.5       8.0
+GA-S035              1          1           0.5      0.5        0.5       7.0
+GA-S036              1          1           0.5       1         0.5       8.0
+GA-S037              1          1           0.5       1          1        8.0
+GA-S038              1          1            1        1          1        9.5
+GA-S039              1          1           0.5       1         0.5       8.0
+GA-S040              1          1            1        1         0.5       8.5
+GA-S041              1          1            1        1          1        9.5
+GA-S042              1          1            1        1         0.5       9.0
+GA-S043              1          1           0.5       1         0.5       8.0
+
+
+          Table 6: Current study scores for Q6–Q10; the full rationales
+          and anchors are in current_quality.csv.
+
+Study               Q6         Q7           Q8       Q9        Q10        Total /10
+GA-S001              1         0.5          0.5       1          1        8.5
+GA-S002              1         0.5           1       0.5         1        8.5
+GA-S003              1          1            1       0.5         1        9.0
+GA-S004              1         0.5           1        1          1        8.5
+GA-S005              1         0.5           1       0.5         1        8.5
+GA-S006              1         0.5           1       0.5         1        8.0
+GA-S007              1         0.5           1        1          1        9.0
+GA-S008              1          1            1       0.5         1        8.5
+GA-S009              1         0.5           1        1          1        9.0
+GA-S010              1         0.5           1       0.5         1        8.0
+GA-S011              1          1            1        1          1        9.0
+
+
+                                       25
+    Study                 Q6        Q7          Q8      Q9        Q10     Total /10
+    GA-S012                1         1           1      0.5         1     9.0
+    GA-S013                1        0.5          1      0.5        0.5    8.0
+    GA-S014                1        0.5          1       1          1     9.0
+    GA-S015                1        0.5          1       1          1     8.5
+    GA-S016                1        0.5          1       1          1     8.5
+    GA-S017                1         0          0.5     0.5        0.5    6.5
+    GA-S018                1         0          0.5     0.5        0.5    7.0
+    GA-S019                1        0.5         0.5     0.5        0.5    7.0
+    GA-S020                1         1          0.5      1          1     8.5
+    GA-S021                1        0.5          1      0.5        0.5    7.5
+    GA-S022                1        0.5          1       1         0.5    8.0
+    GA-S023                1         0          0.5      1         0.5    7.0
+    GA-S024               0.5       0.5          1      0.5         1     7.5
+    GA-S025                1        0.5          1       1          1     8.5
+    GA-S026                1        0.5          1      0.5         1     8.0
+    GA-S027                1        0.5         0.5     0.5         1     8.0
+    GA-S028                1        0.5          1       1          1     8.5
+    GA-S029                1        0.5          1       1          1     8.5
+    GA-S030                1        0.5          1       1          1     8.5
+    GA-S031                1        0.5          1       1          1     9.0
+    GA-S032                1        0.5          1       1         0.5    8.0
+    GA-S033                1        0.5          1      0.5        0.5    8.0
+    GA-S034                1        0.5          1       1         0.5    8.0
+    GA-S035                1        0.5          1      0.5        0.5    7.0
+    GA-S036                1        0.5          1       1         0.5    8.0
+    GA-S037                1        0.5          1      0.5        0.5    8.0
+    GA-S038                1        0.5          1       1          1     9.5
+    GA-S039                1        0.5          1       1         0.5    8.0
+    GA-S040                1        0.5          1       1         0.5    8.5
+    GA-S041                1        0.5          1       1          1     9.5
+    GA-S042                1        0.5          1       1          1     9.0
+    GA-S043                1        0.5          1       1         0.5    8.0
+
+
+
+C    Current included primary-study register
 This appendix is generated from current_extraction.csv and current_quality.csv;
 each ID denotes one preferred report/study in the working set. Scores are out of 10, and
 the source/venue and review caveat are retained in the evidence workbook. A score does not
 establish a measured security property.
 
-                Table 2: The 43-study current accepted set. Mechanism
-                phrases are condensed from the extraction register.
-
- ID          Preferred study                                  Mechanism             QA
- S001        Real-time, Work-conserving GPU Scheduling for Reset-based               8.5
-             Concurrent DNN Inference (2025) [3]              temporal preemption
-                                                              + dynamic kernel
-                                                              padding; NVIDIA
-                                                              binary
-                                                              instrumentation
- S002        Serving Heterogeneous Machine Learning           MPS + temporal         8.5
-             Models on Multi-GPU Servers with
-             Spatio-Temporal Sharing (2022) [12]
- S003        PipeSwitch: Fast Pipelined Context Switching for Temporal context       9.0
-             Deep Learning Applications (2020) [2]            switching
- S004        Serving DNNs like Clockwork: Performance         Temporal exclusive     8.5
-             Predictability from the Bottom Up (2020) [1]     scheduling
- S005        Torpor: GPU-Enabled Serverless Computing for API remoting +             8.5
-             Low-Latency, Resource-Efficient Inference        temporal swapping
-             (2025) [30]
- S006        StreamBox: A Lightweight GPU SandBox for         API/runtime            8.0
-             Serverless Inference Workflow (2024) [31]        sandbox
-                                                              virtualization
- S007        KRYPTON: Efficient Performance-Aware GPU         Kernel API             9.0
-             Sharing with Compatibility and Isolation through virtualization +
-             Kernel Space Interception (2025) [32]            hybrid
- S008        SIRIUS: Colocating ML Inference and Training Temporal + MPS             8.5
-             with Fast GPU Memory Handover (2025) [4]         memory handover
- S009        Tally: Non-Intrusive Performance Isolation for   CUDA API               9.0
-             Concurrent Deep Learning Workloads (2025)        interception +
-             [33]                                             priority
- S010        ParvaGPU: Efficient Spatial GPU Sharing for      MIG + MPS              8.0
-             Large-Scale DNN Inference in Cloud
-             Environments (2024) [22]
- S011        Orion: Interference-aware Fine-grained GPU       CUDA API               9.0
-             Sharing for ML Applications (2024) [5]           interception +
-                                                              temporal
- S012        GSLICE: Controlled Spatial Sharing of GPUs for MPS adaptive             9.0
-             a Scalable Inference Platform (2020) [13]        provisioning
 
 
 
+                                           26
+         Table 7: The 43-study current accepted set. Mechanism
+         phrases are condensed from the extraction register.
 
-                                           12
-ID     Preferred study                                    Mechanism               QA
-S013   KRISP: Enabling Kernel-wise RIght-sizing for       Spatial partition/API   8.0
-       Spatial Partitioned GPU Inference Servers (2023)   control (AMD)
+ID     Preferred study                                  Mechanism               QA
+S001   Real-time, Work-conserving GPU Scheduling for Reset-based                8.5
+       Concurrent DNN Inference (2025) [1]              temporal preemption
+                                                        + dynamic kernel
+                                                        padding; NVIDIA
+                                                        binary
+                                                        instrumentation
+S002   Serving Heterogeneous Machine Learning           MPS + temporal          8.5
+       Models on Multi-GPU Servers with
+       Spatio-Temporal Sharing (2022) [12]
+S003   PipeSwitch: Fast Pipelined Context Switching for Temporal context        9.0
+       Deep Learning Applications (2020) [3]            switching
+S004   Serving DNNs like Clockwork: Performance         Temporal exclusive      8.5
+       Predictability from the Bottom Up (2020) [2]     scheduling
+S005   Torpor: GPU-Enabled Serverless Computing for API remoting +              8.5
+       Low-Latency, Resource-Efficient Inference        temporal swapping
+       (2025) [30]
+S006   StreamBox: A Lightweight GPU SandBox for         API/runtime             8.0
+       Serverless Inference Workflow (2024) [31]        sandbox
+                                                        virtualization
+S007   KRYPTON: Efficient Performance-Aware GPU         Kernel API              9.0
+       Sharing with Compatibility and Isolation through virtualization +
+       Kernel Space Interception (2025) [32]            hybrid
+S008   SIRIUS: Colocating ML Inference and Training Temporal + MPS              8.5
+       with Fast GPU Memory Handover (2025) [4]         memory handover
+S009   Tally: Non-Intrusive Performance Isolation for   CUDA API                9.0
+       Concurrent Deep Learning Workloads (2025)        interception +
+       [33]                                             priority
+S010   ParvaGPU: Efficient Spatial GPU Sharing for      MIG + MPS               8.0
+       Large-Scale DNN Inference in Cloud
+       Environments (2024) [22]
+S011   Orion: Interference-aware Fine-grained GPU       CUDA API                9.0
+       Sharing for ML Applications (2024) [5]           interception +
+                                                        temporal
+S012   GSLICE: Controlled Spatial Sharing of GPUs for MPS adaptive              9.0
+       a Scalable Inference Platform (2020) [13]        provisioning
+S013   KRISP: Enabling Kernel-wise RIght-sizing for     Spatial partition/API   8.0
+       Spatial Partitioned GPU Inference Servers (2023) control (AMD)
        [43]
-S014   XSched: Preemptive Scheduling for Diverse          Temporal API            9.0
-       XPUs (2025) [6]                                    interposition
-S015   Paella: Low-latency Model Serving with             Temporal software       8.5
-       Software-defined GPU Scheduling (2023) [7]         scheduling + MPS
-                                                          comparison
-S016   Optimizing High-Throughput Inference on Graph      MIG + concurrent        8.5
-       Neural Networks at Shared Computing Facilities     model serving
+S014   XSched: Preemptive Scheduling for Diverse        Temporal API            9.0
+       XPUs (2025) [6]                                  interposition
+S015   Paella: Low-latency Model Serving with           Temporal software       8.5
+       Software-defined GPU Scheduling (2023) [7]       scheduling + MPS
+                                                        comparison
+
+
+                                     27
+ID     Preferred study                                  Mechanism               QA
+S016   Optimizing High-Throughput Inference on Graph MIG + concurrent           8.5
+       Neural Networks at Shared Computing Facilities model serving
        with the NVIDIA Triton Inference Server (2024)
        [20]
-S017   VastPipe: A High-Throughput Inference System MPS adaptive                  6.5
+S017   VastPipe: A High-Throughput Inference System MPS adaptive                6.5
        via Adaptive Space-Division Multiplexing for     quotas; separate
        Diverse Accelerators (2025) [14]                 AMD CU-mask
                                                         stratum
-S018   ArkGPU: enabling applications’ high-goodput      CUDA API                  7.0
+S018   ArkGPU: enabling applications’ high-goodput      CUDA API                7.0
        co-location execution on multitasking GPUs       interception +
        (2023) [34]                                      NVML monitoring
                                                         and admission
                                                         throttling
-S019   Dyna-P: placement-aware dynamic partitioning     MIG dynamic place-        7.0
+S019   Dyna-P: placement-aware dynamic partitioning     MIG dynamic place-      7.0
        for lightweight applications with modern GPUs    ment/reconfiguration
        (2025) [21]                                      with
                                                         reconfiguration-last
                                                         policy
-S020   iGniter: Interference-Aware GPU Resource         MPS active-thread         8.5
+S020   iGniter: Interference-Aware GPU Resource         MPS active-thread       8.5
        Provisioning for Predictable DNN Inference in    quotas +
        the Cloud (2023) [15]                            interference-aware
                                                         batch/provisioning
                                                         and shadow process
-S021   InferFair: Towards QoS-aware scheduling for      Temporal                  7.5
+S021   InferFair: Towards QoS-aware scheduling for      Temporal                7.5
        performance isolation guarantee in heterogeneous SLO-aware
        model serving systems (2024) [36]                scheduling +
                                                         feedback goodput
                                                         balancing; MPS
                                                         comparator
-S022   MIGER: Integrating Multi-Instance GPU and        MIG partitions with       8.0
+S022   MIGER: Integrating Multi-Instance GPU and        MIG partitions with     8.0
        Multi-Process Service for Deep Learning Clusters per-partition MPS
        (2024) [23]                                      online/offline
                                                         co-location, local
                                                         partition planner and
                                                         fragmentation
                                                         control
+S023   Towards Optimal Preemptive GPU Time-Sharing Deft: adaptive               7.0
+       for Edge Model Serving (2024) [41]               CUDA
+                                                        synchronization
+                                                        frequency
+                                                        controlling kernel
+                                                        queues and priority
+                                                        preemption; API
+                                                        interposition
+                                                        prototype
+
+
+
+                                     28
+ID     Preferred study                                 Mechanism              QA
+S024   FaST-GShare: Enabling Efficient                 FaST-GShare: MPS       7.5
+       Spatio-Temporal GPU Sharing in Serverless       spatial shares plus
+       Computing for Deep Learning Inference (2023)    CUDA
+       [16]                                            interception/token-
+                                                       based temporal
+                                                       quotas; CUDA IPC
+                                                       model sharing
+S025   SPLIT: QoS-Aware DNN Inference on Shared        SPLIT: genetic         8.5
+       GPU via Evenly-Sized Model Splitting (2023) [8] offline model-block
+                                                       splitting with
+                                                       token-based greedy
+                                                       temporal preemption
+S026   MIGServe: Layout-Aware Multi-Instance GPU       MIGServe:              8.0
+       Management for Efficient LLM Serving (2026)     buddy-aware MIG
+       [28]                                            placement, proactive
+                                                       pair migration and
+                                                       temperature-guided
+                                                       eviction
+S027   MMK: A Hybrid Scheduling Framework for          MMK: MIG, elastic      8.0
+       Fine-Grained GPU Sharing for Deep Learning      MPS
+       Applications (2026) [24]                        oversubscription and
+                                                       CUDA-intercepted
+                                                       kernel-priority
+                                                       scheduling
+S028   BOER: Enhancing Resource Utilization for Deep BOER: MIG model          8.5
+       Learning Inference with Hybrid Spatial GPU      grouping with
+       Sharing (2025) [25]                             Bayesian-optimized
+                                                       MPS configurations
+                                                       inside partitions
+S029   Adaptive GPU Sharing for Real-time LLM          AdMix: adaptive        8.5
+       Serving with Best-effort Workloads (2026) [17]  MPS active-thread
+                                                       caps, lightweight
+                                                       LLM estimator and
+                                                       best-effort
+                                                       pause/full-access
+                                                       controls
+S030   SGDRC: Software-Defined Dynamic Resource        SGDRC:                 8.5
+       Control for Concurrent DNN Inference on         CUDA/TVM
+       NVIDIA GPUs (2025) [35]                         runtime with
+                                                       software
+                                                       VRAM-channel
+                                                       coloring, bimodal
+                                                       tensors and tidal SM
+                                                       masks
 
 
 
 
-                                     13
-ID     Preferred study                                   Mechanism              QA
-S023   Towards Optimal Preemptive GPU Time-Sharing       Deft: adaptive         7.0
-       for Edge Model Serving (2024) [41]                CUDA
-                                                         synchronization
-                                                         frequency
-                                                         controlling kernel
-                                                         queues and priority
-                                                         preemption; API
-                                                         interposition
-                                                         prototype
-S024   FaST-GShare: Enabling Efficient                   FaST-GShare: MPS       7.5
-       Spatio-Temporal GPU Sharing in Serverless         spatial shares plus
-       Computing for Deep Learning Inference (2023)      CUDA
-       [16]                                              interception/token-
-                                                         based temporal
-                                                         quotas; CUDA IPC
-                                                         model sharing
-S025   SPLIT: QoS-Aware DNN Inference on Shared          SPLIT: genetic         8.5
-       GPU via Evenly-Sized Model Splitting (2023) [8]   offline model-block
-                                                         splitting with
-                                                         token-based greedy
-                                                         temporal preemption
-S026   MIGServe: Layout-Aware Multi-Instance GPU         MIGServe:              8.0
-       Management for Efficient LLM Serving (2026)       buddy-aware MIG
-       [28]                                              placement, proactive
-                                                         pair migration and
-                                                         temperature-guided
-                                                         eviction
-S027   MMK: A Hybrid Scheduling Framework for            MMK: MIG, elastic      8.0
-       Fine-Grained GPU Sharing for Deep Learning        MPS
-       Applications (2026) [24]                          oversubscription and
-                                                         CUDA-intercepted
-                                                         kernel-priority
-                                                         scheduling
-S028   BOER: Enhancing Resource Utilization for Deep     BOER: MIG model        8.5
-       Learning Inference with Hybrid Spatial GPU        grouping with
-       Sharing (2025) [25]                               Bayesian-optimized
-                                                         MPS configurations
-                                                         inside partitions
-S029   Adaptive GPU Sharing for Real-time LLM            AdMix: adaptive        8.5
-       Serving with Best-effort Workloads (2026) [17]    MPS active-thread
-                                                         caps, lightweight
-                                                         LLM estimator and
-                                                         best-effort
-                                                         pause/full-access
-                                                         controls
-
-
-
-                                     14
-ID     Preferred study                                Mechanism              QA
-S030   SGDRC: Software-Defined Dynamic Resource      SGDRC:                  8.5
-       Control for Concurrent DNN Inference on       CUDA/TVM
-       NVIDIA GPUs (2025) [35]                       runtime with
-                                                     software
-                                                     VRAM-channel
-                                                     coloring, bimodal
-                                                     tensors and tidal SM
-                                                     masks
-S031   Beyond Utilization: Energy-Conscious GPU      EnerTune: MIG           9.0
-       Sharing for Inference Serving (2026) [29]     allocation with joint
-                                                     frequency/batch
-                                                     selection,
-                                                     colocation-power
-                                                     model and runtime
-                                                     tuner; separate MPS
-                                                     portabi
-S032   FluidFaaS: A Dynamic Pipelined Solution for   MIG partitioned         8.0
-       Serverless Computing with Strong              serverless functions
-       Isolation-based GPU Sharing (2025) [26]       with pipelined
-                                                     instance
-                                                     construction,
-                                                     eviction and
-                                                     dynamic resource
-                                                     assignment
-S033   Improving GPU Sharing Performance through     Bless: adaptive         8.0
-       Adaptive Bubbleless Spatial-Temporal Sharing  kernel-squad
-       (2025) [19]                                   scheduling, MPS
-                                                     contexts with SM
-                                                     affinity and
-                                                     temporal/spatial
-                                                     quota adjustments
-S034   Understanding GPU Resource Interference One   CUDA streams and        8.0
-       Level Deeper (2025) [37]                      CUDA Green
-                                                     Context SM partition
-                                                     for controlled
-                                                     co-location;
-                                                     interference
-                                                     characterization
-                                                     rather than a depl
-S035   Reaching for the Sky: Maximizing Deep         Concurrent model        7.0
+                                    29
+ID     Preferred study                                  Mechanism               QA
+S031   Beyond Utilization: Energy-Conscious GPU         EnerTune: MIG           9.0
+       Sharing for Inference Serving (2026) [29]        allocation with joint
+                                                        frequency/batch
+                                                        selection,
+                                                        colocation-power
+                                                        model and runtime
+                                                        tuner; separate MPS
+                                                        portabi
+S032   FluidFaaS: A Dynamic Pipelined Solution for      MIG partitioned         8.0
+       Serverless Computing with Strong                 serverless functions
+       Isolation-based GPU Sharing (2025) [26]          with pipelined
+                                                        instance
+                                                        construction,
+                                                        eviction and
+                                                        dynamic resource
+                                                        assignment
+S033   Improving GPU Sharing Performance through        Bless: adaptive         8.0
+       Adaptive Bubbleless Spatial-Temporal Sharing     kernel-squad
+       (2025) [19]                                      scheduling, MPS
+                                                        contexts with SM
+                                                        affinity and
+                                                        temporal/spatial
+                                                        quota adjustments
+S034   Understanding GPU Resource Interference One      CUDA streams and        8.0
+       Level Deeper (2025) [37]                         CUDA Green
+                                                        Context SM partition
+                                                        for controlled
+                                                        co-location;
+                                                        interference
+                                                        characterization
+                                                        rather than a depl
+S035   Reaching for the Sky: Maximizing Deep            Concurrent model        7.0
        Learning Inference Throughput on Edge Devices execution and
-       with AI Multi-Tenancy (2023) [38]             dynamic placement
-                                                     across edge device
-                                                     GPU/CPU and Edge
-                                                     TPU
+       with AI Multi-Tenancy (2023) [38]                dynamic placement
+                                                        across edge device
+                                                        GPU/CPU and Edge
+                                                        TPU
+S036   Miriam: Exploiting Elastic Kernels for Real-time Elastic kernels and     8.0
+       Multi-DNN Inference on Edge GPU (2023) [9]       contention-aware
+                                                        coordination for
+                                                        mixed-criticality
+                                                        inference
 
 
 
-                                    15
- ID           Preferred study                                    Mechanism             QA
- S036                                                        Elastic kernels and
-              Miriam: Exploiting Elastic Kernels for Real-time                          8.0
-              Multi-DNN Inference on Edge GPU (2023) [9]     contention-aware
-                                                             coordination for
-                                                             mixed-criticality
-                                                             inference
+
+                                     30
+ ID           Preferred study                                   Mechanism              QA
  S037        ElasticRoom: Multi-Tenant DNN Inference         Resource-                  8.0
-             Engine via Co-design with Resource-constrained constrained
+             Engine via Co-design with Resource-constrained  constrained
              Compilation and Strong Priority Scheduling      compilation and
              (2024) [11]                                     priority scheduling
                                                              with concurrent
@@ -778,18 +1450,20 @@ S035   Reaching for the Sky: Maximizing Deep         Concurrent model        7.0
 
 
 
-B     Source-anchored evidence and limitations
+D     Source-anchored evidence and limitations
 The following condensed cards give one bounded finding and its corresponding caveat for
 every current study, with source location. Full extraction fields and source types are in the
 CSV/workbook; no new unverified measurement is added by this rendering.
 
 
-                                             16
-            Table 3: Bounded observation, qualification and source an-
+
+
+                                             31
+            Table 8: Bounded observation, qualification and source an-
             chor for each accepted study.
 
 ID          Extracted observation                 Limitation and source location
-S001 [3]    GV100 PyTorch DISB-C: Orion p99       Explicit OSDI2022 extension;
+S001 [1]    GV100 PyTorch DISB-C: Orion p99       Explicit OSDI2022 extension;
             normalized latency1.17x vs Reef       select journal as preferred report
             below1.05x; normalized total          and retain GA-S001 once.
             throughput0.97x vs1.14x(Fig29).       Requires deterministic/stateless
@@ -811,11 +1485,11 @@ S002 [12]   Local gpulets support                 Server-level gains cannot be
             interference-aware provisioning;      treated as one-GPU utilization.
             cluster throughput is a different     Anchor: PDF p10 Table2/3;
             outcome.                              section5; local profiling section3
-S003 [2]    Fig7: inference preemption latency    Average switch/inference latency
+S003 [3]    Fig7: inference preemption latency    Average switch/inference latency
             reduced by up to 38.2ms.              is not p99; multi-VM throughput
                                                   separate. Anchor: PDF pp11-13;
                                                   sections6-6.2; Fig7
-S004 [1]    Fig5 measures goodput satisfying      Cross-hardware INFaaS
+S004 [2]    Fig5 measures goodput satisfying      Cross-hardware INFaaS
             SLO, rather than raw request          comparison is indirect;
             throughput.                           controller/worker distinction.
                                                   Anchor: PDF p10; section6.1;
@@ -834,7 +1508,7 @@ S007 [32]   Inference-specific sharing            Baseline adaptations and
                                                   Tables1-2; section5; section2.2
                                                   Fig3
 
-                                         17
+                                         32
 ID          Extracted observation                Limitation and source location
 S008 [4]    Inference p99/SLO outcomes           TaskSwitch is a
             accompany training progress;         reimplementation, not vanilla
@@ -883,7 +1557,7 @@ S016 [20]   Fig10: thrashing after two           Local slice evidence only;
 
 
 
-                                         18
+                                         33
 ID          Extracted observation                Limitation and source location
 S017 [14] A100 VGG16+GoogLeNet:                 Include only local GPU inference
           throughput 2.7x no MPS and 1.5x       evidence, not the main
@@ -933,7 +1607,7 @@ S019 [21] Single-A30 batch experiments:         Retain one-GPU inference strata
 
 
 
-                                       19
+                                       34
 ID          Extracted observation                Limitation and source location
 S020 [15] Local four-model latency prediction Constant arrivals and four vision
           error1.53%-5.02%(Fig13). Fig14       models limit bursty/LLM transfer.
@@ -981,7 +1655,7 @@ S022 [23] Section 3.1/Fig. 2 directly compares Includes mixed training/inference
 
 
 
-                                       20
+                                       35
 ID          Extracted observation                  Limitation and source location
 S023 [41] Sections 3.2 and 5 show optimal         Preliminary six-page workshop
           synchronization depends on batch        evaluation with two principal
@@ -1026,7 +1700,7 @@ S025 [8] Section 5.5 reports violation rate       One edge GPU and synthetic
 
 
 
-                                         21
+                                         36
 ID          Extracted observation                    Limitation and source location
 S026 [28]                                        Four-GPU evaluation and
             Section 5.2 Azure: sustainable rate at
@@ -1074,7 +1748,7 @@ S028 [25]   Local section 2.4/Fig. 3 observes    Bayesian exploration cost and
 
 
 
-                                         22
+                                         37
 ID          Extracted observation                  Limitation and source location
 S029 [17]   Section 4.2 reports average          Full six-page original workshop
             best-effort throughput 1.58x Static  report; one/two-GPU workload
@@ -1116,7 +1790,7 @@ S031 [29] Section 2.1/Fig. 2: co-location        Joint power/energy objectives
 
 
 
-                                        23
+                                        38
 ID          Extracted observation                  Limitation and source location
 S032 [26]                                      Pipeline, placement and MIG
             Section 7.1/Fig. 9 reports FluidFaaS
@@ -1168,7 +1842,7 @@ S035 [38] Abstract and multi-tenancy           Edge GPU, CPU and TPU
 
 
 
-                                       24
+                                       39
 ID          Extracted observation                  Limitation and source location
 S036 [9]    Abstract reports up to 92%             Edge elastic-kernel scheduling is
             throughput improvement while           transferable temporal/spatial
@@ -1215,7 +1889,7 @@ S041 [39]   Section 4/Fig. 3 shows model tail      The four-GPU power outcome
 
 
 
-                                         25
+                                         40
     ID           Extracted observation                   Limitation and source location
     S042 [18]    Section 5 evaluates prediction          Two GPUs are present in testbed;
                  accuracy and allocation for             claims here concern
@@ -1234,7 +1908,7 @@ S041 [39]   Section 4/Fig. 3 shows model tail      The four-GPU power outcome
 
 
 
-C     Completion and audit register
+E     Completion and audit register
 Before submission: reconcile four Step 5 links, canonical title/abstract and report-version rows;
 assess 45 queued reports and resolve 96 earlier retrieval cases; integrate or exclude the two
 eligible-pending reports with explicit reasons; generate a final PRISMA 2020 diagram whose
@@ -1244,178 +1918,7 @@ conditional synthesis and sensitivity analysis. The published query workbook and
 provide the current receipts and historical flow, but do not eliminate these tasks.
 
 
-References
- [1] A. Gujarati, R. Karimi, S. Alzayat, W. Hao, A. Kaufmann, Y. Vigfusson,
-     and J. Mace, “Serving DNNs like Clockwork: Performance Predictability from
-     the Bottom Up,” in USENIX OSDI, 2020, pp. 443–462. [Online]. Available:
-     https://www.usenix.org/conference/osdi20/presentation/gujarati
- [2] Z. Bai, Z. Zhang, Y. Zhu, and X. Jin, “PipeSwitch: Fast Pipelined Context Switching for
-     Deep Learning Applications,” in USENIX OSDI, 2020, pp. 499–514. [Online]. Available:
-     https://www.usenix.org/conference/osdi20/presentation/bai
- [3] M. Han, R. Chen, W. Shen, H. Zhang, J. Yang, and H. Chen, “Real-time, Work-conserving
-     GPU Scheduling for Concurrent DNN Inference,” ACM Transactions on Computer
-     Systems, vol. 44, no. 1, pp. 1–42, 2025, art. no. 1; publication date November 2025 as
-     printed in supplied report. [Online]. Available: https://doi.org/10.1145/3768622
- [4] J. Wang, Y. Wang, M. Han, and R. Chen, “SIRIUS: Colocating ML Inference and Training
-     with Fast GPU Memory Handover,” in USENIX ATC, 2025, pp. 1657–1675. [Online].
-     Available: https://www.usenix.org/conference/atc25/presentation/wang-jiali
 
 
-
-
-                                               26
- [5] F. Strati, X. Ma, and A. Klimovic, “Orion: Interference-aware Fine-grained GPU Sharing
-     for ML Applications,” in ACM EuroSys, 2024, pp. 1075–1092. [Online]. Available:
-     https://doi.org/10.1145/3627703.3629578
- [6] W. Shen, M. Han, J. Liu, R. Chen, and H. Chen, “XSched: Preemptive Scheduling
-     for Diverse XPUs,” in USENIX OSDI, 2025, pp. 671–692. [Online]. Available:
-     https://www.usenix.org/conference/osdi25/presentation/shen-weihang
- [7] K. K. W. Ng, H. M. Demoulin, and V. Liu, “Paella: Low-latency Model Serving
-     with Software-defined GPU Scheduling,” in ACM SOSP, 2023, pp. 595–610. [Online].
-     Available: https://doi.org/10.1145/3600006.3613163
- [8] D. Luo, T. Yu, Y. Wu, H. Wu, T. Wang, and W. Zhang, “SPLIT: QoS-Aware DNN
-     Inference on Shared GPU via Evenly-Sized Model Splitting,” in Proceedings of ICPP
-     2023, 2023, pp. 605–614. [Online]. Available: https://doi.org/10.1145/3605573.3605627
- [9] Z. Zhao, N. Ling, N. Guan, and G. Xing, “Miriam: Exploiting elastic kernels for real-time
-     multi-dnn inference on edge gpu,” in Proceedings of ACM/IEEE Symposium on Edge
-     Computing 2023, 2023. [Online]. Available: https://doi.org/10.1145/3625687.3625789
-[10] X. Wu, J. Rao, W. Chen, and H. Huang, “Switchflow: Preemptive multitasking
-     for deep learning,” in Proceedings of Middleware 2021, 2021. [Online]. Available:
-     https://doi.org/10.1145/3464298.3493391
-[11] L. Ma, H. Chen, E. Shao, L. Wang, Q. Chen, and G. Tan, “Elasticroom: Multi-tenant
-     dnn inference engine via co-design with resource-constrained compilation and strong
-     priority scheduling,” in Proceedings of HPDC 2024, 2024. [Online]. Available:
-     https://doi.org/10.1145/3625549.3658654
-[12] S. Choi, S. Lee, Y. Kim, J. Park, Y. Kwon, and J. Huh, “Serving Heterogeneous Machine
-     Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing,” in USENIX
-     ATC, 2022, pp. 199–216. [Online]. Available: https://www.usenix.org/conference/atc22/
-     presentation/choi-seungbeom
-[13] A. Dhakal, S. G. Kulkarni, and K. K. Ramakrishnan, “GSLICE: Controlled Spatial
-     Sharing of GPUs for a Scalable Inference Platform,” in ACM SoCC, 2020, pp. 492–506.
-     [Online]. Available: https://doi.org/10.1145/3419111.3421284
-[14] L.-X. Ma, L.-P. Wang, E. Shao, R.-Y. Cao, and G.-M. Tan, “VastPipe: A High-Throughput
-     Inference System via Adaptive Space-Division Multiplexing for Diverse Accelerators,”
-     Journal of Computer Science and Technology, vol. 40, no. 2, pp. 444–463, 2025. [Online].
-     Available: https://doi.org/10.1007/s11390-024-3773-5
-[15] F. Xu, J. Xu, J. Chen, L. Chen, R. Shang, Z. Zhou, and F. Liu, “iGniter: Interference-Aware
-     GPU Resource Provisioning for Predictable DNN Inference in the Cloud,” IEEE
-     Transactions on Parallel and Distributed Systems, vol. 34, no. 3, pp. 812–827, 2023.
-     [Online]. Available: https://doi.org/10.1109/TPDS.2022.3232715
-[16] J. Gu, Y. Zhu, P. Wang, M. Chadha, and M. Gerndt, “FaST-GShare: Enabling
-     Efficient Spatio-Temporal GPU Sharing in Serverless Computing for Deep Learning
-     Inference,” in Proceedings of ICPP 2023, 2023, pp. 635–644. [Online]. Available:
-     https://doi.org/10.1145/3605573.3605638
-
-
-
-                                              27
-[17] S. Li, T. Hanawa, and Y. Miki, “Adaptive GPU Sharing for Real-time LLM Serving with
-     Best-effort Workloads,” in ICPP Workshops 2026, 2026, pp. 1–6. [Online]. Available:
-     https://doi.org/10.1145/3816891.3834895
-[18] Y. Chen, W. Li, H. Zhou, X. Yang, and Y. Yin, “Deinfer: A gpu resource allocation
-     algorithm with spatial sharing for near-deterministic inferring tasks,” in Proceedings of
-     ICPP 2024, 2024. [Online]. Available: https://doi.org/10.1145/3673038.3673091
-[19] S. Zhang, Q. Chen, W. Cui, H. Zhao, C. Xue, Z. Zheng, W. Lin, and
-     M. Guo, “Improving GPU Sharing Performance through Adaptive Bubbleless Spatial-
-     Temporal Sharing,” in Proceedings of EuroSys 2025, 2025. [Online]. Available:
-     https://doi.org/10.1145/3689031.3696070
-[20] C. Savard, N. Manganelli, B. Holzman, L. Gray, A. Perloff, K. Pedro, K. Stenson,
-     and K. Ulmer, “Optimizing High-Throughput Inference on Graph Neural Networks at
-     Shared Computing Facilities with the NVIDIA Triton Inference Server,” Computing
-     and Software for Big Science, vol. 8, 2024, art. no. 14. [Online]. Available:
-     https://link.springer.com/article/10.1007/s41781-024-00123-2
-[21] T. Adufu and Y. Kim, “Dyna-P: placement-aware dynamic partitioning for lightweight
-     applications with modern GPUs,” Cluster Computing, vol. 28, 2025, art. no. 608. [Online].
-     Available: https://doi.org/10.1007/s10586-025-05284-2
-[22] M. Lee, S. Seong, M. Kang, J. Lee, G.-J. Na, I.-G. Chun, D. S. Nikolopoulos,
-     and C.-H. Hong, “ParvaGPU: Efficient Spatial GPU Sharing for Large-Scale DNN
-     Inference in Cloud Environments,” in IEEE/ACM SC, 2024. [Online]. Available:
-     https://ieeexplore.ieee.org/document/10793202
-[23] B. Zhang, S. Li, and Z. Li, “MIGER: Integrating Multi-Instance GPU and Multi-Process
-     Service for Deep Learning Clusters,” in Proceedings of ICPP 2024, 2024, pp. 504–513.
-     [Online]. Available: https://doi.org/10.1145/3673038.3673089
-[24] Z. Jiang, Z. Cai, Y. Li, Z. Wang, R. Ma, H. Guan, and R. Buyya, “MMK: A Hybrid
-     Scheduling Framework for Fine-Grained GPU Sharing for Deep Learning Applications,”
-     ACM Transactions on Architecture and Code Optimization, vol. 23, no. 3, pp. 1–25, 2026,
-     art. no. 84. [Online]. Available: https://doi.org/10.1145/3820163
-[25] B. Zhang, Y. Wang, and Z. Li, “BOER: Enhancing Resource Utilization for Deep Learning
-     Inference with Hybrid Spatial GPU Sharing,” in Proceedings of SC 2025, 2025, pp.
-     519–532. [Online]. Available: https://doi.org/10.1145/3712285.3759857
-[26] X. Hui, Y. Xu, and X. Shen, “FluidFaaS: A Dynamic Pipelined Solution for Serverless
-     Computing with Strong Isolation-based GPU Sharing,” in Proceedings of HPDC 2025,
-     2025. [Online]. Available: https://doi.org/10.1145/3731545.3731580
-[27] V. M. Bhasi, A. Sharma, R. Jain, J. R. Gunasekaran, A. Pattnaik, M. T. Kandemir, and
-     C. Das, “Towards slo-compliant and cost-effective serverless computing on emerging
-     gpu architectures,” in Proceedings of Middleware 2024, 2024. [Online]. Available:
-     https://doi.org/10.1145/3652892.3700760
-[28] J. Chen, Y. Liang, B. Gao, Z. Zhou, F. Xu, X. Chen, and D. Guo, “MIGServe:
-     Layout-Aware Multi-Instance GPU Management for Efficient LLM Serving,” in
-
-
-
-                                             28
-     Proceedings of ICPP 2026, 2026, pp. 844–854. [Online]. Available:                https:
-     //doi.org/10.1145/3832810.3832898
-[29] P. Sinha, D. Liakopoulos, N. Lemma, and N. J. Yadwadkar, “Beyond Utilization:
-     Energy-Conscious GPU Sharing for Inference Serving,” in Proceedings of SOSP 2026,
-     2026, pp. 65–89. [Online]. Available: https://doi.org/10.1145/3830418.3843913
-[30] M. Yu, A. Wang, D. Chen, H. Yu, X. Luo, Z. Li, W. Wang, R. Chen, D. Nie,
-     H. Yang, and Y. Ding, “Torpor: GPU-Enabled Serverless Computing for Low-Latency,
-     Resource-Efficient Inference,” in USENIX ATC, 2025, pp. 597–612. [Online]. Available:
-     https://www.usenix.org/conference/atc25/presentation/yu
-[31] H. Wu, Y. Yu, J. Deng, S. Ibrahim, S. Wu, H. Fan, Z. Cheng, and H. Jin, “StreamBox: A
-     Lightweight GPU SandBox for Serverless Inference Workflow,” in USENIX ATC, 2024, pp.
-     59–73. [Online]. Available: https://www.usenix.org/conference/atc24/presentation/wu-hao
-[32] S. Zhang, A. Xu, Q. Chen, H. Zhao, W. Cui, Z. Wang, Y. Li, L. Xiao, and M. Guo,
-     “KRYPTON: Efficient Performance-Aware GPU Sharing with Compatibility and Isolation
-     through Kernel Space Interception,” in USENIX ATC, 2025, pp. 1003–1019. [Online].
-     Available: https://www.usenix.org/conference/atc25/presentation/zhang-shulai
-[33] W. Zhao, A. Jayarajan, and G. Pekhimenko, “Tally: Non-Intrusive Performance Isolation
-     for Concurrent Deep Learning Workloads,” in ACM ASPLOS Volume 1, 2025, pp.
-     1052–1068. [Online]. Available: https://doi.org/10.1145/3669940.3707282
-[34] J. Lou, Y. Sun, J. Zhang, H. Cao, Y. Zhang, and N. Sun, “ArkGPU: enabling applications’
-     high-goodput co-location execution on multitasking GPUs,” CCF Transactions on
-     High Performance Computing, vol. 5, pp. 304–321, 2023. [Online]. Available:
-     https://doi.org/10.1007/s42514-023-00154-y
-[35] Y. Zhang, H. Yu, C. Han, C. Wang, B. Lu, Y. Li, Z. Jiang, Y. Li, X. Chu, and H. Li,
-     “SGDRC: Software-Defined Dynamic Resource Control for Concurrent DNN Inference on
-     NVIDIA GPUs,” in Proceedings of PPoPP 2025, 2025, pp. 267–281. [Online]. Available:
-     https://doi.org/10.1145/3710848.3710863
-[36] Y. Peng and H. Peng, “InferFair: Towards QoS-aware scheduling for performance
-     isolation guarantee in heterogeneous model serving systems,” Future Generation
-     Computer Systems, vol. 150, pp. 10–20, 2024. [Online]. Available: https:
-     //www.sciencedirect.com/science/article/pii/S0167739X23003187
-[37] P. Elvinger, F. Strati, N. E. Jerger, and A. Klimovic, “Understanding GPU Resource
-     Interference One Level Deeper,” in Proceedings of SoCC 2025, 2025, printed SoCC 2025
-     event; export year 2026. [Online]. Available: https://doi.org/10.1145/3772052.3772270
-[38] J. Hao, P. Subedi, L. Shramaswamy, and I. K. Kim, “Reaching for the sky:
-     Maximizing deep learning inference throughput on edge devices with ai multi-
-     tenancy,” ACM Transactions on Internet Technology, 2023. [Online]. Available:
-     https://doi.org/10.1145/3546192
-[39] A. Jahanshahi, M. Rezvani, and D. Wong, “Wattwiser: Power & resource-efficient
-     scheduling for multi-model multi-gpu inference servers,” in Proceedings of IGSC 2023,
-     2023. [Online]. Available: https://doi.org/10.1145/3634769.3634807
-
-
-
-                                            29
-[40] Y. Zhang, Z. Zhang, W. Bao, and D. Yuan, “Itif: Integrated transformers inference
-     framework for multiple tenants on gpu,” in Proceedings of ICPP 2023, 2023. [Online].
-     Available: https://doi.org/10.1145/3605573.3605585
-[41] Z. Xia, Y. Hao, J. Duan, C. Wang, and J. Jiang, “Towards Optimal Preemptive GPU
-     Time-Sharing for Edge Model Serving,” in Proceedings of the 9th International Workshop
-     on Container Technologies and Container Clouds (WoC 2023), 2024, pp. 13–18, woC
-     2023 event; export publication year 2024; printed reference year 2023. [Online]. Available:
-     https://doi.org/10.1145/3631311.3632401
-[42] X. Hui, Y. Xu, Z. Guo, and X. Shen, “Esg: Pipeline-conscious efficient scheduling of dnn
-     workflows on serverless platforms with shareable gpus,” in Proceedings of HPDC 2024,
-     2024. [Online]. Available: https://doi.org/10.1145/3625549.3658657
-[43] M. Chow, A. Jahanshahi, and D. Wong, “KRISP: Enabling Kernel-wise RIght-sizing for
-     Spatial Partitioned GPU Inference Servers,” in IEEE HPCA, 2023, pp. 624–637. [Online].
-     Available: https://doi.org/10.1109/HPCA56546.2023.10071121
-
-
-
-
-                                              30
+                                               41
 

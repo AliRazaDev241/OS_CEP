@@ -21,14 +21,16 @@ Sharing an accelerator among inference tenants can improve useful capacity, yet 
 \noindent\textbf{Status and marking convention.} Red text denotes an open decision, a provisional count, or an interpretation to revisit. Black study observations are bounded to the cited source and its extracted experiment; they do not make the review final. The companion \texttt{cep\_report.txt} retains red passages as \texttt{[RED: ...]} markers. This manuscript is a substantive CEP draft for review, not a claim that the unresolved PRISMA flow is complete.
 \newpage\tableofcontents\newpage
 
-\section{Introduction and engineering problem}
+\section{Introduction}
 In a multi-tenant inference server, requests from distinct models or clients compete for execution slots, accelerator memory, caches and memory bandwidth. Exclusive GPU allocation simplifies attribution of latency to a tenant but can leave capacity idle when individual jobs are small or bursty. Concurrent execution can raise aggregate useful work while delaying a high-priority request, especially when the co-tenant's kernel or transfer pattern is unpredictable. Selecting a sharing mechanism is therefore an operating-systems decision about admission, scheduling, resource boundaries and observability, rather than a single throughput benchmark.
 
 The assigned alternatives operate at different layers. Time-slicing switches or queues work over time; MPS enables multi-process execution and configurable active-thread shares; MIG presents hardware-defined GPU instances on supported NVIDIA devices; API remoting or virtualization routes calls, context state or data through an additional control path. Research systems frequently combine these with batching, model placement, kernel interception, memory management and feedback control. Such combinations cannot be evaluated as if one toggle alone produced the reported gain. The unit of our central comparison is concurrent inference on one physical GPU; multi-GPU outcomes are context unless a local sharing experiment can be identified.
 
 We ask five analytical questions. \textbf{RQ1:} Which sharing/control mechanisms and boundaries have been evaluated for multi-tenant inference? \textbf{RQ2:} Which utilization, density, latency, fairness and isolation outcomes are actually measured, and which are comparable? \textbf{RQ3:} Under what workload, hardware and configuration conditions do results change? \textbf{RQ4:} What trade-offs and contradictory evidence emerge, and what experimental differences may explain them? \textbf{RQ5:} Which choice is defensible under stated requirements and evidence limits? The answers are synthesized in Sections 5--10, rather than determined by counting papers in each category.
 
-\section{Review protocol and search execution}
+\section{Research Questions}
+The review answers five questions derived from the assigned comparison. RQ1 asks which temporal, MPS, MIG, API and hybrid controls have direct local inference evaluations. RQ2 asks how density, goodput, latency, fairness and isolation are measured and which comparisons are commensurable. RQ3 asks which hardware, model, concurrency and arrival conditions change results. RQ4 asks which conflicting effects and engineering costs are observed. RQ5 asks what choice is supported for a stated SLO, capacity, hardware and isolation requirement. Each question requires evaluation rather than a list of titles; the evidence requirements and corresponding outputs are detailed in Sections 3--10.
+\section{Research Methodology}
 \subsection{Protocol, eligibility and review procedure}
 The submitted \texttt{SLR\_protocol.tex/pdf} is the baseline. Its Group A execution record and dated amendments are in \path{groups/group-a/protocol.md} and \path{evidence/protocol_amendments.md}. The literature cutoff was extended to 11 October 2026. The study must be an English-language, peer-reviewed original full journal or conference report with relevant concurrent inference evidence and adequate technical detail; mixed inference/training work is used only where the inference result is separately identifiable. Training-only, cluster-only, editorial, survey and vendor-only material does not enter the primary set. A report-version link does not create an additional underlying study. Source retrieval failure remains an access outcome, not an eligibility exclusion.
 
@@ -39,21 +41,23 @@ The NED E.A. Khan Library E-Resources listing motivated IEEE Xplore, Springer Na
 
 The 11 October IEEE/Springer capture has 689 formal occurrences (102 IEEE, 587 Springer). The supplied ACM/ScienceDirect exports have 3,727 parsed occurrences (1,829 ACM, 1,898 ScienceDirect), for \red{4,416 parsed formal occurrences across the four sources}. ACM displayed 1,600 or 1,603 hits in different saved observations while exports contain 1,829 rows; ScienceDirect MPS displayed 517 in an earlier note and 563 upon later reopening. These differences are preserved rather than silently normalized. A displayed hit count, parsed export row and unique report have different denominators. No publisher entitlement or complete coverage is inferred from an E-Resources listing.
 
-\subsection{Selection status and PRISMA 2020}
+\input{cep_methodology_detail.tex}
+\section{PRISMA 2020 Study Selection}
+\subsection{Selection status and provisional stage map}
 Figure 1 is an \red{interim stage map}, with arithmetic cross-checked against \path{interim_four_source_prisma.json}. It is deliberately labelled as provisional: four additional links, row-level Step 3--5 decisions, report versions and retrieval statuses still need canonical reconciliation. The 11 October 21-study flow is a separate historical snapshot, and batch additions must not be pasted into its boxes. The 43-study current set combines 21 historical accepted studies with 10, 3 and 9 accepted in three assessed batches. Two earlier eligible reports remain pending formal integration. The queue contains 45 unassessed reports, and 96 older reports remain unresolved for retrieval. \red{The final PRISMA 2020 diagram and final unique-study count cannot yet be certified.}
 
 
 \input{query_prisma_interim.tex}
 The identities are 4,416+20-525-4=3,907; 3,705+202=3,907; 45+157=202; 96+61=157; and 16+2+43=61. These equations demonstrate arithmetic consistency of the interim map, not that each link, screening event or source coverage has been fully audited. The historical 21-study figure remains a separate checkpoint in the query report; this interim map must not be submitted as a final PRISMA flow.
 
-\section{Evidence base, extraction and comparability}
+\subsection{Evidence base, extraction and comparability}
 The working set contains 43 distinct accepted study IDs, each with a preferred report, a quality row and a bounded extraction row. The bibliography preserves those report keys. The complete study register in Appendix A gives the title, year, mechanism and quality score; Appendix B maps a concise extracted observation and limitation to the source location. The workbook holds fuller version and screening records. Peer-reviewed status of a venue does not validate all figures or indicate that our team reran its experiments. Some source copies are Markdown conversions with interleaved columns or inaccessible plot pixels; untranscribed values are never interpolated.
 
 We distinguish \emph{request throughput} (all processed requests per unit time) from \emph{SLO goodput} (requests meeting a specified deadline), GPU busy time, SM occupancy, instance count, energy and a paper's custom utilization/efficiency ratio. A lower instance count in a fleet experiment is not a directly measured local GPU occupancy gain. Mean latency, p90/p95/p98/p99, time to first token (TTFT), time between tokens (TBT), job completion time (JCT), and violation rates have different meanings. A paper's p99 under one arrival process cannot be numerically pooled with another paper's mean under a different model, GPU or baseline. InferFair's unfairness ratio is also distinct from security isolation. The evidence matrix therefore uses within-study comparisons and explicitly marks indirect cross-study recommendations.
 
 For an interpretable comparison one must know the GPU SKU and memory, driver/runtime, MIG profile or MPS active-thread quota, model and input/output sizes, batching, tenant mix, arrival trace, SLO definition, comparator resource budget, warm-up and measurement windows, and uncertainty estimate. \red{Some of these parameters remain NOT EXTRACTED in individual records, so a formal effect-size meta-analysis is not justified.} Direct security and injected-fault tests are scarce; interference reduction, resource separation, adversarial confidentiality and fault containment are separate properties.
 
-\section{Mechanism taxonomy and RQ1}
+\section{Classification and Taxonomy of Existing Approaches}
 \subsection{Temporal admission, switching and priority}
 Clockwork schedules predictable GPU work with SLO-aware goodput as a central outcome \cite{clockwork}. PipeSwitch explores pipelined context switches \cite{pipeswitch}. REEF, Sirius, Orion, XSched, Paella, SPLIT, Miriam, SwitchFlow and ElasticRoom use different combinations of preemption, priority, kernel or subgraph control, compilers and feedback \cite{reef,sirius,orion,xsched,paella,split,miriam,switchflow,elasticroom}. These are not interchangeable implementations of a generic time slice: a scheduler that can intercept launches, preempt selected kernels and control memory handover has a different cost and failure mode from exclusive model execution. SwitchFlow's concurrent inference evidence is in its inference-specific experiment; its larger mixed inference/training p95 example is a separate stratum \cite{switchflow}.
 
@@ -72,14 +76,16 @@ Hybrid packing is conditional. BOER identifies a local case where a ParvaGPU-sty
 \subsection{API remoting, virtualization and runtime control}
 An API layer can intercept or route calls, isolate runtime objects, schedule kernels or move contexts/data across boundaries. Torpor gives a directly measured warning: a BERT example reports native 42 ms, remote 43 ms, PCIe swap 144 ms and NVLink swap 45 ms in its Table 4 \cite{torpor}. These are the paper's setting, not universal interface overheads. StreamBox, KRYPTON, Tally, Orion, XSched, ArkGPU and SGDRC differ substantially in intercepted APIs, process assumptions, memory behavior and scheduling policy \cite{streambox,krypton,tally,orion,xsched,arkgpu,sgdrc}. An API wrapper changes the trusted implementation surface and can impose transfer, copying, synchronization or compatibility costs. KRYPTON contains a specific fault-propagation test; one experiment cannot be generalized to all wrappers \cite{krypton}. StreamBox's sandbox separation likewise should not be promoted to proof of adversarial security \cite{streambox}.
 
-\section{Metrics, operating conditions and RQ2--RQ3}
+\section{Results and Evidence Synthesis}
+\subsection{Metrics, operating conditions and RQ2--RQ3}
 Several studies report measured improvements that are deliberately non-comparable across strata. REEF's GV100 PyTorch DISB-C experiment compares normalized p99 and separately normalized throughput against Orion; a TensorRT stratum gives a throughput counterexample \cite{reef}. InferFair's local Table 3 reports a goodput and slowdown-fairness result under a particular load ratio, with smaller differences at other ratios \cite{inferfair}. AdMix's local TP1 and TP2 experiments use distinct LLM models and device counts; their best-effort throughput ratios are not pooled \cite{admix}. The SoCC interference study measures P90 TBT under synthetic co-tenants and finds that separated SM sets still share cache and memory-bandwidth pressure \cite{interference_deeper}. Hardware partitions and request-level isolation therefore require separate measurements.
 
 Edge GPU studies add useful control ideas but limited direct transfer to data-center MIG/MPS. Miriam coordinates elastic kernels on edge GPUs lacking the server mechanisms; its paper's upper-bound throughput and critical-task overhead are paired outcomes under its evaluated mix \cite{miriam}. SPLIT evaluates model-block scheduling and violations on one edge GPU \cite{split}. Edge-sky couples GPU, CPU and Edge TPU placement, so its combined throughput is not a pure GPU-sharing effect \cite{edge_sky}. WattWiser uses four AMD MI50 devices for placement and power; local shared pairs inform latency while server power is a wider result \cite{wattwiser}. ITIF's shared transformer backbone changes computation itself, so its gain is not a scheduler-only comparison \cite{itif}.
 
 Arrival shape and model composition influence the winner. FaST-GShare's local eight-pod RNNT setting differs from a single racing pod; the model, share and tail threshold define its result \cite{fastgshare}. Deft shows that synchronization frequency selected for one batch or image size can inflate another job's completion time after a workload change \cite{deft}. EnerTune's power/frequency and batching settings change the resource objective \cite{enertune}. FluidFaaS and ESG report workflow or system SLO effects that combine local GPU sharing with pipeline design and placement \cite{fluidfaas,esg}. These reports remain relevant to mechanism deployment, but their totals do not identify the isolated gain from a partition or quota.
 
-\section{Comparative evidence matrix and RQ4}
+\input{cep_synthesis_detail.tex}
+\section{Comparative Analysis}
 \begin{longtable}{P{0.17\linewidth}P{0.22\linewidth}P{0.22\linewidth}P{0.25\linewidth}}
 \caption{Conditional comparison; each cell describes a supported design consideration, not a universal ranking.}\label{tab:matrix}\\\toprule
 Mechanism & Useful condition / evidence & Latency and density trade-off & Boundary and important limitation\\\midrule\endfirsthead
@@ -91,6 +97,7 @@ MIG+MPS hybrids & Model grouping and profile/quota search with monitoring \cite{
 API control/remoting & Interception needed for fine-grained scheduling or process multiplexing \cite{torpor,krypton,orion}. & Transfer fabric and context path can dominate; PCIe versus NVLink differs within Torpor \cite{torpor}. & Compatibility, shared process assumptions and trusted wrapper matter; only targeted faults were evaluated.\\
 \bottomrule\end{longtable}
 
+\section{Engineering Trade-off Analysis}
 \subsection{Trade-offs and conflicting evidence}
 Priority latency versus background throughput is an observed conflict rather than a rhetorical possibility. Tally's 10\% idle-time stratum reports normalized background throughput 1.19 versus 1.65 for TGS, even though its policy targets protected inference latency \cite{tally}. REEF's PyTorch priority result and its separate TensorRT throughput comparison show that the conclusion changes with runtime and denominator \cite{reef}. We infer that a latency-first controller may knowingly leave capacity or best-effort progress on the table; the size of that sacrifice must be measured at the target arrival rates. This does not establish Tally or REEF as globally better or worse.
 
@@ -100,7 +107,8 @@ Partition density versus model fit is visible in GNN-Triton's local thrashing th
 
 Resource utilization versus energy is a separate objective. EnerTune's local SDXL/MobileNetV3 pairing consumes less energy than no sharing while increasing latency in that example \cite{enertune}. WattWiser's aggregate power outcome concerns four AMD GPUs and placement \cite{wattwiser}. Neither demonstrates a universal energy benefit from every MIG profile or from simply increasing GPU busy time. The objective function should include electricity, SLO penalties and the cost of extra devices when those matter.
 
-\section{Answers to RQ5 and engineering recommendation}
+\input{cep_discussion_detail.tex}
+\section{Evidence-Based Engineering Recommendation}
 For a strict per-tenant latency SLO and a high-priority versus best-effort mix, begin with exclusive admission or a temporal controller whose measured preemption, handover and model-fit behavior satisfy the target percentile. REEF, Clockwork, Sirius, XSched and related experiments support the possibility of protecting priority work in their own settings \cite{reef,clockwork,sirius,xsched}. Reserve capacity or accept lower background throughput when necessary; Tally supplies a direct caution \cite{tally}. This is an inference from heterogeneous studies, not a certified SLO for a new GPU. \red{A final target workload trace, percentile and allowed throughput loss are needed to make the deployment choice concrete.}
 
 For density with compatible small models and flexible SLOs, trial MPS with explicit per-model caps and interference monitoring, using solo and concurrent baselines at realistic burst rates \cite{gpulet,gslice,vastpipe,deinfer}. Report achieved goodput and tail latency alongside density. If memory footprint or cache/bandwidth contention dominates, a cap alone is insufficient. If supported hardware and model fit permit it, trial MIG partitions for more explicit allocation; test several profiles and the cost of reconfiguration, then compare MIG-only and MIG+MPS on the same service mix \cite{gnntriton,dynap,boer}. BOER's adverse hybrid case is a reason to retain the MIG-only baseline.
@@ -109,16 +117,24 @@ Choose API remoting or virtualization when it supplies required fine-grained con
 
 Use an explicit decision record: target GPU and supported features; peak and burst arrival trace; model and batch memory; p95/p99 or TTFT/TBT SLO; minimum goodput and tenant count; allowed reconfiguration interruption; energy or hardware-cost objective; security/fault threat model; then a same-device A/B comparison with solo and shared baselines. A mechanism is acceptable only if it meets the hard constraint in that measured setting; choose among acceptable candidates using the stated secondary objective. The comparison must disclose whether a whole-server controller, compiler, batching policy or workflow scheduler also changed. This procedure is our engineering interpretation of the evidence, not a benchmark outcome reported by one paper.
 
-\section{Research gaps and threats to validity}
+\section{Research Gaps and Future Research Directions}
 The working extraction shows incomplete apples-to-apples comparisons of time slicing, MPS, MIG and remoting on one GPU under the same models, arrivals, SLOs, resource budget and driver/runtime. Tail and fairness metrics are inconsistent. Several systems combine local sharing with batching or global placement, and some energy totals are whole-server rather than per-partition. Direct fault-injection and adversarial isolation studies are sparse relative to latency experiments. Recent LLM decoding introduces TTFT/TBT and memory-bandwidth behavior that does not map neatly to older image-classifier throughput. These gaps follow from the recorded comparison fields and negative cases; the final gap inventory is \red{subject to the remaining full texts and parameter extraction}.
 
+\section{Threats to Validity}
 Review-level threats include incomplete formal export coverage, the ACM displayed/export mismatch, ScienceDirect filter ambiguity, an amended cutoff, a single AI reviewer, rule-assisted title exclusions, 45 unassessed extension reports, 96 unresolved retrieval cases and two pending eligible reports. The interim four-source counts balance algebraically but not yet at every canonical report/version row. Published studies favor systems with favorable evaluations; negative findings and inaccessible work may be underrepresented. Some Markdown conversions lose figure pixels or interleave columns; we retain labelled prose and tables with locations, do not interpolate plots, and label untranscribed parameters. Quality totals assess reporting, and a threshold alone cannot resolve indirectness or missing experiments. \red{A final sensitivity analysis after screening and human review is required before calling the synthesis complete.}
 
 \section{Conclusion}
 Current primary evidence supports conditional engineering selection rather than a universal winner. Temporal admission and preemption can protect prioritized inference with throughput or integration costs. Tuned MPS can pack compatible models but retains shared-resource interference. MIG exposes defined partitions with profile, memory and reconfiguration costs; hybrid gains depend on model size and placement. API control can add fine-grained scheduling while transfer and compatibility impose workload-specific overhead. Performance protection, memory separation, adversarial security and fault containment must be evaluated independently. \red{The 43-study working set and interim PRISMA map must be reconciled with all pending retrieval, screening and version decisions before this becomes the final submitted SLR.}
 
+\bibliographystyle{IEEEtran}
+\bibliography{query_references}
 \appendix
-\section{Current primary-study register and quality scores}
+\section{Search runs and exact executed strings}
+The complete source URLs, parsed file receipts and individual screening rows accompany this report in the Group A evidence directory and query workbook. The table below reproduces the exact entered strings for all ten executed runs; blocked pilots are not counted as completed runs.
+\input{cep_search_runs.tex}
+\section{Quality-assessment checklist and scores}
+\input{cep_quality_matrix.tex}
+\section{Current included primary-study register}
 This appendix is generated from \texttt{current\_extraction.csv} and \texttt{current\_quality.csv}; each ID denotes one preferred report/study in the working set. Scores are out of 10, and the source/venue and review caveat are retained in the evidence workbook. A score does not establish a measured security property.
 \input{cep_study_register.tex}
 
@@ -129,6 +145,4 @@ The following condensed cards give one bounded finding and its corresponding cav
 \section{Completion and audit register}
 \red{Before submission: reconcile four Step 5 links, canonical title/abstract and report-version rows; assess 45 queued reports and resolve 96 earlier retrieval cases; integrate or exclude the two eligible-pending reports with explicit reasons; generate a final PRISMA 2020 diagram whose boxes derive from the same ledgers; audit the single-reviewer decisions and quality scores; complete missing GPU, driver, profile, quota, arrival, warm-up and variance fields; rerun the conditional synthesis and sensitivity analysis.} The published query workbook and query report provide the current receipts and historical flow, but do not eliminate these tasks.
 
-\bibliographystyle{IEEEtran}
-\bibliography{query_references}
 \end{document}
