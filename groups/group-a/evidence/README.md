@@ -6,7 +6,7 @@ Screening is one AI reviewer authorized by the user, not independent student rev
 
 Public result-page capture substitutes for unavailable publisher exports; it does not preserve abstracts that were never displayed. metadata contains only the matched result item, never signed-in account or network details. retrieval_lookups.json is a sanitized public-access ledger, not an archive of copyrighted full texts. Download requests are linked to NED-listed platforms; individual entitlements are unverified.
 
-Counts reconcile the captured subset only. ACM/ScienceDirect totals are UNKNOWN. No final PRISMA diagram or completed four-database SLR is claimed. Use the report's checkpoint flow and the machine-readable counts together.
+Counts reconcile the 11 October captured subset only. The later ACM/ScienceDirect parsed occurrences are separately reported, with displayed/export discrepancies unresolved. The query report contains an interim PRISMA stage diagram for the older subset; no final four-database flow or completed SLR is claimed. See `guideline_7_14_audit.md` for the remaining requirements.
 
 Calibration/reconsiderations: PipeSwitch retained because inference switching outcomes are explicit; KRISP retained under protocol7.2 local partition/API control but its AMD emulation is isolated from NVIDIA MPS evidence; TGS excluded as training-only; Fermilab Triton reconsidered and retained only after Fig10 showed concurrent distinct models inside a slice. DIPPM rejected at full text because profile suggestion alone is not concurrent tenant evaluation. No reviewer disagreement or consensus is invented.
 

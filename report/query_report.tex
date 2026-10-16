@@ -3,6 +3,8 @@
 \usepackage{iftex}
 \ifPDFTeX\usepackage[T1]{fontenc}\usepackage[utf 8]{inputenc}\usepackage{mathptmx}\else\usepackage{fontspec}\setmainfont{Times New Roman}\fi
 \usepackage{longtable,booktabs,array,enumitem,microtype,xcolor,needspace}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 \usepackage[hidelinks]{hyperref}
 \usepackage{parskip}
 \setlength{\emergencystretch}{3em}
@@ -80,6 +82,36 @@ Accepted unique studies & 21\\
 Pending / not retrieved & 96\\
 \bottomrule\end{longtable}
 The reconciled captured subset is: 689-10+20=699 records; 699 equals pre-full-text exclusions plus assessed reports plus pending records. Assessed reports equal included reports plus full-text exclusions. The later ACM/ScienceDirect occurrence population is outside these 11 October arithmetic identities. This 11 October checkpoint is intentionally not a completed PRISMA2020 flow. Reports sought include pending retrieval attempts, but complete formal-database retrieval and final study-version resolution remain open.
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[>=Latex, every node/.style={font=\small}, main/.style={draw,rounded corners=2pt,align=center,text width=6.4cm,minimum height=1.1cm,fill=blue!5}, side/.style={draw,rounded corners=2pt,align=center,text width=4.0cm,minimum height=1.1cm,fill=gray!9}, line/.style={-Latex,thick}]
+\node[main] (id) at (0,0) {IEEE and Springer records identified\\$n=689$};
+\node[main] (unique) at (0,-2) {Unique formal records\\$689-10=679$};
+\node[side] (duplicate) at (6.8,-1) {Duplicates removed\\$n=10$};
+\node[side] (supplementary) at (6.8,-3) {Supplementary records selected\\$n=20$};
+\node[main] (screened) at (0,-4) {Records for screening\\$679+20=699$};
+\node[main] (sought) at (0,-6) {Reports sought\\$699-575=124$};
+\node[side] (early) at (6.8,-5) {Excluded before full text\\$n=575$};
+\node[main] (assessed) at (0,-8) {Full-text reports assessed\\$124-96=28$};
+\node[side] (unavailable) at (6.8,-7) {Pending / not retrieved\\$n=96$};
+\node[main] (included) at (0,-10) {Unique primary studies included\\$28-7=21$};
+\node[side] (excluded) at (6.8,-9) {Full texts excluded\\$n=7$ (E1: 4; E2: 1; E3: 1; E8: 1)};
+\draw[line] (id) -- (unique);
+\draw[line] (id.east) -- (duplicate.west);
+\draw[line] (unique) -- (screened);
+\draw[line] (supplementary.west) -- (screened.east);
+\draw[line] (screened) -- (sought);
+\draw[line] (screened.east) -- (early.west);
+\draw[line] (sought) -- (assessed);
+\draw[line] (sought.east) -- (unavailable.west);
+\draw[line] (assessed) -- (included);
+\draw[line] (assessed.east) -- (excluded.west);
+\end{tikzpicture}
+\caption{Interim PRISMA 2020 stage mapping for the reconciled 11 October captured subset. The later 3,727 ACM/ScienceDirect occurrences are outside this flow. E1--E8 reason definitions and report-level decisions are in \texttt{rejected.csv}. This is not the completed four-database flow.}
+\label{fig:prisma-checkpoint}
+\end{figure}
+\clearpage
 
 Title decisions are first-pass relevance judgments, explicitly labelled as title stage. Abstract decisions cite publisher scope; full-text decisions identify a section or experiment. Training and inference are not interchangeable: PipeSwitch and SIRIUS are retained for explicit inference outcomes, whereas TGS is rejected for training-only evidence. The Fermilab paper was retained after its multi-model slice experiment was inspected, rather than merely because it mentioned MIG. DIPPM was rejected because profile prediction alone does not test concurrent tenant sharing.
 
