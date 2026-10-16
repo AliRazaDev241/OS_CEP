@@ -1,0 +1,16 @@
+{
+  "date": "2026-10-17",
+  "scope": "Accepted-set update, not reconciled four-database PRISMA flow",
+  "historical_accepted": 21,
+  "batch1_accepted": 10,
+  "batch2_accepted": 3,
+  "batch3_assessed": 10,
+  "batch3_accepted": 9,
+  "batch3_excluded": 1,
+  "current_accepted": 43,
+  "extension_assessed": 33,
+  "extension_eligible_pending": 2,
+  "supplied_queue": 76,
+  "queue_received": 31,
+  "queue_remaining": 45
+}

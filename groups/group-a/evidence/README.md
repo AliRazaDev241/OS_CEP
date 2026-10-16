@@ -1,6 +1,6 @@
 # Current evidence — batches 1 and 2, 17 October 2026
 
-Current accepted set: 34; use the current-prefixed combined ledgers and batch1_review.md / batch2_review.md. Original Flow A is historical. Extension decision authority: new_fulltext_assessments.csv. Twenty-one received/assessed, 55 remaining in the supplied 76-entry queue; two earlier preliminary assessments are outside the 34. See report/BUILD.md for rebuild order.
+Current accepted set: 43; use the current-prefixed combined ledgers and batch1_review.md / batch2_review.md / batch3_review.md. Original Flow A is historical. Extension decision authority: new_fulltext_assessments.csv. Thirty-one received/assessed, 45 remaining in the supplied 76-entry queue; two earlier preliminary assessments are outside the 43. See report/BUILD.md for rebuild order.
 
 # Group A evidence — 11 October 2026
 

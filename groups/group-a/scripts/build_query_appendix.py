@@ -42,7 +42,7 @@ if qa.keys() != extraction.keys():
 
 parts = [
     r"\section{Study-level evidence cards}\label{app:cards}",
-    r"\pending{These cards reflect the current 34-study accepted set after batch 2; the complete four-database selection flow remains open.}",
+    r"\pending{These cards reflect the current 43-study accepted set after batch 3; the complete four-database selection flow remains open.}",
     r"The item rationales below reproduce the Group A quality register. Bounded outcomes and caveats reproduce the extraction register. They are not a new independent appraisal or a substitute for the cited full texts.",
 ]
 for study_id in sorted(qa):

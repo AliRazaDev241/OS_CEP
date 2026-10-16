@@ -56,9 +56,10 @@ for(const [name,matrix] of Object.entries(data)){
   sh.getRange('A:A').format.columnWidth=54;sh.getRange('B:B').format.columnWidth=85;
   body.format.rowHeight=46;sh.getRange('B4').formulas=[['=COUNTIF(Batch1!D2:D11,"accepted")']];
   sh.getRange('B5').formulas=[['=COUNTIF(Batch2!D2:D12,"accepted")']];
-  sh.getRange('B6').formulas=[['=SUM(B3:B5)']];sh.getRange('A6:B6').format.fill='#DDEFE7';
+  sh.getRange('B6').formulas=[['=COUNTIF(Batch3!D2:D11,"accepted")']];
+  sh.getRange('B7').formulas=[['=SUM(B3:B6)']];sh.getRange('A7:B7').format.fill='#DDEFE7';
  }
- if(name==='Batch1'||name==='Batch2'){
+ if(name==='Batch1'||name==='Batch2'||name==='Batch3'){
   sh.getRange('A:B').format.columnWidth=18;sh.getRange('C:C').format.columnWidth=24;
   sh.getRange('D:E').format.columnWidth=18;sh.getRange('F:G').format.columnWidth=90;body.format.rowHeight=90;
  }
@@ -78,7 +79,7 @@ wb.recalculate();
 console.log((await wb.inspect({kind:'region',sheetId:'Summary',range:'A1:B12',maxChars:3000,tableMaxRows:12,tableMaxCols:2})).ndjson);
 const preview=await wb.render({sheetName:'Summary',autoCrop:'all',scale:1,format:'png'});
 await fs.writeFile(path.join(report,'workbook-preview.png'),new Uint8Array(await preview.arrayBuffer()));
-for(const [sheetName,range] of [['Quality','A31:N35'],['Received','A18:F28'],['Current','A1:B10'],['Batch1','A1:E11'],['Batch2','A1:G12'],['Included','A31:G35'],['AssessedNew','A14:L24'],['DownloadQueue','A11:P22']]){
+for(const [sheetName,range] of [['Quality','A40:N44'],['Received','A28:F38'],['Current','A1:B11'],['Batch1','A1:E11'],['Batch2','A1:G12'],['Batch3','A1:G11'],['Included','A40:G44'],['AssessedNew','A24:L34'],['DownloadQueue','A20:P32']]){
  console.log((await wb.inspect({kind:'region',sheetId:sheetName,range,maxChars:1500,tableMaxRows:3,tableMaxCols:5})).ndjson);
  const picture=await wb.render({sheetName,range,scale:1,format:'png'});
  await fs.writeFile(path.join(report,sheetName.toLowerCase()+'-preview.png'),new Uint8Array(await picture.arrayBuffer()));

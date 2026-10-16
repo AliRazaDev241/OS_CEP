@@ -1,0 +1,11 @@
+record_id,report_id,study_id,filename,sha256,bytes,received_date,source_format,decision,qa_total
+GA-N00027,GA-PN00027,GA-S035,N00027.md,a05cc58d95394be6e7c0eb1db4abd3f1204c2fe49298f3741cfa7c73e06fa115,102323,2026-10-17,User-supplied full-report Markdown conversion,accepted_new_study,7.0
+GA-N00046,GA-PN00046,GA-S036,N00046.md,6cc1eb87e41f210d4725a45d4326b7fd7f3d9a80f75603cb67cae69c0afb8199,82670,2026-10-17,User-supplied full-report Markdown conversion,accepted_new_study,8.0
+GA-N00048,GA-PN00048,GA-S037,N00048.md,99bb675acae5766aecddbfe2551a75f70ac817744ab65929d98c30e084bca66a,85343,2026-10-17,User-supplied full-report Markdown conversion,accepted_new_study,8.0
+GA-N00049,GA-PN00049,GA-S038,N00049.md,0e44ded236ca6540d065674723b860c9bdd816b39dd411ccd2570e414ebe1267,73827,2026-10-17,User-supplied full-report Markdown conversion,accepted_new_study,9.5
+GA-N00059,GA-PN00059,GA-S039,N00059.md,b655aca61226d1abbe9a501265980c31e18ed33cdc65542bc0c667cf015bbe75,60032,2026-10-17,User-supplied full-report Markdown conversion,accepted_new_study,8.0
+GA-N00063,GA-PN00063,GA-S040,N00063.md,3d30a7a49f03d58a33fbd9ed414e4d43947569d8ad4903a35e34f7b57c1a1003,106666,2026-10-17,User-supplied full-report Markdown conversion,accepted_new_study,8.5
+GA-N00068,GA-PN00068,GA-S041,N00068.md,cc0171ffbbf65173d1934dd95e825b7d091f6e470fef427fa156e9436bbdc866,43888,2026-10-17,User-supplied full-report Markdown conversion,accepted_new_study,9.5
+GA-N00070,GA-PN00070,GA-S042,N00070.md,f308149593aef8c5b20931676b231c042374e920d91840da9df078427deee185,82462,2026-10-17,User-supplied full-report Markdown conversion,accepted_new_study,9.0
+GA-N00073,GA-PN00073,GA-S043,N00073.md,612e4972c6e5a6fa47695277261aac084006b018ac0bd1edf3fa374bdf5619a9,78554,2026-10-17,User-supplied full-report Markdown conversion,accepted_new_study,8.0
+GA-N00018,GA-PN00018,,N00018.md,a0d3d642ab42b33a384ff471c0f9d554119ca872923e15c19e8c02de0de62d83,104451,2026-10-17,User-supplied full-report Markdown conversion,excluded_E4,

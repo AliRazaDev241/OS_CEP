@@ -1,5 +1,5 @@
 \section{Study-level evidence cards}\label{app:cards}
-\pending{These cards reflect the current 34-study accepted set after batch 2; the complete four-database selection flow remains open.}
+\pending{These cards reflect the current 43-study accepted set after batch 3; the complete four-database selection flow remains open.}
 The item rationales below reproduce the Group A quality register. Bounded outcomes and caveats reproduce the extraction register. They are not a new independent appraisal or a substitute for the cited full texts.
 \Needspace{12\baselineskip}
 \subsection{GA-S001: Real-time, Work-conserving GPU Scheduling for Concurrent DNN Inference}
@@ -917,5 +917,248 @@ Q7 & 0.5 & Short traces and controlled kernels; repetition/variance limited (4)\
 Q8 & 1 & Trace/Fig. 2 and Table 1/prose substantiate scoped findings (4)\\
 Q9 & 1 & Shared cache/bandwidth and scheduler outlook explicitly discussed (4–5)\\
 Q10 & 0.5 & Benchmarks interpretable; no complete deployed scheduler to reproduce (5)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S035: Reaching for the Sky: Maximizing Deep Learning Inference Throughput on Edge Devices with AI Multi-Tenancy}
+\textbf{Preferred report:} ACM Transactions on Internet Technology, 2023; report GA-PN00027. \textbf{Current QA:} 7.0/10 (moderate).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & Concurrent model execution and dynamic placement across edge device GPU/CPU and Edge TPU\\
+Environment & Jetson Xavier NX and other edge devices; heterogeneous accelerator comparisons\\
+Workload & Image classification models with concurrent inference on an edge device\\
+Comparator & Single-model or alternate edge execution arrangements\\
+Bounded finding & Abstract and multi-tenancy evaluation report inference throughput gains under concurrent execution; do not attribute heterogeneous placement gains solely to GPU sharing.\\
+Transfer limit & Edge GPU, CPU and TPU contributions are coupled; throughput is not latency predictability or security isolation.\\
+Source anchor & N00027.md abstract; multi-tenancy and performance evaluation sections, figures on CME and DMP\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Concurrent inference question: N00027.md abstract; multi-tenancy and performance evaluation sections, figures on CME and DMP\\
+Q2 & 1 & Mechanism described: Concurrent model execution and dynamic placement across edge device GPU/CPU and Edge TPU\\
+Q3 & 0.5 & Hardware/software specified partly: Jetson Xavier NX and other edge devices; heterogeneous accelerator comparisons\\
+Q4 & 0.5 & Workload described: Image classification models with concurrent inference on an edge device\\
+Q5 & 0.5 & Baselines described but equivalence may vary: Single-model or alternate edge execution arrangements\\
+Q6 & 1 & Outcome metric located: Abstract and multi-tenancy evaluation report inference throughput gains under concurrent execution; do not attribute heterogeneous placement gains solely to GPU sharing.\\
+Q7 & 0.5 & Measurement variance/repetition not established by extracted text: N00027.md abstract; multi-tenancy and performance evaluation sections, figures on CME and DMP\\
+Q8 & 1 & Bounded result can be traced: N00027.md abstract; multi-tenancy and performance evaluation sections, figures on CME and DMP\\
+Q9 & 0.5 & Alternative explanation or limit recorded: Edge GPU, CPU and TPU contributions are coupled; throughput is not latency predictability or security isolation.\\
+Q10 & 0.5 & Partial configuration and source conversion limit reproduction: Jetson Xavier NX and other edge devices; heterogeneous accelerator comparisons\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S036: Miriam: Exploiting Elastic Kernels for Real-time Multi-DNN Inference on Edge GPU}
+\textbf{Preferred report:} Proceedings of ACM/IEEE Symposium on Edge Computing 2023, 2023; report GA-PN00046. \textbf{Current QA:} 8.0/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & Elastic kernels and contention-aware coordination for mixed-criticality inference\\
+Environment & Edge GPUs, which the paper says lack server MIG/MPS support\\
+Workload & Concurrent critical and best-effort DNN inference tasks\\
+Comparator & Edge multi-DNN scheduling baselines\\
+Bounded finding & Abstract reports up to 92\% throughput improvement while critical tasks incur less than 10\% latency overhead in its evaluated scenarios.\\
+Transfer limit & Edge elastic-kernel scheduling is transferable temporal/spatial evidence, not a direct MIG/MPS comparison.\\
+Source anchor & N00046.md abstract; sections on kernel coordination and evaluation\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Concurrent inference question: N00046.md abstract; sections on kernel coordination and evaluation\\
+Q2 & 1 & Mechanism described: Elastic kernels and contention-aware coordination for mixed-criticality inference\\
+Q3 & 0.5 & Hardware/software specified partly: Edge GPUs, which the paper says lack server MIG/MPS support\\
+Q4 & 1 & Workload described: Concurrent critical and best-effort DNN inference tasks\\
+Q5 & 0.5 & Baselines described but equivalence may vary: Edge multi-DNN scheduling baselines\\
+Q6 & 1 & Outcome metric located: Abstract reports up to 92\% throughput improvement while critical tasks incur less than 10\% latency overhead in its evaluated scenarios.\\
+Q7 & 0.5 & Measurement variance/repetition not established by extracted text: N00046.md abstract; sections on kernel coordination and evaluation\\
+Q8 & 1 & Bounded result can be traced: N00046.md abstract; sections on kernel coordination and evaluation\\
+Q9 & 1 & Source describes scenario-dependent limitations, recorded here: Edge elastic-kernel scheduling is transferable temporal/spatial evidence, not a direct MIG/MPS comparison.\\
+Q10 & 0.5 & Partial configuration and source conversion limit reproduction: Edge GPUs, which the paper says lack server MIG/MPS support\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S037: ElasticRoom: Multi-Tenant DNN Inference Engine via Co-design with Resource-constrained Compilation and Strong Priority Scheduling}
+\textbf{Preferred report:} Proceedings of HPDC 2024, 2024; report GA-PN00048. \textbf{Current QA:} 8.0/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & Resource-constrained compilation and priority scheduling with concurrent GPU inference\\
+Environment & GPU inference testbed; engine-level compilation and scheduling jointly changed\\
+Workload & Concurrent real-time and best-effort DNN requests\\
+Comparator & REEF, GSLICE and other evaluated inference-serving baselines\\
+Bounded finding & The evaluated engine balances request goodput, throughput and latency under co-located inference; comparison is engine-level.\\
+Transfer limit & Compiler and priority scheduling effects cannot be isolated as pure partition effects; plotted numbers were not transcribed.\\
+Source anchor & N00048.md abstract; section 6.2 evaluation and Fig. 1\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Concurrent inference question: N00048.md abstract; section 6.2 evaluation and Fig. 1\\
+Q2 & 1 & Mechanism described: Resource-constrained compilation and priority scheduling with concurrent GPU inference\\
+Q3 & 0.5 & Hardware/software specified partly: GPU inference testbed; engine-level compilation and scheduling jointly changed\\
+Q4 & 1 & Workload described: Concurrent real-time and best-effort DNN requests\\
+Q5 & 1 & Explicit within-paper comparators identified, with scenario differences still qualified: REEF, GSLICE and other evaluated inference-serving baselines\\
+Q6 & 1 & Outcome metric located: The evaluated engine balances request goodput, throughput and latency under co-located inference; comparison is engine-level.\\
+Q7 & 0.5 & Measurement variance/repetition not established by extracted text: N00048.md abstract; section 6.2 evaluation and Fig. 1\\
+Q8 & 1 & Bounded result can be traced: N00048.md abstract; section 6.2 evaluation and Fig. 1\\
+Q9 & 0.5 & Alternative explanation or limit recorded: Compiler and priority scheduling effects cannot be isolated as pure partition effects; plotted numbers were not transcribed.\\
+Q10 & 0.5 & Partial configuration and source conversion limit reproduction: GPU inference testbed; engine-level compilation and scheduling jointly changed\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S038: SwitchFlow: Preemptive Multitasking for Deep Learning}
+\textbf{Preferred report:} Proceedings of Middleware 2021, 2021; report GA-PN00049. \textbf{Current QA:} 9.5/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & Preemptive subgraph scheduling and interleaved model executors\\
+Environment & GTX 1080 Ti, RTX 2080 Ti, V100 and Jetson TX2; TensorFlow, CUDA 10.0, cuDNN 7.6.4\\
+Workload & Section 5.4 co-runs inference with inference; section 5.2 separately co-runs inference with training\\
+Comparator & Session-based time slicing, threaded TensorFlow and MPS, depending on experiment\\
+Bounded finding & Section 5.4/Fig. 10 reports interleaved execution gains among inference jobs of up to 30\% versus session-based time slicing in tested pairings.\\
+Transfer limit & The 19.05x p95 inference latency example in Fig. 6 uses a training co-tenant and is not evidence for two inference tenants.\\
+Source anchor & N00049.md sections 5.1, 5.2.1 and 5.4; Figs. 6 and 10\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Concurrent inference question: N00049.md sections 5.1, 5.2.1 and 5.4; Figs. 6 and 10\\
+Q2 & 1 & Mechanism described: Preemptive subgraph scheduling and interleaved model executors\\
+Q3 & 1 & GPU, operating system and runtime configuration reported in source: GTX 1080 Ti, RTX 2080 Ti, V100 and Jetson TX2; TensorFlow, CUDA 10.0, cuDNN 7.6.4\\
+Q4 & 1 & Workload described: Section 5.4 co-runs inference with inference; section 5.2 separately co-runs inference with training\\
+Q5 & 1 & Explicit within-paper comparators identified, with scenario differences still qualified: Session-based time slicing, threaded TensorFlow and MPS, depending on experiment\\
+Q6 & 1 & Outcome metric located: Section 5.4/Fig. 10 reports interleaved execution gains among inference jobs of up to 30\% versus session-based time slicing in tested pairings.\\
+Q7 & 0.5 & Measurement variance/repetition not established by extracted text: N00049.md sections 5.1, 5.2.1 and 5.4; Figs. 6 and 10\\
+Q8 & 1 & Bounded result can be traced: N00049.md sections 5.1, 5.2.1 and 5.4; Figs. 6 and 10\\
+Q9 & 1 & Source describes scenario-dependent limitations, recorded here: The 19.05x p95 inference latency example in Fig. 6 uses a training co-tenant and is not evidence for two inference tenants.\\
+Q10 & 1 & Detailed testbed and comparison permit critical interpretation, without independent replication: GTX 1080 Ti, RTX 2080 Ti, V100 and Jetson TX2; TensorFlow, CUDA 10.0, cuDNN 7.6.4\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S039: ITIF: Integrated Transformers Inference Framework for Multiple Tenants on GPU}
+\textbf{Preferred report:} Proceedings of ICPP 2023, 2023; report GA-PN00059. \textbf{Current QA:} 8.0/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & Shared transformer backbone with operator-level multi-tenant execution\\
+Environment & GPU with concurrent transformer inference; model architecture and scheduling jointly optimized\\
+Workload & Four tenants per evaluated model and transformer inference requests\\
+Comparator & Separate multi-tenant GPU inference baselines including MPS or stream execution\\
+Bounded finding & Abstract reports up to 2.40x performance versus baselines for evaluated shared-backbone transformer inference.\\
+Transfer limit & Shared backbone changes model computation; speedup cannot be assigned to GPU scheduling alone or generalized to unrelated models.\\
+Source anchor & N00059.md abstract; design and experiment sections including four-tenant setup\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Concurrent inference question: N00059.md abstract; design and experiment sections including four-tenant setup\\
+Q2 & 1 & Mechanism described: Shared transformer backbone with operator-level multi-tenant execution\\
+Q3 & 0.5 & Hardware/software specified partly: GPU with concurrent transformer inference; model architecture and scheduling jointly optimized\\
+Q4 & 1 & Workload described: Four tenants per evaluated model and transformer inference requests\\
+Q5 & 0.5 & Baselines described but equivalence may vary: Separate multi-tenant GPU inference baselines including MPS or stream execution\\
+Q6 & 1 & Outcome metric located: Abstract reports up to 2.40x performance versus baselines for evaluated shared-backbone transformer inference.\\
+Q7 & 0.5 & Measurement variance/repetition not established by extracted text: N00059.md abstract; design and experiment sections including four-tenant setup\\
+Q8 & 1 & Bounded result can be traced: N00059.md abstract; design and experiment sections including four-tenant setup\\
+Q9 & 1 & Source describes scenario-dependent limitations, recorded here: Shared backbone changes model computation; speedup cannot be assigned to GPU scheduling alone or generalized to unrelated models.\\
+Q10 & 0.5 & Partial configuration and source conversion limit reproduction: GPU with concurrent transformer inference; model architecture and scheduling jointly optimized\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S040: Towards SLO-Compliant and Cost-Effective Serverless Computing on Emerging GPU Architectures}
+\textbf{Preferred report:} Proceedings of Middleware 2024, 2024; report GA-PN00063. \textbf{Current QA:} 8.5/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & Protean orchestrates MIG partitioning and MPS sharing for GPU serverless inference\\
+Environment & Eight A100 GPUs; local MIG/MPS allocations embedded in a multi-GPU system\\
+Workload & 22 ML inference workloads with trace-driven serverless arrivals\\
+Comparator & Evaluated serverless GPU allocation baselines\\
+Bounded finding & The evaluation reports SLO compliance and cost effects of orchestration under trace-driven inference; no per-GPU improvement is extracted from system-level totals.\\
+Transfer limit & Multiple GPUs and global scheduling contribute jointly; local mechanism claims cannot be isolated without matched per-device comparisons.\\
+Source anchor & N00063.md abstract, sections on MIG/MPS design and evaluation of 22 workloads\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Concurrent inference question: N00063.md abstract, sections on MIG/MPS design and evaluation of 22 workloads\\
+Q2 & 1 & Mechanism described: Protean orchestrates MIG partitioning and MPS sharing for GPU serverless inference\\
+Q3 & 1 & GPU, operating system and runtime configuration reported in source: Eight A100 GPUs; local MIG/MPS allocations embedded in a multi-GPU system\\
+Q4 & 1 & Workload described: 22 ML inference workloads with trace-driven serverless arrivals\\
+Q5 & 0.5 & Baselines described but equivalence may vary: Evaluated serverless GPU allocation baselines\\
+Q6 & 1 & Outcome metric located: The evaluation reports SLO compliance and cost effects of orchestration under trace-driven inference; no per-GPU improvement is extracted from system-level totals.\\
+Q7 & 0.5 & Measurement variance/repetition not established by extracted text: N00063.md abstract, sections on MIG/MPS design and evaluation of 22 workloads\\
+Q8 & 1 & Bounded result can be traced: N00063.md abstract, sections on MIG/MPS design and evaluation of 22 workloads\\
+Q9 & 1 & Source describes scenario-dependent limitations, recorded here: Multiple GPUs and global scheduling contribute jointly; local mechanism claims cannot be isolated without matched per-device comparisons.\\
+Q10 & 0.5 & Partial configuration and source conversion limit reproduction: Eight A100 GPUs; local MIG/MPS allocations embedded in a multi-GPU system\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S041: WattWiser: Power \& Resource-Efficient Scheduling for Multi-Model Multi-GPU Inference Servers}
+\textbf{Preferred report:} Proceedings of IGSC 2023, 2023; report GA-PN00068. \textbf{Current QA:} 9.5/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & Sharing-aware placement and request routing to co-located models on physical GPUs\\
+Environment & One server with four AMD MI50 GPUs and ROCm 5.2; no NVIDIA MIG/MPS implementation\\
+Workload & Pairs of concurrent image model inference under varying Facebook SWIM-derived traces\\
+Comparator & Uniform and alternative GPU routing/power scheduling policies\\
+Bounded finding & Section 4/Fig. 3 shows model tail latency relative to SLO while requests consolidate onto shared GPUs; power savings are whole-server effects.\\
+Transfer limit & The four-GPU power outcome cannot estimate per-GPU partition efficiency; MI50 setup is not a MIG evaluation.\\
+Source anchor & N00068.md sections 4.1–4.2 and Fig. 3\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Concurrent inference question: N00068.md sections 4.1–4.2 and Fig. 3\\
+Q2 & 1 & Mechanism described: Sharing-aware placement and request routing to co-located models on physical GPUs\\
+Q3 & 1 & GPU, operating system and runtime configuration reported in source: One server with four AMD MI50 GPUs and ROCm 5.2; no NVIDIA MIG/MPS implementation\\
+Q4 & 1 & Workload described: Pairs of concurrent image model inference under varying Facebook SWIM-derived traces\\
+Q5 & 1 & Explicit within-paper comparators identified, with scenario differences still qualified: Uniform and alternative GPU routing/power scheduling policies\\
+Q6 & 1 & Outcome metric located: Section 4/Fig. 3 shows model tail latency relative to SLO while requests consolidate onto shared GPUs; power savings are whole-server effects.\\
+Q7 & 0.5 & Measurement variance/repetition not established by extracted text: N00068.md sections 4.1–4.2 and Fig. 3\\
+Q8 & 1 & Bounded result can be traced: N00068.md sections 4.1–4.2 and Fig. 3\\
+Q9 & 1 & Source describes scenario-dependent limitations, recorded here: The four-GPU power outcome cannot estimate per-GPU partition efficiency; MI50 setup is not a MIG evaluation.\\
+Q10 & 1 & Detailed testbed and comparison permit critical interpretation, without independent replication: One server with four AMD MI50 GPUs and ROCm 5.2; no NVIDIA MIG/MPS implementation\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S042: DeInfer: A GPU resource allocation algorithm with spatial sharing for near-deterministic inferring tasks}
+\textbf{Preferred report:} Proceedings of ICPP 2024, 2024; report GA-PN00070. \textbf{Current QA:} 9.0/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & Interference-aware MPS spatial allocation with latency prediction\\
+Environment & RTX 3080 GPUs, Ubuntu 20.04, NVIDIA driver 470.199.02; local concurrent MPS configuration\\
+Workload & Co-located ResNet-18 and VGG-19 plus inference model combinations\\
+Comparator & Prediction and allocation baselines as reported in section 5\\
+Bounded finding & Section 5 evaluates prediction accuracy and allocation for concurrent inference with MPS; its Fig. 2 shows that MPS spatial limits do not eliminate shared-resource latency interference.\\
+Transfer limit & Two GPUs are present in testbed; claims here concern within-device workloads, not a two-device pooled speedup.\\
+Source anchor & N00070.md sections 2.2 and 5.1–5.2; Fig. 2, Table 1 and testbed table\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Concurrent inference question: N00070.md sections 2.2 and 5.1–5.2; Fig. 2, Table 1 and testbed table\\
+Q2 & 1 & Mechanism described: Interference-aware MPS spatial allocation with latency prediction\\
+Q3 & 1 & GPU, operating system and runtime configuration reported in source: RTX 3080 GPUs, Ubuntu 20.04, NVIDIA driver 470.199.02; local concurrent MPS configuration\\
+Q4 & 1 & Workload described: Co-located ResNet-18 and VGG-19 plus inference model combinations\\
+Q5 & 0.5 & Baselines described but equivalence may vary: Prediction and allocation baselines as reported in section 5\\
+Q6 & 1 & Outcome metric located: Section 5 evaluates prediction accuracy and allocation for concurrent inference with MPS; its Fig. 2 shows that MPS spatial limits do not eliminate shared-resource latency interference.\\
+Q7 & 0.5 & Measurement variance/repetition not established by extracted text: N00070.md sections 2.2 and 5.1–5.2; Fig. 2, Table 1 and testbed table\\
+Q8 & 1 & Bounded result can be traced: N00070.md sections 2.2 and 5.1–5.2; Fig. 2, Table 1 and testbed table\\
+Q9 & 1 & Source describes scenario-dependent limitations, recorded here: Two GPUs are present in testbed; claims here concern within-device workloads, not a two-device pooled speedup.\\
+Q10 & 1 & Detailed testbed and comparison permit critical interpretation, without independent replication: RTX 3080 GPUs, Ubuntu 20.04, NVIDIA driver 470.199.02; local concurrent MPS configuration\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S043: ESG: Pipeline-Conscious Efficient Scheduling of DNN Workflows on Serverless Platforms with Shareable GPUs}
+\textbf{Preferred report:} Proceedings of HPDC 2024, 2024; report GA-PN00073. \textbf{Current QA:} 8.0/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & Pipeline-aware placement combining GPU sharing, batch size and SLO distribution\\
+Environment & GPU-backed serverless workflows; allocation and scheduling across invokers\\
+Workload & Concurrent DNN inference workflow functions and request traces\\
+Comparator & INFless, Fast-GShare, Orion and Aquatope with adapted GPU sharing support\\
+Bounded finding & Abstract reports 61–80\% SLO hit-rate improvement and 47–187\% cost savings over prior systems for evaluated workflows.\\
+Transfer limit & Figures are workflow/system results influenced by batching and scheduler search, not isolated effects of local GPU sharing.\\
+Source anchor & N00073.md abstract, sections 3 and 5; evaluation setup and end-to-end comparison\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Concurrent inference question: N00073.md abstract, sections 3 and 5; evaluation setup and end-to-end comparison\\
+Q2 & 1 & Mechanism described: Pipeline-aware placement combining GPU sharing, batch size and SLO distribution\\
+Q3 & 0.5 & Hardware/software specified partly: GPU-backed serverless workflows; allocation and scheduling across invokers\\
+Q4 & 1 & Workload described: Concurrent DNN inference workflow functions and request traces\\
+Q5 & 0.5 & Baselines described but equivalence may vary: INFless, Fast-GShare, Orion and Aquatope with adapted GPU sharing support\\
+Q6 & 1 & Outcome metric located: Abstract reports 61–80\% SLO hit-rate improvement and 47–187\% cost savings over prior systems for evaluated workflows.\\
+Q7 & 0.5 & Measurement variance/repetition not established by extracted text: N00073.md abstract, sections 3 and 5; evaluation setup and end-to-end comparison\\
+Q8 & 1 & Bounded result can be traced: N00073.md abstract, sections 3 and 5; evaluation setup and end-to-end comparison\\
+Q9 & 1 & Source describes scenario-dependent limitations, recorded here: Figures are workflow/system results influenced by batching and scheduler search, not isolated effects of local GPU sharing.\\
+Q10 & 0.5 & Partial configuration and source conversion limit reproduction: GPU-backed serverless workflows; allocation and scheduling across invokers\\
 \bottomrule\end{longtable}
 

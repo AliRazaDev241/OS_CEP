@@ -36,3 +36,7 @@ Then run `build_workbook.mjs` with the Codex primary runtime and compile from `r
 ## Batch 2 update (17 October 2026)
 
 After `build_batch1.py`, run `python groups/group-a/scripts/build_batch2.py` (optionally `--source-dir PRIVATE_SOURCE_DIRECTORY` to verify all eleven source hashes). Then regenerate appendix/QA, validate, rebuild the workbook and compile the PDF. Batch 2 assesses eleven reports: three accepted (GA-S032–GA-S034), eight excluded. The combined accepted set is 34; 21 of the 76 queue reports are assessed and 55 remain. `batch2_review_assessments.json`, `batch2_exclusions.json`, `batch2_paper_receipts.csv`, `batch2_quality.csv` and `batch2_extraction.csv` record source-linked decisions without paper bodies. The historical 21-study checkpoint and PRISMA diagram remain distinct.
+
+## Batch 3 update (17 October 2026)
+
+After `build_batch2.py`, run `python groups/group-a/scripts/build_batch3.py` (optionally `--source-dir PRIVATE_SOURCE_DIRECTORY` for the ten conversion hashes). Regenerate appendix/QA and validate, rebuild the workbook, then compile the PDF. Nine studies GA-S035–GA-S043 are added, one report is excluded. The 43-study accepted set and 45 remaining queue entries are current progress, separate from the historical PRISMA flow. The private full texts remain outside Git.

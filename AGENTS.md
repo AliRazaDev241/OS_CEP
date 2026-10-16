@@ -2,6 +2,8 @@
 
 ## Current accepted-set update — 17 October 2026
 
+Batch 3 assessed ten more user-supplied reports: nine accepted GA-S035–GA-S043 and one training-only exclusion. The current accepted set is 43 and 45 of 76 queue entries remain. Batch 3 registers and receipts are in `groups/group-a/evidence/`, with rebuild instructions in `report/BUILD.md`. The older batch-2 snapshot below is historical.
+
 Batch 1 accepted ten studies GA-S022–GA-S031. Batch 2 assessed eleven reports, adding GA-S032–GA-S034 and excluding eight. The current accepted total is 34; historical Flow A remains 21. Use `current_accepted.csv`, `current_quality.csv`, `current_extraction.csv` and `current_included_studies.json` for current evidence. `new_fulltext_assessments.csv` is authoritative for extension decisions. Pantheon and Jormungandr remain eligible-pending-integration outside the 34. The 76-entry download queue has 21 assessed and 55 remaining. Follow the batch rebuild order in `report/BUILD.md`; do not inflate historical PRISMA counts. No full source texts are committed. Draft PR #6 is the update destination.
 
 

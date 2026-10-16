@@ -1,10 +1,10 @@
 # Batch 1 and 2 progress — 17 October 2026
 
-Ten batch-1 reports are accepted as GA-S022–GA-S031; eleven batch-2 reports were assessed, with three accepted as GA-S032–GA-S034 and eight excluded. The current accepted set is **34 unique studies**; each accepted addition has eligibility, publication-window evidence, Q1–Q10 rationales and bounded extraction; all received reports have SHA-256 receipts and the eight exclusions have anchored reasons. See both batch review notes and the current-prefixed combined ledgers.
+Ten batch-1 reports are accepted as GA-S022–GA-S031; eleven batch-2 reports were assessed, with three accepted as GA-S032–GA-S034 and eight excluded. Batch 3 assesses ten further reports, nine accepted as GA-S035–GA-S043 and one excluded. The current accepted set is **43 unique studies**; each accepted addition has eligibility, publication-window evidence, Q1–Q10 rationales and bounded extraction; all received reports have SHA-256 receipts and the eight exclusions have anchored reasons. See both batch review notes and the current-prefixed combined ledgers.
 
-The supplied 76-entry deduplicated download queue has **21 assessed and 55 remaining**. Pantheon and Jormungandr are two separate earlier assessments still pending version/QA integration; they are not included in the 34. The original four inaccessible requests are not repeated. The final four-database PRISMA flow still needs canonical duplicate/screening/retrieval reconciliation; do not change historical Flow A's arithmetic by simply adding batch decisions.
+The supplied 76-entry deduplicated download queue has **31 assessed and 45 remaining**. Pantheon and Jormungandr are two separate earlier assessments still pending version/QA integration; they are not included in the 43. The original four inaccessible requests are not repeated. The final four-database PRISMA flow still needs canonical duplicate/screening/retrieval reconciliation; do not change historical Flow A's arithmetic by simply adding batch decisions.
 
-The report, 34-study QA/evidence cards, bibliography, current workbook views and batch receipts are updated. The older checklist below is retained as planning history; its ten priority retrieval tasks and statements that only two extension reports have been assessed are superseded by this update.
+The report, 43-study QA/evidence cards, bibliography, current workbook views and batch receipts are updated. The older checklist below is retained as planning history; its ten priority retrieval tasks and statements that only two extension reports have been assessed are superseded by this update.
 
 # Group A query report and workbook: remaining steps
 
