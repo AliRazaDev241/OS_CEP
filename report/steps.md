@@ -1,13 +1,16 @@
 # Group A query report and workbook: remaining steps
 
 **Updated:** 17 October 2026 (PKT)
+
 **Scope:** Complete guideline sections 7–14 in `report/query_report.tex`, `report/query_report.pdf`, and `report/query_review_workbook.xlsx`. PR #5 has merged; the expanded report and this guide belong on the follow-up branch `group-a/expanded-query-report-followup` in `AliRazaDev241/OS_CEP`. Keep the submitted `SLR_protocol.*`, `guidelines.md`, and `topics.md` unchanged. Keep the 11 October checkpoint and its interim PRISMA flow identifiable until a reconciled four-database flow replaces it.
 
-PR #5 merged at `2a03a3f`, containing the earlier provenance edit `67b57f8`. The expanded 41-page report was added to the old head branch after that merge, so it was absent from `main`; this follow-up branch carries it forward. The report describes 23 matching export hashes, the log's final CRLF, dated run-count discrepancies, and the remaining four-database work. Step 1 and Step 2 notes supplied on 17 October were checked against an older uploaded checkout ending at `fa1b17a`; their statement that `67b57f8` is missing applies only to that zip. The workbook still needs regeneration after the final ledgers are settled. Neither 3,727 parsed occurrences nor 21 accepted checkpoint studies is a final four-database PRISMA total.
+PR #5 merged at `2a03a3f`, containing the earlier provenance edit `67b57f8`. The expanded report was added to the old head branch after that merge, so it was absent from `main`; draft PR #6 carries it forward and now builds to 44 pages including appendices and references. The report describes 23 matching export hashes, the log's final CRLF, dated run-count discrepancies, and the remaining four-database work. Step 1 and Step 2 notes supplied on 17 October were checked against an older uploaded checkout ending at `fa1b17a`; their statement that `67b57f8` is missing applies only to that zip. The workbook still needs regeneration after the final ledgers are settled. Neither 3,727 parsed occurrences nor 21 accepted checkpoint studies is a final four-database PRISMA total.
 
 **Group B reuse check (16 October):** Group B's report describes 1,582 ACM occurrences from 79 numbered BibTeX files whose exact query/run mapping is unknown. It also has 15 source-assessed QA/extraction forms and two full-text exclusions. The 15 named reports overlap Group A's current 21 accepted studies; Group B's counts, votes, QA scores, and decisions are independent and cannot be copied into Group A's flow. Use the report as a checklist of source anchors and possible ACM records only. The numbered exports become Group A identification evidence only if their exact run, filters, date, original files, and duplicate relationship to Group A's exports are established. The supplied Group B TeX alone does not establish those facts.
 
 ## Working rules for every step
+
+**17 October update:** The supplied Step 1--9 notes document 23/23 export hash checks, 14 cutoff decisions and seven unresolved candidate dates, corrected repeat-link leads, individual decisions for the 585 formerly open occurrences, and a sensitivity review that reinstated eleven records. They report 78 extension occurrences advanced or assessed, of which only two have preliminary full-text assessments. Step 7 is an earlier snapshot and still calls the 585 open. Use the later Step 5 figures as a proposed work queue; the canonical CSVs, workbook and merged PRISMA diagram have not yet been updated. Step 8 checks the existing 21-study scores; Step 9 provides narrative extraction to verify against preferred reports.
 
 1. Edit authoritative CSV/JSON decision records first, then generate workbook/report views. Keep every original occurrence ID and source file link.
 2. Record **observed**, **inferred**, and **unknown** values separately. Do not alter a site count to match an export count. Keep the original files and log intact; put corrections in a dated note or new field.
@@ -53,6 +56,8 @@ PR #5 merged at `2a03a3f`, containing the earlier provenance edit `67b57f8`. The
 
 ## Step 3 — Apply the 11 October 2026 publication cutoff (guideline 9)
 
+**Documented in Step 3 notes:** 21 potentially advancing 2026 candidates; 14 registry dates fall inside the cutoff, seven exact dates remain unresolved. Confirm consequential dates at the publisher before inclusion.
+
 **Files:** new occurrence/triage ledger, `studies.csv`, date-check notes.
 
 1. Filter the 2026 candidates. The Task 3 total of **1,089 is parsed occurrences** (291 ACM and 798 ScienceDirect), not unique papers.
@@ -62,6 +67,8 @@ PR #5 merged at `2a03a3f`, containing the earlier provenance edit `67b57f8`. The
 **Done when:** every 2026 candidate that could advance has a supported cutoff decision or a visible unresolved date status.
 
 ## Step 4 — Adjudicate duplicates, non-paper records, and report versions
+
+**Documented in Step 4 notes:** the 442 repeated ACM keys are already inside the 515 first-pass links; the missing GA-N01056 target and four chain endpoints have been identified. Enter these corrections in the canonical ledger before deriving duplicate removals for PRISMA.
 
 **Files:** `new_export_occurrences.csv`, `new_screening_triage.csv`, `duplicates.csv`, `studies.csv`, report/version register.
 
@@ -74,25 +81,31 @@ PR #5 merged at `2a03a3f`, containing the earlier provenance edit `67b57f8`. The
 
 ## Step 5 — Finish title and abstract screening (guidelines 10, 12)
 
+**Documented in Step 5 notes:** 585 individual outcomes (55 retrieve, 526 exclude, four link); eleven of 2,609 assisted exclusions reinstated after a 43-title keyword audit; zero errors in a 120-title seeded sample. The 585 decisions and eleven reinstatements are preserved in supplemental `received_step5_decisions.csv`; they have not yet been reconciled into the canonical triage CSV/workbook.
+
 **Files:** `new_screening_triage.csv`, title/abstract decision register, `studies.csv`.
 
-1. Individually decide the **585 open occurrences** under the frozen criteria. Read an abstract when available; record `title only` when it is not. Use an inclusion/exclusion code and a short, specific rationale.
-2. Sensitivity-review the **2,609 rule-assisted exclusions** for false negatives using a documented method; correct any errors with a dated reason. Keep the six separately documented exclusions distinct. Do not silently turn an assisted rule into an independent human decision.
+1. Validate and transfer all **585 supplied individual outcomes** to the canonical decision register, retaining original first-pass status, title-only flag and reason. Resolve record-level conflicts before updating totals.
+2. Transfer the **eleven reinstatements** and the documented sensitivity method to the ledger. Preserve the six separately documented exclusions. A zero-error sample does not prove the remaining pool has no false negatives.
 3. After duplicates and non-paper records are settled, integrate decisions into the canonical ledger without erasing the first-pass class or original source information.
 
 **Done when:** every screened canonical record has a title/abstract outcome, stage, reason where excluded, and reviewer process. The number advanced to retrieval is derived from these rows.
 
 ## Step 6 — Retrieve and assess full texts (guidelines 10–12)
 
+**Documented in Step 6 notes:** the old 124 sought reports have settled states. The extension has two preliminary assessments and 76 other occurrences advanced to retrieval. Its 12-item list predates the 66 additional Step 5 advances; reconcile the full 78-occurrence queue before assigning report-level counts.
+
 **Files:** retrieval register, `new_fulltext_assessments.csv`, `studies.csv`, `rejected.csv`.
 
-1. Follow the ten current retrieval leads and any new leads from Step 5 through lawful public or available institutional routes. Record sought date, source, retrieved/not retrieved outcome, and reason for nonretrieval when known.
+1. Follow the 76 extension occurrences not yet assessed through lawful public or available institutional routes, after mapping occurrences to distinct reports. Record sought date, source, retrieved/not retrieved outcome, and reason for nonretrieval when known.
 2. Read each retrieved full report against the adopted criteria. Record inclusion or exclusion code, a specific reason, and page/section/experiment anchor. Keep the four previously unavailable requested papers as unavailable unless access actually changes.
 3. Integrate the two preliminary Pantheon and Jormungandr assessments only after confirming publication/version identity and final eligibility. Link related versions before changing the included-study count.
 
 **Done when:** every sought report has a retrieval state, every assessed report has an anchored eligibility decision, and excluded full texts have reason counts that can be summed.
 
 ## Step 7 — Build the complete PRISMA 2020 flow (guideline 11)
+
+**Still open:** the supplied Step 7 flow balances the old 11 October checkpoint and the earlier extension first pass. It still calls the 585 decisions and 2,609 sensitivity checks open. Recalculate from the integrated Step 4--6 ledgers; do not copy that stale queue into the final diagram.
 
 **Files:** canonical ledgers, `prisma_counts.json`, `report/query_report.tex`, workbook `Summary`/flow view.
 
@@ -105,6 +118,8 @@ PR #5 merged at `2a03a3f`, containing the earlier provenance edit `67b57f8`. The
 
 ## Step 8 — Complete quality assessment (guideline 13)
 
+**Existing scores checked in Step 8 notes:** 21 studies, 174/210 total points, mean 8.29, 17 high and four moderate. The report's expanded QA matrix uses Group A `quality.csv`; the other group's seven-item, 48-paper QA is a formatting example only. New candidates still need full-text appraisal.
+
 **Files:** `quality.csv`, report QA section, workbook `Quality`.
 
 1. Apply the existing Q1–Q10 rubric (0, 0.5, or 1 per item) to every newly included unique study or preferred full report. Record each score's rationale and full-text anchor.
@@ -115,6 +130,8 @@ PR #5 merged at `2a03a3f`, containing the earlier provenance edit `67b57f8`. The
 **Done when:** every included study has one current QA result with rationales and anchors, and the workbook mirrors `quality.csv`.
 
 ## Step 9 — Complete data extraction (guideline 14)
+
+**Existing 21-study set described in Step 9 notes:** per-study narratives and two preliminary new-report entries were supplied. Verify any added fields against preferred full text and enter them into `extraction.csv`; leave unavailable chart values and unextracted settings explicit.
 
 **Files:** `extraction.csv`, `claims.md`, `included_studies.json`, `query_references.bib`, report study/finding tables, workbook `Included` and `AssessedNew`.
 
@@ -163,7 +180,7 @@ PR #5 merged at `2a03a3f`, containing the earlier provenance edit `67b57f8`. The
    latexmk -pdf -interaction=nonstopmode -halt-on-error query_report.tex
    ```
 
-3. Inspect the PDF's diagram labels, tables, citations, page breaks, and 12-point text. Check the PRISMA arithmetic, all workbook formulas and filters, and the TeX/PDF/workbook/CSV agreement. Record the check and any remaining limitations in draft PR #5; leave the PR for human review and merge.
+3. Inspect the PDF's diagram labels, tables, citations, page breaks, and 12-point text. Check the PRISMA arithmetic, all workbook formulas and filters, and the TeX/PDF/workbook/CSV agreement. Record the check and any remaining limitations in draft PR #6; leave the PR for human review and merge.
 
 **Done when:** the compiled PDF matches the committed TeX, the workbook matches the authoritative ledgers, the validator passes, and guideline sections 7–14 are supported by traceable evidence.
 
