@@ -241,7 +241,14 @@ tex=tex.replace(r'\section{Quality appraisal and extraction controls}',update+r'
 tex=re.sub(r'(?<=[a-z])(?=\d)', ' ', tex)
 tex=tex.replace('S001,003,004,008,009,011,014','S001, S003, S004, S008, S009, S011, S014')
 tex=re.sub(r'(S\d{3}),',r'\1, ',tex)
-(R/'query_report.tex').write_text(tex)
+report_path = R/'query_report.tex'
+# The expanded query manuscript contains the later operator intake and an
+# evidence-card appendix that this older checkpoint renderer cannot recreate.
+# Keep generating its evidence/workbook inputs, but never erase that manuscript.
+if not (report_path.exists() and '% GROUP_A_MANUAL_REPORT' in report_path.read_text()):
+    report_path.write_text(tex)
+else:
+    print('Preserved manually maintained report/query_report.tex; reconcile it with updated ledgers before compiling.')
 # Compact workbook source; separate fields remain in CSV for reproducible processing.
 book={
 'Summary':[['Group A evidence checkpoint','2026-10-11'],['Status','Intermediate; incomplete search coverage'],['Formal occurrences',C['formal_occurrences']],['Formal duplicates',C['formal_duplicates']],['Selected supplementary',C['supplementary_selected']],['Pre-full-text exclusions',C['excluded_before_fulltext']],['Assessed reports',C['fulltext_assessed']],['Pending retrieval',C['pending']],['Accepted studies',C['accepted_unique_studies']],['Full-text exclusions',C['fulltext_excluded']],['Record reconciliation',None],['Assessment reconciliation',None]],
