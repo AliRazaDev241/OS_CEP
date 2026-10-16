@@ -1,0 +1,84 @@
+% Detailed reporting of Group A's adopted protocol and executed evidence stage.
+\section{Review design and operational definitions}
+\label{sec:review-design}
+This report is the execution record for the adopted Group A protocol, not a second protocol. The decision unit is a unique evaluation of concurrent inference sharing on a physical GPU. An imported search hit is an \emph{occurrence}; matching occurrences are linked to a canonical bibliographic record; a publication version is a \emph{report}; and related reports can describe one \emph{study}. These units are kept separate in every table and flow count. In particular, a server-level GPU saving or an eight-GPU placement outcome cannot be presented as a one-GPU utilization measurement merely because the same paper also evaluates local sharing.
+
+\begin{longtable}{P{0.09\linewidth}P{0.45\linewidth}P{0.36\linewidth}}
+\toprule RQ & Analytic question & Evidence needed\\\midrule\endhead
+RQ1 & Which temporal, MPS, MIG, API/runtime and hybrid controls were evaluated? & Mechanism, control layer, local tenant arrangement and comparator.\\
+RQ2 & Which outcomes and experimental methods make results comparable? & Metric definition, units, percentile/SLO, denominator, measurement window and baseline.\\
+RQ3 & Which workloads, hardware and configurations change the outcome? & GPU/SKU, profile/quota, model and batch, arrivals, co-tenant mix and resource pressure.\\
+RQ4 & What engineering costs, isolation properties and contradictory observations are supported? & Within-paper trade-offs, limitations, resource/fault/security experiments and counterexamples.\\
+RQ5 & Under which operating requirements is a choice supported? & Conditional synthesis with direct/indirect evidence and explicit unresolved conditions.\\
+\bottomrule\end{longtable}
+
+The main window is 1 January 2020 through 11 October 2026 inclusive. The publisher's broad 2020--2026 year filter is a retrieval aid; exact dates near the cutoff require checking at the report level. An older seminal exception requires a documented reason in the eligibility record. A result published after the cutoff is not made eligible by appearing in a later export. \pending{The exact-date decisions for potentially relevant 2026 reports in the new exports remain to be completed.}
+
+\subsection{Eligibility decisions and source type}
+An included primary study must be an English peer-reviewed original journal or full conference report with identifiable concurrent inference evidence, a relevant local GPU-sharing control, and enough configuration and outcome detail to evaluate the research questions. Mixed inference/training studies can contribute only when the inference outcome is separable. Surveys and vendor descriptions may explain terminology but cannot supply an included primary experiment. Reports that cannot be retrieved remain access cases.
+
+At full text, the adopted protocol records one principal reason, with secondary notes where helpful. E1 denotes no inference-serving evidence; E2 no relevant single-node multi-tenant sharing; E3 a mechanism outside scope; E4 training-only; E5 cluster orchestration without separable local sharing; E6 no peer-reviewed original primary report; E7 insufficient technical or outcome detail; E8 a duplicate or less complete report of the same study; E9 a date/language violation without exception; and E10 another written reason. A code is assigned after reading the relevant full report, not inferred from the publisher hit count. \pending{The final distribution of full-text reasons will be recalculated after the new reports are assessed.}
+
+\section{Database-specific search implementation}
+\label{sec:search-detail}
+The four NED-listed platforms cover engineering journals, computing proceedings and related systems literature, but their interfaces differ in fields, syntax and export behavior. The submitted protocol's common concept block combines GPU terminology with inference/model-serving terminology; the mechanism block covers the assigned families. The recorded executed strings, rather than a retrospectively improved expression, define what was searched. The old five runs and the five later successful runs are separate dated executions. Blocked pilots are retained as attempts with no countable retrieved population.
+
+\begin{longtable}{P{0.17\linewidth}P{0.43\linewidth}P{0.30\linewidth}}
+\toprule Platform and family & Executed expression structure & Field/filter and consequence\\\midrule\endhead
+IEEE MPS, MIG, temporal, API & \texttt{(GPU OR "graphics processing unit") AND (inference OR "model serving" OR "deep learning" OR DNN OR LLM) AND} one family block. & All metadata; 2020--2026. The public implementation was not the planned field-qualified Command Search.\\
+Springer master & Same GPU/inference blocks, with all four mechanism families in one OR block. & General search; English, Research or Conference Paper, 2020--2026. Full-text/reference indexing broadens irrelevant matches.\\
+ACM master & Same common block and combined mechanism block, entered in Advanced Search. & All Fields, E-Publication Date 2020--2026; logged Full-Text Collection. Export page overlap/coverage is unresolved.\\
+ScienceDirect temporal, MPS, MIG, API & \texttt{(GPU OR "graphics processing unit") AND (inference OR "model serving" OR "deep learning") AND} one family block per run. & The master exceeded the connector limit. The fallback omits DNN/LLM and is not equivalent to the other platforms' common block.\\
+\bottomrule\end{longtable}
+
+The exact entered and displayed queries, source URLs, observed hits and export receipts are retained in \path{search_runs.csv}, \path{search_runs_received.csv} and \path{export_intake.csv}; this table describes the logic, not a substitute for those verbatim strings. The ACM two-file overlap and the ScienceDirect MPS re-export show why a parsed-row count is not itself evidence of complete page coverage. The temporal URL's Open Access facet is documented separately from the unfiltered count observed later. \pending{The final search-coverage statement depends on the ACM export decision, verified filter provenance and any justified amendment; no missing-hit number is imputed.}
+
+A 17 October provenance review of an uploaded zip confirmed that all 23 included export files match the receipt ledger by hash and size, and found no screenshot or page-range record in that zip. The zip's file times appear to reflect a later copy and cannot establish the original export times. The helper's separate folder and the live PC directory have not been checked in this review. The two ACM files contain 829 and 1,000 entries with 442 repeated exact keys; overlap suggests page ranges may have intersected, but neither the original ranges nor any number of omitted results is known. \pending{The team must record a dated decision to re-export ACM in traceable chunks or retain this coverage limitation.} The original run log is preserved, with its received copy differing only by a final CRLF. No query, log or export has been retrospectively changed to reconcile the site counts.
+
+\section{Selection, identity and PRISMA accounting rules}
+\label{sec:accounting-rules}
+Every imported occurrence retains its source file, run and stable ID. An exact DOI or key can propose a link, while a normalized title with a different DOI triggers version review rather than automatic deletion. A conference paper, journal extension and preprint can be several reports of one study. The most complete peer-reviewed report is preferred for claims, while the related versions remain in the history. Whole-proceedings volumes and books in the ACM export need an explicit non-primary-record treatment; their bibliographic keys do not make them individually evaluated papers.
+
+The 11 October checkpoint demonstrates the arithmetic for its captured subset: 689 formal occurrences minus 10 duplicate occurrences plus 20 selected supplementary records yields 699 records considered; 575 earlier-stage exclusions and 96 pending/not-retrieved cases leave 28 assessed reports; seven report-level exclusions leave 21 unique accepted studies. This is a dated checkpoint, not the final four-database flow. In the later import, the 515 exact DOI/key links are first-pass occurrence classes; title/version and cross-source relationships remain to be adjudicated. Neither the 3,727 new occurrences nor the 2,615 assisted/individual first-pass exclusions can be placed directly in the final PRISMA boxes without settled decisions.
+
+\begin{longtable}{P{0.24\linewidth}P{0.57\linewidth}}
+\toprule Stage & Reconciliation rule and required ledger evidence\\\midrule\endhead
+Identification & Sum imported occurrences by database/run and supplementary route; retain source file and original display observations separately.\\
+Before screening & Count adjudicated duplicate occurrences and any other removals from named occurrence-to-canonical links; do not remove a report merely for sharing a study ID.\\
+Title/abstract & Count canonical records screened and exclusions with reasons; keep title-only and abstract-informed decisions distinct.\\
+Retrieval & Map records advanced to reports sought; record each not-retrieved report and access attempts without treating it as an assessed exclusion.\\
+Full text & Count assessed reports and one principal exclusion reason per excluded report; link multiple included reports to unique studies.\\
+Inclusion & Show both included reports and unique studies, with study-to-report identity reconciled.\\
+\bottomrule\end{longtable}
+
+\pending{The final four-database PRISMA flow, its reason totals and included-study count must replace the interim figure after the new occurrence ledger is adjudicated.} The flow cannot be completed by choosing a convenient difference between a displayed publisher total and an export count. A publisher interface observation and the set of files actually received remain separate provenance facts.
+
+\section{Quality appraisal and extraction instrument}
+\label{sec:instruments}
+Quality scoring is applied to eligible evidence after full-text assessment; it is not a threshold that creates eligibility. Each criterion receives 0, 0.5 or 1, with an individual rationale and source anchor. High (8--10), moderate (6--7.5) and low (below 6) are reporting/interpretability bands. A paper's score is not a security certification, replication claim or proof that its baseline is suitable for all uses.
+
+\begin{longtable}{P{0.10\linewidth}P{0.76\linewidth}}
+\toprule Item & Question scored from the report\\\midrule\endhead
+Q1 & Is the engineering question and tenant setting explicit?\\
+Q2 & Is the mechanism and its configuration sufficiently described?\\
+Q3 & Are hardware, software and resource environments identifiable?\\
+Q4 & Are workloads, arrival patterns and co-tenant conditions described?\\
+Q5 & Is the comparator appropriate and its resource budget clear?\\
+Q6 & Are metrics, units, percentiles and denominators defined?\\
+Q7 & Are repetitions, warm-up, measurement windows and other controls adequate?\\
+Q8 & Does the cited figure/table/prose support the stated result?\\
+Q9 & Are validity limits and adverse cases discussed?\\
+Q10 & Can the setup be reproduced or at least critically interpreted?\\
+\bottomrule\end{longtable}
+
+The extraction form links a preferred report and study ID to source type/version, GPU generation and partition or quota, driver/runtime, model and tenant mix, batching/arrival process, comparator, metric and statistic, a bounded outcome, caveat and exact source location. It distinguishes a missing transcription (\texttt{NOT EXTRACTED}) from a checked absence in the report (\texttt{not reported}). A graph with unreadable pixels is not reverse-engineered into an exact value. The first 21 rows and the two preliminary new assessments are at different maturity levels; \pending{newly eligible studies require formal QA, version linkage and a complete anchored extraction before joining the synthesis.}
+
+\begin{longtable}{P{0.25\linewidth}P{0.59\linewidth}}
+\toprule Isolation field & What the observation can and cannot support\\\midrule\endhead
+Performance interference & Measured latency/throughput under specified co-tenants; cannot alone prove a security boundary.\\
+Resource and memory separation & Profile/quota or memory behavior and measured contention; a partition label alone does not establish an observed guarantee.\\
+Adversarial security & Explicit hostile-tenant or access-control experiment, if reported; otherwise mark not established.\\
+Fault containment & Explicit failure or fault-propagation experiment, if reported; ordinary workload fairness is not a substitute.\\
+\bottomrule\end{longtable}
+
+The source-linked cards in Appendix~\ref{app:cards} give an auditable QA and extraction view for the current 21-study checkpoint. They are a compact reproduction of the Group A registers, not additional independently reviewed studies. \pending{Cards, scores and claims must be regenerated if eligibility, preferred versions or source-grounded extraction changes.}
