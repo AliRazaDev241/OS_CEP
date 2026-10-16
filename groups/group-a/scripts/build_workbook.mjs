@@ -38,6 +38,11 @@ for(const [name,matrix] of Object.entries(data)){
   sh.getRange('H:H').format.columnWidth=80;sh.getRange('I:I').format.columnWidth=26;
   body.format.rowHeight=80;
  }
+ if(name==='Triage'){
+  sh.getRange('A:B').format.columnWidth=19;sh.getRange('C:C').format.columnWidth=78;
+  sh.getRange('D:F').format.columnWidth=24;sh.getRange('G:G').format.columnWidth=85;
+  sh.getRange('H:I').format.columnWidth=30;body.format.rowHeight=65;
+ }
  if(name==='Quality'){
   sh.getRange('B:K').format.columnWidth=7;sh.getRange('N:N').format.columnWidth=65;
   sh.getRange(`L2:L${rows}`).formulas=Array.from({length:rows-1},(_,i)=>[`=SUM(B${i+2}:K${i+2})`]);
@@ -60,7 +65,7 @@ for(const [sheetName,range] of [['Quality','A17:N22'],['Received','A1:E7']]){
  const picture=await wb.render({sheetName,range,scale:1,format:'png'});
  await fs.writeFile(path.join(report,sheetName.toLowerCase()+'-preview.png'),new Uint8Array(await picture.arrayBuffer()));
 }
-for(const [sheetName,range] of [['Extension','A1:I8'],['NewQueue','A1:I8']]){
+for(const [sheetName,range] of [['Extension','A1:I8'],['NewQueue','A1:I8'],['Triage','A1:I8']]){
  console.log((await wb.inspect({kind:'region',sheetId:sheetName,range,maxChars:6500,tableMaxRows:8,tableMaxCols:9})).ndjson);
  const picture=await wb.render({sheetName,range,scale:1,format:'png'});
  await fs.writeFile(path.join(report,sheetName.toLowerCase()+'-preview.png'),new Uint8Array(await picture.arrayBuffer()));

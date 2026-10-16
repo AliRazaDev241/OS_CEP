@@ -61,20 +61,26 @@ def main():
     known = read_csv(e / "studies.csv")
     known_doi = {norm_doi(x["doi"]): x["record_id"] for x in known if norm_doi(x["doi"])}
     prior_doi = {}
+    prior_bibkey = {}
     exclusions = {x["record_id"]:x for x in read_csv(e / "priority_title_abstract_decisions.csv")}
     queue = {x["record_id"]:x for x in read_csv(e / "priority_fulltext_queue.csv")}
     fields = ["record_id", "canonical_record", "stage", "decision", "reason_code", "rationale", "abstract_available", "evidence_basis", "reviewer", "review_date", "full_text_status"]
     out = []
     for row in rows:
         rid, title, doi = row["record_id"], row["title"], norm_doi(row["doi"])
+        bibkey = row["bibtex_key"]
         abstract = abs_by_id[rid]
         text = title + " " + abstract
         prior = known_doi.get(doi) or prior_doi.get(doi) if doi else None
+        key_prior = prior_bibkey.get(bibkey) if bibkey else None
         if rid in exclusions:
             q = exclusions[rid]
             vals = ("title_abstract", "exclude", q["primary_reason_code"], q["rationale"], "reviewed title/abstract", q["reviewer"], q["date"], "not assessed")
         elif prior:
             vals = ("pre_screen", "remove_exact_doi_duplicate", "D-DOI", f"Identical normalized DOI to {prior}; occurrence retained for provenance.", "exact normalized DOI", "deterministic", "2026-10-16", "not applicable")
+        elif key_prior:
+            prior = key_prior
+            vals = ("pre_screen", "remove_exact_bibkey_duplicate", "D-BIBKEY", f"Identical ACM BibTeX entry key to {prior}; occurrence retained for provenance.", "exact same-source BibTeX key", "deterministic", "2026-10-16", "not applicable")
         elif rid in queue:
             vals = ("title_abstract", "retrieve_for_eligibility", "", queue[rid]["reason"], "reviewed title/abstract", "AI-CODEX", "2026-10-16", "not assessed")
         elif not ACCELERATOR.search(text) and not (INFERENCE.search(text) and PROTECT.search(text)) and title:
@@ -88,6 +94,7 @@ def main():
             vals = ("title_abstract", "needs_individual_review", "", "Topical or ambiguous metadata; review title/abstract and version before a decision.", "title and available abstract" if abstract else "title only; abstract absent", "", "", "not assessed")
         out.append(dict(zip(fields, [rid, prior or "", *vals[:4], "yes" if abstract else "no", *vals[4:]])))
         if doi:prior_doi.setdefault(doi, rid)
+        if bibkey:prior_bibkey.setdefault(bibkey, rid)
     if len(out) != 3727:
         raise ValueError(len(out))
     with (e / "new_screening_triage.csv").open("w", newline="", encoding="utf-8") as f:
