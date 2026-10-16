@@ -58,10 +58,12 @@ def main():
     p.add_argument("--exports", type=Path, required=True)
     p.add_argument("--intake", type=Path, required=True)
     p.add_argument("--baseline", type=Path, required=True)
+    p.add_argument("--included", type=Path, help="Existing accepted-study metadata for version linking")
     p.add_argument("--output", type=Path, required=True)
     args = p.parse_args()
     intake = list(csv.DictReader(args.intake.open(newline="", encoding="utf-8")))
     baseline = json.loads(args.baseline.read_text(encoding="utf-8"))
+    included = json.loads(args.included.read_text(encoding="utf-8")) if args.included else []
     known_doi = {}
     known_title = {}
     for b in baseline:
@@ -71,9 +73,11 @@ def main():
             known_title.setdefault(norm_title(b["title"]), b["record_id"])
     seen_doi = {}
     seen_title = {}
+    included_doi = {norm_doi(s.get("doi")): s.get("key", "") for s in included if norm_doi(s.get("doi"))}
+    included_title = {norm_title(s.get("title")): s.get("key", "") for s in included if norm_title(s.get("title"))}
     count = Counter()
     columns = ["record_id", "run_id", "source_file", "source_ordinal", "bibtex_key", "title", "year", "publication_date",
-               "doi", "url", "match_existing_record", "match_prior_new_record", "match_basis",
+               "doi", "url", "match_existing_record", "match_prior_new_record", "match_basis", "match_included_key", "included_match_basis",
                "metadata_status", "screening_status"]
     args.output.parent.mkdir(parents=True, exist_ok=True)
     with args.output.open("w", newline="", encoding="utf-8") as out:
@@ -109,10 +113,17 @@ def main():
                     existing, prior = known_title.get(t, ""), seen_title.get(t, "")
                     if existing or prior:
                         basis = "normalized_title_needs_review"
+                included_key = included_doi.get(d, "") if d else ""
+                included_basis = "doi" if included_key else ""
+                if not included_key and t:
+                    included_key = included_title.get(t, "")
+                    included_basis = "normalized_title_needs_review" if included_key else ""
                 row = dict(zip(columns, [recid, batch["search_run_id"], path.name, ordinal, key, title,
-                    year, date, d, url, existing, prior, basis, "metadata_only", "not_screened"]))
+                    year, date, d, url, existing, prior, basis, included_key, included_basis, "metadata_only", "not_screened"]))
                 writer.writerow(row)
                 count["existing_match" if existing else "prior_new_match" if prior else "new_candidate"] += 1
+                if included_key:
+                    count["included_study_report_candidate"] += 1
                 if d:
                     seen_doi.setdefault(d, recid)
                 if t:
