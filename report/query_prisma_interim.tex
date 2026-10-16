@@ -1,0 +1,39 @@
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[>=Latex, every node/.style={font=\footnotesize},
+  main/.style={draw,rounded corners=2pt,align=center,text width=6.1cm,minimum height=1.05cm,fill=blue!5},
+  side/.style={draw,rounded corners=2pt,align=center,text width=4.15cm,minimum height=1.05cm,fill=gray!9},
+  open/.style={draw,rounded corners=2pt,align=center,text width=4.15cm,minimum height=1.05cm,fill=orange!12},
+  line/.style={-Latex,thick}]
+\node[main] (identified) at (0,0) {Formal records identified, $n=4{,}416$\\IEEE 102; Springer 587; ACM 1,829; ScienceDirect 1,898};
+\node[side] (supp) at (6.7,0) {Selected supplementary records\\$n=20$};
+\node[main] (screened) at (0,-2.25) {Records provisionally screened\\$4{,}416+20-529=3{,}907$};
+\node[side] (dups) at (6.7,-2.25) {Pre-screen links, $n=529$\\525 exact repeats; four additional links pending adjudication};
+\node[main] (advanced) at (0,-4.5) {Advanced to retrieval or assessed\\$3{,}907-3{,}705=202$};
+\node[side] (early) at (6.7,-4.5) {Excluded at earlier stage\\$n=3{,}705$};
+\node[main] (sought) at (0,-6.75) {Reports sought or attempted\\$202-45=157$};
+\node[open] (unsought) at (6.7,-6.75) {Awaiting retrieval request\\$n=45$};
+\node[main] (assessed) at (0,-9) {Full-text reports assessed\\$157-96=61$};
+\node[open] (unavailable) at (6.7,-9) {Retrieval unresolved\\$n=96$};
+\node[main] (accepted) at (0,-11.25) {Accepted preferred reports\\$61-16-2=43$};
+\node[side] (excluded) at (6.7,-11.25) {Full-text exclusions\\$n=16$ (seven original; nine extension)};
+\node[main] (studies) at (0,-13.5) {Accepted unique studies\\$n=43$};
+\node[open] (integration) at (6.7,-13.5) {Eligible, pending QA/version integration\\$n=2$};
+\draw[line] (identified) -- (screened);
+\draw[line] (supp) -- (screened.north east);
+\draw[line] (screened.east) -- (dups.west);
+\draw[line] (screened) -- (advanced);
+\draw[line] (screened.east) -- (early.west);
+\draw[line] (advanced) -- (sought);
+\draw[line] (advanced.east) -- (unsought.west);
+\draw[line] (sought) -- (assessed);
+\draw[line] (sought.east) -- (unavailable.west);
+\draw[line] (assessed) -- (accepted);
+\draw[line] (assessed.east) -- (excluded.west);
+\draw[line] (assessed.south east) -- (integration.north west);
+\draw[line] (accepted) -- (studies);
+\end{tikzpicture}
+\caption{Interim PRISMA 2020 stage map for the four captured database sources and selected supplementary records, 17 October 2026. The 529 pre-screen links include four Step 5 links awaiting canonical record/report adjudication; the 3,907 screening count is provisional. The 45 unsought reports and 96 unresolved retrieval cases are open, and two eligible reports await formal QA and version integration. Counts represent parsed occurrences, not verified search coverage; publisher hit/export discrepancies remain open. Source arithmetic and limitations: \texttt{interim\_four\_source\_prisma.json}.}
+\label{fig:prisma-interim-four-source}
+\end{figure}
+\clearpage

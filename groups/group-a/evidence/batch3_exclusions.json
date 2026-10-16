@@ -1,0 +1,17 @@
+[
+  {
+    "record_id": "GA-N00018",
+    "report_id": "GA-PN00018",
+    "doi": "10.1145/3581784.3607060",
+    "publisher_url": "https://doi.org/10.1145/3581784.3607060",
+    "filename": "N00018.md",
+    "publication_date": "2023 (printed full-report year; within cutoff)",
+    "reason_code": "E4",
+    "reason": "IADeep evaluates co-located iterative deep-learning training jobs and training throughput. Inference is not an evaluated concurrent tenant workload under the adopted inference criterion.",
+    "anchor": "N00018.md abstract, section on iterative DL task training, Table 1 and evaluation section",
+    "sha256": "a0d3d642ab42b33a384ff471c0f9d554119ca872923e15c19e8c02de0de62d83",
+    "bytes": 104451,
+    "reviewer": "AI-CODEX",
+    "review_date": "2026-10-17"
+  }
+]

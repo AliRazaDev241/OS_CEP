@@ -1,0 +1,30 @@
+{
+  "status": "INTERIM_FOUR_SOURCE_STAGE_MAP_NOT_FINAL_PRISMA",
+  "date": "2026-10-17",
+  "formal_by_source": {
+    "IEEE Xplore": 102,
+    "Springer Nature Link": 587,
+    "ACM DL": 1829,
+    "ScienceDirect": 1898
+  },
+  "formal_occurrences": 4416,
+  "supplementary_selected": 20,
+  "exact_duplicate_occurrences": 525,
+  "additional_links_pending_adjudication": 4,
+  "provisional_records_screened": 3907,
+  "earlier_stage_exclusions": 3705,
+  "advanced_to_retrieval_or_assessed": 202,
+  "awaiting_retrieval_request": 45,
+  "reports_sought_or_attempted": 157,
+  "not_retrieved": 96,
+  "reports_assessed": 61,
+  "assessed_excluded": 16,
+  "eligible_pending_integration": 2,
+  "accepted_preferred_reports": 43,
+  "accepted_unique_studies": 43,
+  "limitations": [
+    "Four additional Step 5 links await canonical report/version adjudication.",
+    "45 extension reports are unsought; 96 older reports have unresolved retrieval.",
+    "Publisher displayed hits and parsed export occurrences disagree; coverage is unverified."
+  ]
+}

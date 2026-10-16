@@ -1,0 +1,73 @@
+\section{Batch 1: full-text decisions and batch-1 accepted checkpoint}\label{sec:batch1}
+
+Ten user-supplied full-report conversions were received and assessed on 17 October 2026 by AI-CODEX. All ten satisfy the adopted eligibility rules and add distinct studies, GA-S022--GA-S031. At this batch checkpoint, the accepted evidence set contained \textbf{31 unique studies (21+10)}. This is an accepted-set update, not a claim that four-database screening or the final PRISMA flow is complete. Pantheon and Jormungandr retain their earlier eligible-pending-integration status and are outside the 31.
+
+The supplied 76-record deduplicated download queue recorded ten at the batch-1 checkpoint received and assessed reports and 66 then awaiting assessment. The extension full-text register contains twelve assessed reports: the ten accepted here and the two earlier preliminary assessments. Received files are not re-requested. Occurrences, reports, and unique studies remain separate counting units.
+
+\subsection{Eligibility, publication window and report identity}
+
+The first-page DOI/title matches were checked against the occurrence ledger, the prior 21-study set, and the other reports in this batch. No duplicate study was identified. MIGER, BOER and MMK describe distinct designs and evaluations despite related mechanisms and citations. EnerTune cites an earlier workshop precursor; it is a version lead, not a second included study. All four 2026 reports have printed publication or conference dates before 11 October: MMK (July), MIGServe and AdMix (28 September--1 October), and EnerTune (29 September--2 October). Exact online dates remain distinct from event/issue dates. Deft retains export publication year 2024 and printed WoC 2023 event/reference dates; this discrepancy does not change eligibility.
+
+Deft and AdMix are full original workshop proceedings reports with implemented evaluations, not poster abstracts. Their limited experiment breadth is reflected in appraisal and transfer caveats. Mixed inference/training studies qualify only for their explicit inference-specific local sharing evidence. Multi-GPU aggregate improvements remain separately labelled.
+
+\begin{longtable}{P{0.14\linewidth}P{0.22\linewidth}P{0.44\linewidth}r}
+
+\toprule Study & Report & Eligible evidence stratum & QA\\\midrule\endhead
+
+GA-S022 & miger \cite{miger} & MIG partitions with per-partition MPS online/offline co-location, local partition planner and fragmentation control & 8\\
+
+GA-S023 & deft \cite{deft} & Deft: adaptive CUDA synchronization frequency controlling kernel queues and priority preemption; API interposition prototype & 7\\
+
+GA-S024 & fastgshare \cite{fastgshare} & FaST-GShare: MPS spatial shares plus CUDA interception/token-based temporal quotas; CUDA IPC model sharing & 7.5\\
+
+GA-S025 & split \cite{split} & SPLIT: genetic offline model-block splitting with token-based greedy temporal preemption & 8.5\\
+
+GA-S026 & migserve \cite{migserve} & MIGServe: buddy-aware MIG placement, proactive pair migration and temperature-guided eviction & 8\\
+
+GA-S027 & mmk \cite{mmk} & MMK: MIG, elastic MPS oversubscription and CUDA-intercepted kernel-priority scheduling & 8\\
+
+GA-S028 & boer \cite{boer} & BOER: MIG model grouping with Bayesian-optimized MPS configurations inside partitions & 8.5\\
+
+GA-S029 & admix \cite{admix} & AdMix: adaptive MPS active-thread caps, lightweight LLM estimator and best-effort pause/full-access controls & 8.5\\
+
+GA-S030 & sgdrc \cite{sgdrc} & SGDRC: CUDA/TVM runtime with software VRAM-channel coloring, bimodal tensors and tidal SM masks & 8.5\\
+
+GA-S031 & enertune \cite{enertune} & EnerTune: MIG allocation with joint frequency/batch selection, colocation-power model and runtime tuner; separate MPS portability experiments & 9\\
+
+\bottomrule\end{longtable}
+
+\subsection{Bounded extraction and contradictory evidence}
+
+\paragraph{GA-S022 miger.} Section 3.1/Fig. 2 directly compares local MPS 57/29/14 percent and MIG 4g/2g/1g allocations. Section 5.2/Fig. 8 reports testbed mean JCT 46.6\% below MuxFlow and 36\% below MISO; these are job/cluster outcomes, not inference p99 gains. Fig. 9 notes slower small jobs under MIGER. Includes mixed training/inference and multi-GPU optimization; retain only explicitly local sharing and inference-QoS evidence for assigned comparison. Abstract and introduction swap comparator order for the two JCT percentages; use section 5.2 mapping. No chart coordinates reconstructed or universal p99 claim. \textit{Source:} Printed pp. 505-506, 510-511; sections 3.1-3.3, 5.1-5.4; Tables 1-3; Figs. 2, 4, 8-11; N00001.md lines 119-229, 478-662.
+
+\paragraph{GA-S023 deft.} Sections 3.2 and 5 show optimal synchronization depends on batch and image size; the fixed strategy can impose much larger preempting-job JCT inflation after a workload change. Section 5.2 reports Deft switches to synchronizing every kernel for batch 30; earlier batch-1 case uses every 500 kernels. Table 2 cells are interleaved, so no exact violation-rate row is imported. Preliminary six-page workshop evaluation with two principal models and one A40. Exhaustive pair profiling does not scale; no cluster/generative-model implementation claimed (section 6). Keep export year 2024 and printed conference/reference year 2023 separately; both inside window. \textit{Source:} Printed pp. 15-17; sections 3.2, 4.2, 5.1-5.3 and 6; Table 2 and Fig. 4 discussed in prose; N00005.md lines 250-468.
+
+\paragraph{GA-S024 fastgshare.} Local section 5.3 states eight RNNT pods at 12\% SM shares reach about 40 req/s with tail latency below 500 ms, versus one racing pod about 12 req/s and above 1250 ms. The local ResNet/RNNT comparison in Fig. 9 reports removing their observed interference with 24\% shares. No unlabelled tail value is relabelled p99. Model-specific/proportional share effects, IPC memory trust and batching limit transfer. Prose fractional-gain notation is ambiguous (3.15x with raw 296.8/71.37), so no such multiplier imported. Supplied plot coordinates/percentile identity and repetitions not reconstructed. \textit{Source:} Printed pp. 641-643; sections 4, 5.1-5.4; Figs. 8-10; N00015.md lines 523-735.
+
+\paragraph{GA-S025 split.} Section 5.5 reports violation rate below 10\% beyond alpha=4 versus 26\% under RT-A in the discussed comparison. For short requests, jitter reductions versus Clockwork/PREMA/RT-A are 55.3/46.8/68.9\% at low load and 56.0/50.3/69.3\% at high load. Jitter is block-execution standard deviation, not p99 latency. Section 6 reports split overhead and static-graph limits. One edge GPU and synthetic Poisson load; not a server-class GPU generalization. Temporal predictability sacrifices spatial parallelism; long-request stability can worsen. Table 3 split overhead and RNN limits qualify short-request improvements. \textit{Source:} Printed pp. 611-613; sections 5.1-5.5, 6; Tables 1-3; Figs. 6-7; N00040.md lines 451-629.
+
+\paragraph{GA-S026 migserve.} Section 5.2 Azure: sustainable rate at 90\% SLO attainment is 9.84 RPS versus LA-Dyn 4.13 and Static 1.85. Arena approximately 10.99 versus 2.37 and 2.48 RPS. These are four-GPU server outcomes; local mechanism is MIG layout control, not a single-GPU throughput multiplier. Four-GPU evaluation and constructed layout-agnostic comparator; 90\% attainment is weaker than 99\% SLO targets used elsewhere. MIG hardware isolation is described, without adversarial/fault experiment. Source pixels and unreported repeats/versions are not reconstructed. \textit{Source:} Printed pp. 850-853; sections 4, 5.1-5.4; Fig. 9 and Figs. 11-13; N00831.md lines 519-780.
+
+\paragraph{GA-S027 mmk.} Section 4.3/Fig. 9 reports mean JCT 28\% lower, makespan 32\% lower and normalized progress-rate STP 35\% higher than MIGER. These are mixed-job/testbed metrics, not per-request p99 latency. Section 4.5 reports 1.5\% MIG and 3.2\% MPS reconfiguration lifecycle overhead. Mixed inference/training and two-GPU optimization; local priority scheduling is the transferable mechanism. Many figure labels contain NUL/glyph corruption, so numerical prose only. STP/JCT does not establish online tail-latency or fault containment. \textit{Source:} Article pp. 84:15-84:19; sections 4.1-4.5; Table 3; Figs. 9-12; N00839.md lines 789-1040.
+
+\paragraph{GA-S028 boer.} Local section 2.4/Fig. 3 observes ParvaGPU can underperform MIG-only serving for larger BERT/ResNet50 while helping lightweight MobileNet. Section 5.2/Fig. 8 gives eight-GPU QoS-preserved throughput mean 34.61\% above ParvaGPU; 56.8/62.49/34.63/44.83\% above MIG-serving/gpulet/USHER/PARIS. Keep local qualitative counterexample separate from fleet improvements. Bayesian exploration cost and instance interference qualify hybrid gains. Baseline reductions (MIG-serving fast/USHER IR only) and multi-GPU request fan-out constrain comparison. Same senior author as MIGER, but different inference-only system and experiments; not a same-study report extension identified in supplied text. \textit{Source:} Printed pp. 521, 526-528; sections 2.4, 4.6, 5.1-5.4; Tables 2-3; Figs. 3, 8, 10; N00844.md lines 200-265, 700-890.
+
+\paragraph{GA-S029 admix.} Section 4.2 reports average best-effort throughput 1.58x Static MPS with local LLaMA-7B (TP1) and 3.9x with Qwen-14B (TP2), keeping strata distinct. AdMix still increases mean TTFT/TPOT versus LLM-only; on Qwen its mean latency increases exceed Static MPS. More throughput is not zero interference. Full six-page original workshop report; one/two-GPU workload strata and tuned-on-test-trace static reference limit transfer. Estimates of average latency do not establish p99. No testbed code rerun or security/fault experiment inferred. \textit{Source:} Printed pp. 3-5; sections 3 and 4.1-4.2; Table 1; Figs. 5-6; N00872.md lines 270-453.
+
+\paragraph{GA-S030 sgdrc.} Section 9.3: versus Orion, P40 overall throughput up to 1.47x and BE up to 2.36x; A2000 up to 1.32x and 1.79x, respectively. Mean SLO attainment 99.0\% across evaluated settings. Section 10 explicitly states shared-context GPU runtime errors are not isolated. Software coloring is not a proven security boundary. MIG integration is future work; not benchmarked on A100/H100. Reverse-engineering/calibration and TVM compatibility matter; do not treat throughput maxima as averages or infer a P40 MPS result. \textit{Source:} Printed pp. 276-277; sections 9.2-9.3, 10; Table 3 and Fig. 18; N00904.md lines 863-965.
+
+\paragraph{GA-S031 enertune.} Section 2.1/Fig. 2: co-location choice can increase energy; SDXL plus MobileNetV3 example uses 13\% less energy versus no sharing despite 1.14x latency. Section 7.1/Fig. 9: 16-GPU testbed energy reduced by factors 1.4-2.3 and power by 1.3-2.6 versus baselines while meeting SLOs; fleet results are not local per-GPU savings. Joint power/energy objectives select different allocations. Local model-pair evidence must stay distinct from fleet savings and from frequency-only effects. Source chart pixels not available; experiments/code not rerun; missing warm-up and independent-run uncertainty not assumed. \textit{Source:} Printed pp. 66-67, 73-75; sections 2.1-2.2, 6, 7.1-7.2; Figs. 2, 9; N00946.md lines 140-249, 798-995.
+
+\subsection{Quality, isolation and sensitivity}
+
+The ten batch scores total 81.5/100. At the 31-study batch-1 checkpoint, the total is 255.5/310 (mean 8.24); 25 high, 6 moderate and 0 low. The original Q1--Q10 rubric is unchanged. Each new item score has a rationale and source anchor in \path{batch1_quality.csv}; \path{current_quality.csv} combines the historical and batch registers. The evidence cards included 31 studies at this checkpoint; batch 2 later updates the combined cards.
+
+Excluding moderate-QA reports removes Deft and FaST-GShare from this batch as well as the four moderate reports in the earlier set. This weakens adaptive synchronization and serverless quota evidence; it does not establish that all remaining studies have comparable or complete measurement controls. No numerical effect is pooled across studies.
+
+SGDRC explicitly cannot contain co-located GPU runtime faults in its shared context (section 10). MIG-based partition descriptions do not establish adversarial security or fault-injection results. AdMix and EnerTune show why higher throughput or utilization is insufficient: protected-service latency and energy can worsen under particular sharing configurations. These are conditional trade-offs, not universal rankings.
+
+\subsection{Evidence and remaining work}
+
+The historical 11 October registers and flow remain available unchanged. Extension decisions are authoritative in \path{new_fulltext_assessments.csv}, supported by \path{batch1_review_assessments.json}, per-item QA, extraction and SHA-256 receipts. The combined accepted views are \path{current_accepted.csv}, \path{current_extraction.csv}, \path{current_quality.csv} and \path{current_included_studies.json}. The workbook Included and Quality tabs showed 31 studies at this checkpoint; its Summary tab is explicitly historical and Current shows the later accepted set. The bibliography contained 31 preferred reports at this checkpoint.
+
+\pending{Complete the remaining retrieval/eligibility records, reconcile the supplied Step 3--5 decisions and duplicate/version links, integrate or resolve the two earlier extension assessments, and derive a complete four-database PRISMA flow. The 66 entries remaining at this checkpoint are candidate reports, not guaranteed additions. No unavailable chart data, reviewer consensus, or screening outcome is invented.}

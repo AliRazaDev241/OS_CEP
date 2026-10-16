@@ -1,0 +1,90 @@
+[
+  {
+    "record_id": "GA-N00002",
+    "filename": "N00002.md",
+    "reason_code": "E2",
+    "reason": "Cricket/unikernel CUDA remoting is evaluated with microbenchmarks and proxy applications across two nodes, without a concurrent inference-tenant GPU comparison. The JetsonInference library appears in related work, not the evaluated setting.",
+    "anchor": "Section 4 evaluation setup and benchmarks; section 2 related work",
+    "sha256": "73c74ea3eac76bdae0799ff8882142432be7693924420d07b4bc3e795fedebe7",
+    "bytes": 43291,
+    "reviewer": "AI-CODEX",
+    "review_date": "2026-10-17"
+  },
+  {
+    "record_id": "GA-N00004",
+    "filename": "N00004.md",
+    "reason_code": "E1",
+    "reason": "AWS Lambda/rCUDA case study compares CPU, native GPU and remote GPU for a single GPU-BLAST processing path; AI inference is motivation, without measured inference-serving outcomes for concurrent tenants.",
+    "anchor": "Case study scenarios 1–3 and Figs. 5–6; introduction",
+    "sha256": "216df7d8e6fb5b3e76e4b37d4637787efb6a00949d7598bdf3c8028ba4e88505",
+    "bytes": 43879,
+    "reviewer": "AI-CODEX",
+    "review_date": "2026-10-17"
+  },
+  {
+    "record_id": "GA-N00055",
+    "filename": "N00055.md",
+    "reason_code": "E4",
+    "reason": "nvshare's measured co-located TensorFlow ResNet152v2 applications train models; the authors explicitly select training-only evaluation although inference is mentioned as background.",
+    "anchor": "Section 4 evaluation methodology and Table 1",
+    "sha256": "7598275b755aa109cca6f373d50f2a0b7c39270446fb18bfe183047640d6d777",
+    "bytes": 30538,
+    "reviewer": "AI-CODEX",
+    "review_date": "2026-10-17"
+  },
+  {
+    "record_id": "GA-N00088",
+    "filename": "N00088.md",
+    "reason_code": "E1",
+    "reason": "GPUPool evaluates throughput-oriented long jobs and simulated kernel pairs; inference appears as a motivating workload class/reference, without an inference-specific measured serving outcome.",
+    "anchor": "Sections 2 and 4–5, especially workload/QoS scope and GPGPU-Sim methodology",
+    "sha256": "623d8a0da89be3d6c2898e6fe2e1b18ceea3d1c5b9ba2d95328d02351cb59e3c",
+    "bytes": 101060,
+    "reviewer": "AI-CODEX",
+    "review_date": "2026-10-17"
+  },
+  {
+    "record_id": "GA-N00102",
+    "filename": "N00102.md",
+    "reason_code": "E2",
+    "reason": "Guardian's multi-application spatial-sharing comparison uses epoch-based training/co-run workloads (Table 2, Fig. 6); inference phases are tested standalone for overhead (Fig. 7b). There is no evaluated concurrent inference-serving arrangement under the adopted criterion.",
+    "anchor": "Section 7.1–7.2, Table 2 and Figs. 6–8",
+    "sha256": "816b711bb21de3bef29ffb7b14fc32cd6554d7632a3f10d615c1c38fe6606242",
+    "bytes": 88410,
+    "reviewer": "AI-CODEX",
+    "review_date": "2026-10-17"
+  },
+  {
+    "record_id": "GA-N01195",
+    "filename": "N01195.md",
+    "reason_code": "E2",
+    "reason": "ReFINE evaluates synthetic priority kernel pairs in Accel-Sim architectural simulation rather than a measured concurrent inference arrangement on one physical GPU; inference serving is an illustrative motivation.",
+    "anchor": "Abstract, evaluation methodology/Accel-Sim and section 5",
+    "sha256": "4bfa4724442c738a940170e91903cafa4d5df8fb7034d496de5ad84bbe790e00",
+    "bytes": 92367,
+    "reviewer": "AI-CODEX",
+    "review_date": "2026-10-17"
+  },
+  {
+    "record_id": "GA-N01866",
+    "filename": "N01866.md",
+    "reason_code": "E1",
+    "reason": "Edge-device rCUDA evaluation runs the Fuzzy Minimals clustering algorithm across remote node/GPU settings; no inference-serving workload or outcome is evaluated.",
+    "anchor": "Introduction contributions, experimental environment and Fuzzy Minimals evaluation",
+    "sha256": "6e7c34027d40ae4893b47cb48131faa8373f0668f948c8ca755c9d4ab7bacbe2",
+    "bytes": 79837,
+    "reviewer": "AI-CODEX",
+    "review_date": "2026-10-17"
+  },
+  {
+    "record_id": "GA-N01945",
+    "filename": "N01945.md",
+    "reason_code": "E1",
+    "reason": "MIG scheduling and reconfiguration evaluates Rodinia/Altis benchmarks and synthetic task queues for makespan; inference latency is that of the DRL scheduler itself, not a model-serving tenant outcome.",
+    "anchor": "Abstract, section 5 workload setup and section 6.1 scheduler-inference timing",
+    "sha256": "df47b1f2ca455847e530313586a57a9be21ba78d6c50c55047fa3830ddef99e4",
+    "bytes": 125907,
+    "reviewer": "AI-CODEX",
+    "review_date": "2026-10-17"
+  }
+]

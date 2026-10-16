@@ -1,0 +1,48 @@
+\begin{longtable}{P{0.105\linewidth}P{0.52\linewidth}P{0.22\linewidth}r}
+\caption{The 43-study current accepted set. Mechanism phrases are condensed from the extraction register.}\\
+\toprule ID & Preferred study & Mechanism & QA\\\midrule\endfirsthead
+\toprule ID & Preferred study & Mechanism & QA\\\midrule\endhead
+S001 & Real-time, Work-conserving GPU Scheduling for Concurrent DNN Inference (2025) \cite{reef} & Reset-based temporal preemption + dynamic kernel padding; NVIDIA binary instrumentation & 8.5 \\
+S002 & Serving Heterogeneous Machine Learning Models on Multi-GPU Servers with Spatio-Temporal Sharing (2022) \cite{gpulet} & MPS + temporal & 8.5 \\
+S003 & PipeSwitch: Fast Pipelined Context Switching for Deep Learning Applications (2020) \cite{pipeswitch} & Temporal context switching & 9.0 \\
+S004 & Serving DNNs like Clockwork: Performance Predictability from the Bottom Up (2020) \cite{clockwork} & Temporal exclusive scheduling & 8.5 \\
+S005 & Torpor: GPU-Enabled Serverless Computing for Low-Latency, Resource-Efficient Inference (2025) \cite{torpor} & API remoting + temporal swapping & 8.5 \\
+S006 & StreamBox: A Lightweight GPU SandBox for Serverless Inference Workflow (2024) \cite{streambox} & API/runtime sandbox virtualization & 8.0 \\
+S007 & KRYPTON: Efficient Performance-Aware GPU Sharing with Compatibility and Isolation through Kernel Space Interception (2025) \cite{krypton} & Kernel API virtualization + hybrid & 9.0 \\
+S008 & SIRIUS: Colocating ML Inference and Training with Fast GPU Memory Handover (2025) \cite{sirius} & Temporal + MPS memory handover & 8.5 \\
+S009 & Tally: Non-Intrusive Performance Isolation for Concurrent Deep Learning Workloads (2025) \cite{tally} & CUDA API interception + priority & 9.0 \\
+S010 & ParvaGPU: Efficient Spatial GPU Sharing for Large-Scale DNN Inference in Cloud Environments (2024) \cite{parva} & MIG + MPS & 8.0 \\
+S011 & Orion: Interference-aware Fine-grained GPU Sharing for ML Applications (2024) \cite{orion} & CUDA API interception + temporal & 9.0 \\
+S012 & GSLICE: Controlled Spatial Sharing of GPUs for a Scalable Inference Platform (2020) \cite{gslice} & MPS adaptive provisioning & 9.0 \\
+S013 & KRISP: Enabling Kernel-wise RIght-sizing for Spatial Partitioned GPU Inference Servers (2023) \cite{krisp} & Spatial partition/API control (AMD) & 8.0 \\
+S014 & XSched: Preemptive Scheduling for Diverse XPUs (2025) \cite{xsched} & Temporal API interposition & 9.0 \\
+S015 & Paella: Low-latency Model Serving with Software-defined GPU Scheduling (2023) \cite{paella} & Temporal software scheduling + MPS comparison & 8.5 \\
+S016 & Optimizing High-Throughput Inference on Graph Neural Networks at Shared Computing Facilities with the NVIDIA Triton Inference Server (2024) \cite{gnntriton} & MIG + concurrent model serving & 8.5 \\
+S017 & VastPipe: A High-Throughput Inference System via Adaptive Space-Division Multiplexing for Diverse Accelerators (2025) \cite{vastpipe} & MPS adaptive quotas; separate AMD CU-mask stratum & 6.5 \\
+S018 & ArkGPU: enabling applications' high-goodput co-location execution on multitasking GPUs (2023) \cite{arkgpu} & CUDA API interception + NVML monitoring and admission throttling & 7.0 \\
+S019 & Dyna-P: placement-aware dynamic partitioning for lightweight applications with modern GPUs (2025) \cite{dynap} & MIG dynamic placement/reconfiguration with reconfiguration-last policy & 7.0 \\
+S020 & iGniter: Interference-Aware GPU Resource Provisioning for Predictable DNN Inference in the Cloud (2023) \cite{igniter} & MPS active-thread quotas + interference-aware batch/provisioning and shadow process & 8.5 \\
+S021 & InferFair: Towards QoS-aware scheduling for performance isolation guarantee in heterogeneous model serving systems (2024) \cite{inferfair} & Temporal SLO-aware scheduling + feedback goodput balancing; MPS comparator & 7.5 \\
+S022 & MIGER: Integrating Multi-Instance GPU and Multi-Process Service for Deep Learning Clusters (2024) \cite{miger} & MIG partitions with per-partition MPS online/offline co-location, local partition planner and fragmentation control & 8.0 \\
+S023 & Towards Optimal Preemptive GPU Time-Sharing for Edge Model Serving (2024) \cite{deft} & Deft: adaptive CUDA synchronization frequency controlling kernel queues and priority preemption; API interposition prototype & 7.0 \\
+S024 & FaST-GShare: Enabling Efficient Spatio-Temporal GPU Sharing in Serverless Computing for Deep Learning Inference (2023) \cite{fastgshare} & FaST-GShare: MPS spatial shares plus CUDA interception/token-based temporal quotas; CUDA IPC model sharing & 7.5 \\
+S025 & SPLIT: QoS-Aware DNN Inference on Shared GPU via Evenly-Sized Model Splitting (2023) \cite{split} & SPLIT: genetic offline model-block splitting with token-based greedy temporal preemption & 8.5 \\
+S026 & MIGServe: Layout-Aware Multi-Instance GPU Management for Efficient LLM Serving (2026) \cite{migserve} & MIGServe: buddy-aware MIG placement, proactive pair migration and temperature-guided eviction & 8.0 \\
+S027 & MMK: A Hybrid Scheduling Framework for Fine-Grained GPU Sharing for Deep Learning Applications (2026) \cite{mmk} & MMK: MIG, elastic MPS oversubscription and CUDA-intercepted kernel-priority scheduling & 8.0 \\
+S028 & BOER: Enhancing Resource Utilization for Deep Learning Inference with Hybrid Spatial GPU Sharing (2025) \cite{boer} & BOER: MIG model grouping with Bayesian-optimized MPS configurations inside partitions & 8.5 \\
+S029 & Adaptive GPU Sharing for Real-time LLM Serving with Best-effort Workloads (2026) \cite{admix} & AdMix: adaptive MPS active-thread caps, lightweight LLM estimator and best-effort pause/full-access controls & 8.5 \\
+S030 & SGDRC: Software-Defined Dynamic Resource Control for Concurrent DNN Inference on NVIDIA GPUs (2025) \cite{sgdrc} & SGDRC: CUDA/TVM runtime with software VRAM-channel coloring, bimodal tensors and tidal SM masks & 8.5 \\
+S031 & Beyond Utilization: Energy-Conscious GPU Sharing for Inference Serving (2026) \cite{enertune} & EnerTune: MIG allocation with joint frequency/batch selection, colocation-power model and runtime tuner; separate MPS portabi & 9.0 \\
+S032 & FluidFaaS: A Dynamic Pipelined Solution for Serverless Computing with Strong Isolation-based GPU Sharing (2025) \cite{fluidfaas} & MIG partitioned serverless functions with pipelined instance construction, eviction and dynamic resource assignment & 8.0 \\
+S033 & Improving GPU Sharing Performance through Adaptive Bubbleless Spatial-Temporal Sharing (2025) \cite{bless} & Bless: adaptive kernel-squad scheduling, MPS contexts with SM affinity and temporal/spatial quota adjustments & 8.0 \\
+S034 & Understanding GPU Resource Interference One Level Deeper (2025) \cite{interference_deeper} & CUDA streams and CUDA Green Context SM partition for controlled co-location; interference characterization rather than a depl & 8.0 \\
+S035 & Reaching for the Sky: Maximizing Deep Learning Inference Throughput on Edge Devices with AI Multi-Tenancy (2023) \cite{edge_sky} & Concurrent model execution and dynamic placement across edge device GPU/CPU and Edge TPU & 7.0 \\
+S036 & Miriam: Exploiting Elastic Kernels for Real-time Multi-DNN Inference on Edge GPU (2023) \cite{miriam} & Elastic kernels and contention-aware coordination for mixed-criticality inference & 8.0 \\
+S037 & ElasticRoom: Multi-Tenant DNN Inference Engine via Co-design with Resource-constrained Compilation and Strong Priority Scheduling (2024) \cite{elasticroom} & Resource-constrained compilation and priority scheduling with concurrent GPU inference & 8.0 \\
+S038 & SwitchFlow: Preemptive Multitasking for Deep Learning (2021) \cite{switchflow} & Preemptive subgraph scheduling and interleaved model executors & 9.5 \\
+S039 & ITIF: Integrated Transformers Inference Framework for Multiple Tenants on GPU (2023) \cite{itif} & Shared transformer backbone with operator-level multi-tenant execution & 8.0 \\
+S040 & Towards SLO-Compliant and Cost-Effective Serverless Computing on Emerging GPU Architectures (2024) \cite{protean} & Protean orchestrates MIG partitioning and MPS sharing for GPU serverless inference & 8.5 \\
+S041 & WattWiser: Power \& Resource-Efficient Scheduling for Multi-Model Multi-GPU Inference Servers (2023) \cite{wattwiser} & Sharing-aware placement and request routing to co-located models on physical GPUs & 9.5 \\
+S042 & DeInfer: A GPU resource allocation algorithm with spatial sharing for near-deterministic inferring tasks (2024) \cite{deinfer} & Interference-aware MPS spatial allocation with latency prediction & 9.0 \\
+S043 & ESG: Pipeline-Conscious Efficient Scheduling of DNN Workflows on Serverless Platforms with Shareable GPUs (2024) \cite{esg} & Pipeline-aware placement combining GPU sharing, batch size and SLO distribution & 8.0 \\
+\bottomrule\end{longtable}

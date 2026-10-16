@@ -1,0 +1,47 @@
+\section{Batch 3: full-text review}\label{sec:batch3}
+
+Ten further user-supplied full-report conversions were assessed by one AI reviewer on 17 October 2026. Nine add unique studies GA-S035--GA-S043; one is excluded. The accepted set is now \textbf{43 unique studies (21 historical + 10 batch 1 + 3 batch 2 + 9 batch 3)}. This is not a reconciled merged-database PRISMA inclusion count. The 76-entry queue has 31 assessed reports and 45 unassessed entries. Two older eligible-pending-integration reports remain outside the 43.
+
+\begin{longtable}{P{0.16\linewidth}P{0.22\linewidth}P{0.52\linewidth}}\toprule Record & Decision & Reason or bounded finding\\\midrule\endhead
+
+GA-N00027 & Accept GA-S035 \cite{edge_sky} & Include: original journal evaluation has concurrent inference on local edge GPU, with heterogeneous results interpreted separately.\\
+
+GA-N00046 & Accept GA-S036 \cite{miriam} & Include: original full conference paper measures concurrent inference and critical-task latency on edge GPUs.\\
+
+GA-N00048 & Accept GA-S037 \cite{elasticroom} & Include: original full conference evaluation of concurrent tenants on a shared GPU with inference latency/goodput outcomes.\\
+
+GA-N00049 & Accept GA-S038 \cite{switchflow} & Include: section 5.4 directly evaluates two inference jobs sharing one GPU; mixed training experiments are qualified separately.\\
+
+GA-N00059 & Accept GA-S039 \cite{itif} & Include: original full proceedings evaluation of simultaneous transformer inference tenants sharing GPU resources.\\
+
+GA-N00063 & Accept GA-S040 \cite{protean} & Include with scope qualification: original paper implements local MIG/MPS inference sharing and evaluates concurrent inference, while synthesis separates system-level outcomes.\\
+
+GA-N00068 & Accept GA-S041 \cite{wattwiser} & Include with scope qualification: measured local shared-GPU inference pairs occur on one server; aggregate energy is contextual only.\\
+
+GA-N00070 & Accept GA-S042 \cite{deinfer} & Include: original full paper tests concurrent inference and local MPS spatial resource allocations.\\
+
+GA-N00073 & Accept GA-S043 \cite{esg} & Include with scope qualification: original full paper evaluates local GPU sharing of inference functions embedded in a serverless workflow.\\
+
+GA-N00018 & Exclude E4 & IADeep evaluates co-located iterative deep-learning training jobs and training throughput. Inference is not an evaluated concurrent tenant workload under the adopted inference criterion.\\
+
+\bottomrule\end{longtable}
+
+\paragraph{GA-S035 edge\_sky.} Abstract and multi-tenancy evaluation report inference throughput gains under concurrent execution; do not attribute heterogeneous placement gains solely to GPU sharing. Edge GPU, CPU and TPU contributions are coupled; throughput is not latency predictability or security isolation. \textit{Anchor:} N00027.md abstract; multi-tenancy and performance evaluation sections, figures on CME and DMP.
+
+\paragraph{GA-S036 miriam.} Abstract reports up to 92\% throughput improvement while critical tasks incur less than 10\% latency overhead in its evaluated scenarios. Edge elastic-kernel scheduling is transferable temporal/spatial evidence, not a direct MIG/MPS comparison. \textit{Anchor:} N00046.md abstract; sections on kernel coordination and evaluation.
+
+\paragraph{GA-S037 elasticroom.} The evaluated engine balances request goodput, throughput and latency under co-located inference; comparison is engine-level. Compiler and priority scheduling effects cannot be isolated as pure partition effects; plotted numbers were not transcribed. \textit{Anchor:} N00048.md abstract; section 6.2 evaluation and Fig. 1.
+
+\paragraph{GA-S038 switchflow.} Section 5.4/Fig. 10 reports interleaved execution gains among inference jobs of up to 30\% versus session-based time slicing in tested pairings. The 19.05x p95 inference latency example in Fig. 6 uses a training co-tenant and is not evidence for two inference tenants. \textit{Anchor:} N00049.md sections 5.1, 5.2.1 and 5.4; Figs. 6 and 10.
+
+\paragraph{GA-S039 itif.} Abstract reports up to 2.40x performance versus baselines for evaluated shared-backbone transformer inference. Shared backbone changes model computation; speedup cannot be assigned to GPU scheduling alone or generalized to unrelated models. \textit{Anchor:} N00059.md abstract; design and experiment sections including four-tenant setup.
+
+\paragraph{GA-S040 protean.} The evaluation reports SLO compliance and cost effects of orchestration under trace-driven inference; no per-GPU improvement is extracted from system-level totals. Multiple GPUs and global scheduling contribute jointly; local mechanism claims cannot be isolated without matched per-device comparisons. \textit{Anchor:} N00063.md abstract, sections on MIG/MPS design and evaluation of 22 workloads.
+
+\paragraph{GA-S041 wattwiser.} Section 4/Fig. 3 shows model tail latency relative to SLO while requests consolidate onto shared GPUs; power savings are whole-server effects. The four-GPU power outcome cannot estimate per-GPU partition efficiency; MI50 setup is not a MIG evaluation. \textit{Anchor:} N00068.md sections 4.1–4.2 and Fig. 3.
+
+\paragraph{GA-S042 deinfer.} Section 5 evaluates prediction accuracy and allocation for concurrent inference with MPS; its Fig. 2 shows that MPS spatial limits do not eliminate shared-resource latency interference. Two GPUs are present in testbed; claims here concern within-device workloads, not a two-device pooled speedup. \textit{Anchor:} N00070.md sections 2.2 and 5.1–5.2; Fig. 2, Table 1 and testbed table.
+
+\paragraph{GA-S043 esg.} Abstract reports 61–80\% SLO hit-rate improvement and 47–187\% cost savings over prior systems for evaluated workflows. Figures are workflow/system results influenced by batching and scheduler search, not isolated effects of local GPU sharing. \textit{Anchor:} N00073.md abstract, sections 3 and 5; evaluation setup and end-to-end comparison.
+
+\pending{The batch-3 reports extend the assessed evidence, not the historical Flow A boxes. Reconcile the remaining 45 queue entries, two older eligible reports, duplicate/version links, database searches and the combined PRISMA flow.}

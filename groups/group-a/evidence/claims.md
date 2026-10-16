@@ -22,3 +22,25 @@ Next extraction pass: finish driver/runtime versions, MIG profile names, MPS quo
 Six-paper update: GA-S017 VastPipe supplies local A100 MPS and separate MI100 CU-mask throughput strata; its 1000-NPU cluster results are outside the local GPU comparison. GA-S018 ArkGPU supplies mixed inference/training p99/QPS evidence; its four-GPU goodput gains are separate. GA-S019 Dyna-P supplies local MIG inference-job results and a concurrency/JCT trade-off; cluster simulations and makespan are not online p99 measurements. GA-S020 iGniter supplies local MPS interference and transient p99 failure/recovery evidence; fleet cost savings are not local utilization. GA-S021 InferFair supplies local fairness/SLO goodput with distinct unfairness definition. Updated GA-S001 journal REEF supplies NVIDIA comparisons and a throughput cost of latency protection; the OSDI report is a linked E8 companion, never an additional study.
 
 Reporting sensitivity: the four newly included moderate-QA studies (VastPipe6.5, ArkGPU7, Dyna-P7, InferFair7.5) are removed by a stricter QA>=8 sensitivity stratum; iGniter and journal REEF score8.5. Removing these moderate rows weakens dynamic-MIG placement, API-throttled inference/training and relative-goodput fairness evidence. QA<6 removes none. Scores do not resolve missing full-text plot data. No universal or pooled percentage improvement is defensible.
+
+
+## Batch 1 — current 31-study evidence (17 October 2026)
+
+Source anchors and separate isolation fields are in `batch1_extraction.csv` / `current_extraction.csv`; quality rationales are in their matching QA registers. New single-reviewer accepted studies: GA-S022 MIGER, S023 Deft, S024 FaST-GShare, S025 SPLIT, S026 MIGServe, S027 MMK, S028 BOER, S029 AdMix, S030 SGDRC, S031 EnerTune. Distinct experiments are not pooled.
+
+- RQ1/3: Hybrid MIG/MPS design is not a guarantee of low interference. MIGER's mixed training/inference, MMK's extra kernel control and BOER's inference-only grouping have different workloads and objectives. BOER section 2.4 gives a local adverse case for identical-model hybrid packing.
+- RQ2/3: Deft's JCT inflation, SPLIT's block-time jitter, FaST-GShare's unspecified tail percentile, MIGServe's 90%-attainment request rate and AdMix's mean TTFT/TPOT are different outcomes. Do not rank their raw values together. AdMix TP1 local evidence is separate from TP2; MIGServe rates are four-GPU server outcomes.
+- RQ4/5: SGDRC section 10 explicitly does not isolate shared-context GPU runtime errors. Software resource interference control and MIG boundary descriptions do not establish adversarial security.
+- RQ4/5: EnerTune's local pair-energy example can favor a different colocation than utilization-only placement; fleet energy/power savings are a separate experiment. AdMix can improve BE throughput while increasing protected LLM mean latency relative to solo execution.
+- Sensitivity: Removing all moderate QA reports drops Deft/FaST-GShare plus the previous four, leaving 25 high-scored studies. This weakens synchronization and serverless conclusions. Low-QA exclusion removes none and is non-discriminating. New QA does not resolve incomplete measurements, missing figures or unintegrated searches.
+
+Ten assessed additions do not complete the combined PRISMA flow. Pantheon/Jormungandr remain preliminary and the other 66 download-queue reports remain candidates.
+
+## Batch 2 — current 34-study evidence (17 October 2026)
+
+Eleven more received reports yielded GA-S032 FluidFaaS, GA-S033 Bless and GA-S034 Understanding GPU Resource Interference One Level Deeper; eight were excluded with full-text reasons. QA/extraction and citations are in the batch-2 and current registers; the older batch-1 paragraph above is a dated checkpoint.
+
+- RQ1/3: FluidFaaS evaluates MIG-based function pipelines, while Bless uses MPS/SM-affinity and temporal kernel squads on one A100. Their system-level SLO rates and single-GPU inference latency are different strata.
+- RQ2/4: The SoCC interference study measures LLM P90 time between tokens with synthetic co-tenants. Green Context SM separation leaves L2 and memory bandwidth shared; its isolated whole-GPU and partitioned comparisons have different resource budgets.
+- RQ4/5: Guardian's co-located training experiments plus standalone inference overhead do not provide a concurrent inference-serving evaluation under protocol 7.2. Its memory-safety design remains context, outside the included set.
+- Sensitivity: All three additions score 8/10. Removing the six moderate studies leaves 28 high-scored studies; it does not remove these three or settle the 55 unassessed queue reports and two earlier eligible-pending-integration cases.

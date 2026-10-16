@@ -1,0 +1,47 @@
+\section{Batch 2: full-text reassessment}\label{sec:batch2}
+
+Eleven further user-supplied full-report conversions from the deduplicated queue were assessed on 17 October 2026 by the same single AI reviewer. Three add unique studies GA-S032--GA-S034; eight are excluded with principal full-text reasons. Prior rule-assisted title/abstract exclusions were reconsidered when the full texts arrived. The accepted set is now \textbf{34 unique studies (21 historical + 10 batch 1 + 3 batch 2)}; this does not complete merged database screening or PRISMA accounting.
+
+The 76-entry download queue has 21 received reports (13 accepted, eight excluded) and 55 unassessed entries. The extension full-text ledger has 23 assessed reports, including two older eligible-pending-integration reports outside the 34. Source hashes, reasons and anchors are retained without committing paper bodies.
+
+\subsection{Decisions and evidential bounds}
+
+\begin{longtable}{P{0.16\linewidth}P{0.22\linewidth}P{0.52\linewidth}}\toprule Record & Decision & Primary reason or direct evidence\\\midrule\endhead
+
+GA-N00920 & Accept GA-S032 \cite{fluidfaas} & Include: original HPDC full paper evaluates concurrent inference functions with local MIG partitioning and request SLO outcomes; separate server-level from local mechanism claims.\\
+
+GA-N01085 & Accept GA-S033 \cite{bless} & Include: original EuroSys full paper explicitly evaluates co-located inference instances with an implemented single-A100 temporal/MPS hybrid.\\
+
+GA-N01096 & Accept GA-S034 \cite{interference_deeper} & Include as direct interference/isolation evidence: real single-GPU LLM inference is concurrently run with a distinct synthetic process/kernel under streams and Green Context SM partition; a mixed co-tenant experiment is explicitly bounded, with no claim of two production inference services.\\
+
+GA-N00002 & Exclude E2 & Cricket/unikernel CUDA remoting is evaluated with microbenchmarks and proxy applications across two nodes, without a concurrent inference-tenant GPU comparison. The JetsonInference library appears in related work, not the evaluated setting.\\
+
+GA-N00004 & Exclude E1 & AWS Lambda/rCUDA case study compares CPU, native GPU and remote GPU for a single GPU-BLAST processing path; AI inference is motivation, without measured inference-serving outcomes for concurrent tenants.\\
+
+GA-N00055 & Exclude E4 & nvshare's measured co-located TensorFlow ResNet152v2 applications train models; the authors explicitly select training-only evaluation although inference is mentioned as background.\\
+
+GA-N00088 & Exclude E1 & GPUPool evaluates throughput-oriented long jobs and simulated kernel pairs; inference appears as a motivating workload class/reference, without an inference-specific measured serving outcome.\\
+
+GA-N00102 & Exclude E2 & Guardian's multi-application spatial-sharing comparison uses epoch-based training/co-run workloads (Table 2, Fig. 6); inference phases are tested standalone for overhead (Fig. 7b). There is no evaluated concurrent inference-serving arrangement under the adopted criterion.\\
+
+GA-N01195 & Exclude E2 & ReFINE evaluates synthetic priority kernel pairs in Accel-Sim architectural simulation rather than a measured concurrent inference arrangement on one physical GPU; inference serving is an illustrative motivation.\\
+
+GA-N01866 & Exclude E1 & Edge-device rCUDA evaluation runs the Fuzzy Minimals clustering algorithm across remote node/GPU settings; no inference-serving workload or outcome is evaluated.\\
+
+GA-N01945 & Exclude E1 & MIG scheduling and reconfiguration evaluates Rodinia/Altis benchmarks and synthetic task queues for makespan; inference latency is that of the DRL scheduler itself, not a model-serving tenant outcome.\\
+
+\bottomrule\end{longtable}
+
+\paragraph{GA-S032 fluidfaas.} Section 7.1/Fig. 9 reports FluidFaaS SLO hit-rate improvement of 90\% for medium and 61\% for heavy workload mixes over the compared systems; the abstract reports 25–75\% throughput increases across workloads. These are system-level results, not a measured per-GPU utilization effect. Pipeline, placement and MIG allocation contribute jointly; comparisons with a non-pipelined baseline cannot isolate the benefit of MIG partitioning alone. No adversarial security or fault-injection evidence is inferred from MIG descriptions. \textit{Anchor:} N00920.md abstract, sections 3, 6, 7.1; Tables 2, 5–6; Figs. 9 and 12.
+
+\paragraph{GA-S033 bless.} The introduction and evaluation report mean latency reductions of 39.1\% for two BERT inference instances and 41.2\% for four, under the paper's compared GPU-sharing systems. Other reported aggregate gains are not recast as p99 or universal speedups. Quota, model pairing and GPU generation condition results. The conversion has damaged column/table layout, so no unlabeled plotted coordinates or precise tail-percentile gains were recovered. \textit{Anchor:} N01085.md intro, sections 4, 6.1–6; Fig. 1 and BERT co-location result prose.
+
+\paragraph{GA-S034 interference\_deeper.} H100 Llama decode P90 time between tokens rises from 7.53 to 16.56 ms under a sleep co-tenant in section 4.2 (batch 1, 1,000-token prompt). Table 1's Green Context experiment isolates SM sets (64/68) but reports P90 TBT as high as 18.38 ms under copy-kernel memory pressure; its alone baseline is 14.2 ms on the whole GPU, so partition cost and interference cannot be collapsed into one effect. Synthetic co-tenants and short decode traces quantify resource contention; the paper proposes a future scheduler but does not implement an end-to-end serving controller. Green Context SM partition does not partition L2 or external memory bandwidth. Table 1 conversion is interleaved; only prose and clearly attributable values are used. \textit{Anchor:} N01096.md sections 3–5, especially 4.1–4.4; Fig. 2 and Table 1.
+
+\subsection{Appraisal and remaining reconciliation}
+
+The three new studies score 24/30; the combined 34 score 279.5/340, with 28 high, 6 moderate, and 0 low. The same Q1--Q10 rubric applies only to included studies. Source-specific Q-item rationales and limitations are in \path{batch2_quality.csv} and \path{batch2_extraction.csv}.
+
+The SoCC paper prints a November 2025 event date although the export lists 2026; both lie within the cutoff. It measures synthetic kernel co-tenants alongside LLM inference, not two production inference services. Guardian shows co-located training and standalone inference only; it therefore fails the adopted concurrent inference criterion despite useful memory-safety context.
+
+\pending{Resolve 55 remaining queue entries, the two older eligible-pending-integration reports, report-version and occurrence links, and the four-database PRISMA flow. Excluded batch-2 reports are assessed full texts, not additions to the historical Flow A seven full-text exclusions.}

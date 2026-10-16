@@ -1,0 +1,14 @@
+{
+  "date": "2026-10-17",
+  "scope": "Current assessed set; not a reconciled four-database PRISMA flow",
+  "baseline_unique_studies": 21,
+  "batch1_new_unique_studies": 10,
+  "current_accepted_unique_studies": 31,
+  "batch1_assessed_reports": 10,
+  "batch1_exclusions": 0,
+  "extension_assessed_reports": 12,
+  "extension_eligible_pending_integration": 2,
+  "supplied_download_queue": 76,
+  "received_from_queue": 10,
+  "queue_remaining": 66
+}

@@ -1,0 +1,12 @@
+# Batch 1 bibliographic verification — 17 October 2026 (Pakistan)
+
+These were targeted supplementary metadata checks, not new database discovery runs or new PRISMA records. Content findings use the ten supplied full-report conversions and their anchors/receipts. No paywall bypass was attempted.
+
+- Initial exact-DOI web queries: `site.dl.acm.org/doi/10.1145/3631311.3632401`; `site.dl.acm.org/doi/10.1145/3816891.3834895`; `site.dl.acm.org/doi/10.1145/3830418.3843913`. Routine engine coverage was inadequate, so no finding was imported from its unrelated results.
+- Stronger-engine queries: `"Towards Optimal Preemptive GPU Time-Sharing" 2024 2023`; `"Adaptive GPU Sharing for Real-time LLM" 2026`; `"Beyond Utilization: Energy-Conscious" 2026`. Search-result metadata returned ACM DOI pages for all three; AdMix was indexed as 27 September 2026 and EnerTune as 28 September 2026. These are labelled indexed dates, not independently fetched publisher date fields. They are not needed to pass the cutoff because each printed report's event dates already precede it.
+- Direct publisher page opens for Deft (https://dl.acm.org/doi/10.1145/3631311.3632401) and MMK (https://dl.acm.org/doi/10.1145/3820163) returned 403; MIGServe (https://dl.acm.org/doi/10.1145/3832810.3832898) could not be opened. These failures do not negate the supplied full texts; do not claim fresh publisher-body verification.
+- Deft's supplied export year is 2024; its printed reference/event says 2023. Preserve both, keep export publication year in the bibliography, and do not invent an exact online date. Either year is within the adopted window.
+- MMK's printed issue is July 2026. MIGServe and AdMix give 28 September–1 October 2026; EnerTune gives 29 September–2 October 2026. Even the latest day of each printed interval precedes 11 October. No exact online-day inference is required.
+- EnerTune references an earlier workshop precursor (The Utilization Fallacy and the Real Drivers of Carbon-Efficient Inference). That precursor is a version lead only and is not counted separately. BOER and MIGER share authors/subject, but their described designs and evaluations are different; MMK explicitly benchmarks MIGER. No same-study relationship was identified in the assessed batch or prior 21-study set.
+
+The searches above did not use year/subject facets and have no captured total hit count; total hits are **not recorded**, not zero. They add no record to either formal run ledger. All results were used only to cross-check identities/dates; unverified metadata remains qualified.

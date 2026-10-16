@@ -1,0 +1,11 @@
+# Batch 1 validation — 17 October 2026
+
+- All ten uploaded Markdown conversion SHA-256 hashes and byte sizes match the receipt ledger. The source bodies are private and absent from the commit.
+- Ten accepted extension records map one-to-one to GA-S022–GA-S031; none has a DOI match to the prior accepted set. The combined accepted, extraction and quality views contain 31 matching unique study IDs. Each new Q1–Q10 item has a rationale and source location.
+- Full-text extension register: 12 assessed reports, comprising ten accepted batch reports and two earlier eligible-pending-integration reports. Download queue: 76 rows, ten received/assessed/accepted, 66 unassessed. Occurrences/reports/studies are not conflated.
+- The complete documented baseline-plus-batch evidence build was run, and validate_evidence.py passed. A second batch rebuild reproduced its evidence outputs and bibliography exactly. Historical Flow A run and duplicate files were checked against the branch baseline; their bytes are preserved. Historical PRISMA counts are unchanged.
+- query_report.tex compiles with latexmk using 12-point Times-compatible text and IEEEtran references. The final PDF has 64 pages with 31 resolving bibliography keys, no overfull boxes and no unresolved citations. Changed batch tables, QA pages and evidence cards were rendered and visually reviewed; the final status pages were re-rendered after the date-case update.
+- The workbook was regenerated with the existing Artifact Tool builder. Included/Quality contain 31 study rows; Received has 16 receipts; Batch1 has ten rows; AssessedNew has twelve rows; DownloadQueue has 76. Current formulas cache ten batch studies and 31 total. Quality sums/bands use formulas. An exported-cell error scan found no formula errors. Representative changed views were rendered and inspected. This does not claim a desktop Excel session test.
+- git diff --check passed. Assignment authorities, submitted protocol and Group B files are unchanged. LaTeX intermediates, temporary previews, and Python caches are excluded from the commit.
+
+These checks validate this batch's records and deliverables. They do not establish a completed four-database selection flow, independent dual review, experimental replication, recovered plot data or eligibility of the remaining candidates.

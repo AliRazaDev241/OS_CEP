@@ -1,0 +1,11 @@
+record_id,report_id,study_id,filename,sha256,bytes,received_date,source_format,decision,qa_total
+GA-N00001,GA-PN00001,GA-S022,N00001.md,c4390ff8ec68cb589883683611385110ba4e9d1707d37249d55be0945fefd0a8,55245,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,8.0
+GA-N00005,GA-PN00005,GA-S023,N00005.md,d599c01a595077fbdcfe2f4878ce1f8f93d65fb15b24cfb594707bda0f0f5877,34927,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,7.0
+GA-N00015,GA-PN00015,GA-S024,N00015.md,2c76be9e63c4af8609692e6625df533ed56811ce111071833cc8076a3e17d702,78045,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,7.5
+GA-N00040,GA-PN00040,GA-S025,N00040.md,a1c991ac0414bdd5331e42a94fab23b1899f4fb592015f65aa3ccd0e11628725,63690,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,8.5
+GA-N00831,GA-PN00831,GA-S026,N00831.md,614091d6fcbab96ce22b04d0a0c2cc195ed7a669b4823776e81b84c76b87cf4a,66892,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,8.0
+GA-N00839,GA-PN00839,GA-S027,N00839.md,15775f75836bcb61f35cc593f4d10a3363e6ca5317f89a59a463571368cb1d65,90527,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,8.0
+GA-N00844,GA-PN00844,GA-S028,N00844.md,19bfd15e1f44af679c68cb44ed606990b1e1c9e5534a5cb5f192558c448e1e17,87443,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,8.5
+GA-N00872,GA-PN00872,GA-S029,N00872.md,36d3fe1cc6e11c1999b8b6d178471ce30285a90c7fc7ba7959c18424728e3d3b,37025,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,8.5
+GA-N00904,GA-PN00904,GA-S030,N00904.md,f271a3c61829e522e8fcf43a30280db58788df797f63a89f309de7712e12278c,100108,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,8.5
+GA-N00946,GA-PN00946,GA-S031,N00946.md,28ca00b6f0b697a4a69f0e8f2341d83bc8a3e10583696b108a29aea3a42d7307,167447,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,9.0
