@@ -2,7 +2,7 @@ import fs from 'node:fs/promises';
 import path from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {Workbook,SpreadsheetFile} from '@oai/artifact-tool';
-const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
+const root=process.env.OS_CEP_GROUP_A_ROOT || path.resolve(path.dirname(fileURLToPath(import.meta.url)),'..');
 const report=path.resolve(root,'../../report');
 const data=JSON.parse(await fs.readFile(path.join(root,'evidence/workbook_source.json'),'utf8'));
 const wb=Workbook.create();
@@ -26,6 +26,18 @@ for(const [name,matrix] of Object.entries(data)){
   sh.getRange('D:D').format.columnWidth=35;sh.getRange('E:E').format.columnWidth=10;
   sh.getRange('F:F').format.columnWidth=75;body.format.rowHeight=70;
  }
+ if(name==='Extension'){
+  sh.getRange('B:C').format.columnWidth=34;sh.getRange('D:G').format.columnWidth=19;
+  sh.getRange('H:H').format.columnWidth=85;sh.getRange('I:I').format.columnWidth=55;
+  body.format.rowHeight=75;
+  sh.getRange('D2:G7').setNumberFormat('#,##0');
+ }
+ if(name==='NewQueue'){
+  sh.getRange('A:A').format.columnWidth=17;sh.getRange('B:B').format.columnWidth=82;
+  sh.getRange('C:D').format.columnWidth=20;sh.getRange('E:G').format.columnWidth=32;
+  sh.getRange('H:H').format.columnWidth=80;sh.getRange('I:I').format.columnWidth=26;
+  body.format.rowHeight=80;
+ }
  if(name==='Quality'){
   sh.getRange('B:K').format.columnWidth=7;sh.getRange('N:N').format.columnWidth=65;
   sh.getRange(`L2:L${rows}`).formulas=Array.from({length:rows-1},(_,i)=>[`=SUM(B${i+2}:K${i+2})`]);
@@ -45,6 +57,11 @@ const preview=await wb.render({sheetName:'Summary',autoCrop:'all',scale:1,format
 await fs.writeFile(path.join(report,'workbook-preview.png'),new Uint8Array(await preview.arrayBuffer()));
 for(const [sheetName,range] of [['Quality','A17:N22'],['Received','A1:E7']]){
  console.log((await wb.inspect({kind:'region',sheetId:sheetName,range,maxChars:7000,tableMaxRows:7,tableMaxCols:14})).ndjson);
+ const picture=await wb.render({sheetName,range,scale:1,format:'png'});
+ await fs.writeFile(path.join(report,sheetName.toLowerCase()+'-preview.png'),new Uint8Array(await picture.arrayBuffer()));
+}
+for(const [sheetName,range] of [['Extension','A1:I8'],['NewQueue','A1:I8']]){
+ console.log((await wb.inspect({kind:'region',sheetId:sheetName,range,maxChars:6500,tableMaxRows:8,tableMaxCols:9})).ndjson);
  const picture=await wb.render({sheetName,range,scale:1,format:'png'});
  await fs.writeFile(path.join(report,sheetName.toLowerCase()+'-preview.png'),new Uint8Array(await picture.arrayBuffer()));
 }
