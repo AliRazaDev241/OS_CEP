@@ -67,8 +67,15 @@ Six-paper update: GA-S017 VastPipe supplies local A100 MPS and separate MI100 CU
 
 Reporting sensitivity: the four newly included moderate-QA studies (VastPipe6.5, ArkGPU7, Dyna-P7, InferFair7.5) are removed by a stricter QA>=8 sensitivity stratum; iGniter and journal REEF score8.5. Removing these moderate rows weakens dynamic-MIG placement, API-throttled inference/training and relative-goodput fairness evidence. QA<6 removes none. Scores do not resolve missing full-text plot data. No universal or pooled percentage improvement is defensible.
 '''
+prior_claims=(E/'claims.md').read_text() if (E/'claims.md').exists() else ''
+if '## Batch 1 —' in prior_claims:
+    claims+='\n\n## Batch 1 —'+prior_claims.split('## Batch 1 —',1)[1]
 (E/'claims.md').write_text(claims)
-(E/'README.md').write_text('''# Group A evidence — 11 October 2026
+(E/'README.md').write_text(('''# Current evidence — batches 1 and 2, 17 October 2026
+
+Current accepted set: 34; use the current-prefixed combined ledgers and batch1_review.md / batch2_review.md. Original Flow A is historical. Extension decision authority: new_fulltext_assessments.csv. Twenty-one received/assessed, 55 remaining in the supplied 76-entry queue; two earlier preliminary assessments are outside the 34. See report/BUILD.md for rebuild order.
+
+''' if (E/'batch1_review_assessments.json').exists() else '')+'''# Group A evidence — 11 October 2026
 
 Start with search_runs.csv, prisma_counts.json and studies.csv. imported_records.json preserves all689 formal query occurrences; duplicates.csv links10 repeated records without deleting provenance. studies.csv is the decision authority; accepted.csv, rejected.csv and pending.csv are derived views. Twenty-one study IDs link accepted reports to extraction.csv, quality.csv and the included-only ../../report/query_references.bib. Supplementary selected records are20, not an exhaustive web export. Six uploaded conversions resolved six pending access cases; the preferred REEF journal report replaces its conference extraction without double-counting. See six_paper_review.md, uploaded_paper_receipts.csv and uploaded_review_assessments.json; source Markdown files are not committed.
 
@@ -259,5 +266,10 @@ book={
 'Searches':[['Run','Source','Date','Status','Hits','Imported','Query','Filters']]+[[r[k] for k in ['run_id','database','date','status','hits','imported_occurrences','query','filters']] for r in runs]}
 receipt=list(csv.DictReader((E/'uploaded_paper_receipts.csv').open()))
 book['Received']=[['Record','Study','Filename','Decision','QA','Source SHA256']]+[[r[k] for k in ['record_id','study_id','filename','decision','qa_total','sha256']] for r in receipt]
+# Preserve extension views; build_batch1.py refreshes the affected rows.
+prior_path=E/'workbook_source.json'
+if prior_path.exists():
+    for name,matrix in json.loads(prior_path.read_text()).items():
+        if name not in book: book[name]=matrix
 (E/'workbook_source.json').write_text(json.dumps(book,ensure_ascii=False))
 print('Report and supporting documentation generated; counts',C)

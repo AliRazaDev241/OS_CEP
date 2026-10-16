@@ -1,5 +1,5 @@
 \section{Study-level evidence cards}\label{app:cards}
-\pending{These cards reflect the 21-study checkpoint; regenerate them after the final study and report-version decisions.}
+\pending{These cards reflect the current 34-study accepted set after batch 2; the complete four-database selection flow remains open.}
 The item rationales below reproduce the Group A quality register. Bounded outcomes and caveats reproduce the extraction register. They are not a new independent appraisal or a substitute for the cited full texts.
 \Needspace{12\baselineskip}
 \subsection{GA-S001: Real-time, Work-conserving GPU Scheduling for Concurrent DNN Inference}
@@ -566,5 +566,356 @@ Q7 & 0.5 & 90min replay and parameter sensitivity clear; local repetitions/varia
 Q8 & 1 & Table3 rows/labels unambiguous in Markdown; plot coordinates absent\\
 Q9 & 0.5 & Future work/memory and heterogeneity discussed; incomplete validity treatment\\
 Q10 & 0.5 & Algorithms interpretable despite column interleaving; software/control gaps restrict replication\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S022: MIGER: Integrating Multi-Instance GPU and Multi-Process Service for Deep Learning Clusters}
+\textbf{Preferred report:} Proceedings of ICPP 2024, 2024; report GA-PN00001. \textbf{Current QA:} 8.0/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & MIG partitions with per-partition MPS online/offline co-location, local partition planner and fragmentation control\\
+Environment & Two servers, each 2 Intel Xeon Gold 5320 CPUs and 4 A100 80GB GPUs; CUDA 12.0; per-partition MPS daemons and DCGM. OS/driver not yet extracted.\\
+Workload & Table 3 inference/training models, including ResNet50, MobileNet, BERT and U-net. 150 jobs of 30 min to 2 h; Poisson arrival parameter 60 s. Local MPS/MIG examples separated from eight-GPU testbed and 128-GPU simulation.\\
+Comparator & MuxFlow (MPS) and modified MISO (MIG); MISO adapted to preserve online jobs during reconfiguration.\\
+Bounded finding & Section 3.1/Fig. 2 directly compares local MPS 57/29/14 percent and MIG 4g/2g/1g allocations. Section 5.2/Fig. 8 reports testbed mean JCT 46.6\% below MuxFlow and 36\% below MISO; these are job/cluster outcomes, not inference p99 gains. Fig. 9 notes slower small jobs under MIGER.\\
+Transfer limit & Includes mixed training/inference and multi-GPU optimization; retain only explicitly local sharing and inference-QoS evidence for assigned comparison. Abstract and introduction swap comparator order for the two JCT percentages; use section 5.2 mapping. No chart coordinates reconstructed or universal p99 claim.\\
+Source anchor & Printed pp. 505-506, 510-511; sections 3.1-3.3, 5.1-5.4; Tables 1-3; Figs. 2, 4, 8-11; N00001.md lines 119-229, 478-662\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Online inference versus offline training question explicit (sections 1, 3)\\
+Q2 & 1 & Hybrid shares and partition-ID control described (sections 2, 4)\\
+Q3 & 0.5 & GPU/CPU/CUDA specified; OS/driver not yet transcribed (5.1)\\
+Q4 & 1 & Model/batch/QoS table, jobs and arrival parameter stated (Table 3, 5.1)\\
+Q5 & 0.5 & MISO adaptation disclosed; baseline equivalence is qualified (5.1)\\
+Q6 & 1 & JCT/makespan defined; not interchangeable with request tails (2.2, 5.1)\\
+Q7 & 0.5 & Trace sizes and monitoring interval stated; repetitions/uncertainty not established in conversion (5.1, 5.4)\\
+Q8 & 1 & Numerical prose and adverse small-job result readable (5.2); plotted coordinates unused\\
+Q9 & 1 & Small-job slowdown and reconfiguration overhead explicitly discussed (5.2-5.4)\\
+Q10 & 0.5 & Architecture/implementation interpretable; full software/control details incomplete (4.6, 5.1)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S023: Towards Optimal Preemptive GPU Time-Sharing for Edge Model Serving}
+\textbf{Preferred report:} Proceedings of the 9th International Workshop on Container Technologies and Container Clouds (WoC 2023), 2024; report GA-PN00005. \textbf{Current QA:} 7.0/10 (moderate).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & Deft: adaptive CUDA synchronization frequency controlling kernel queues and priority preemption; API interposition prototype\\
+Environment & One NVIDIA A40 GPU; prototype intercepts CUDA calls. CPU/OS/driver/CUDA versions not yet extracted.\\
+Workload & Low-priority RetinaNet versus high-priority ResNet50; ResNet50 arrives every second; RetinaNet changes batch 1 to 30 every 5 s or alternates 720p/2160p inputs.\\
+Comparator & Implemented synchronization strategies inspired by REEF, PipeSwitch and Shepherd; Deft-no-profile ablation. These are adapted policies, not full system reproductions.\\
+Bounded finding & Sections 3.2 and 5 show optimal synchronization depends on batch and image size; the fixed strategy can impose much larger preempting-job JCT inflation after a workload change. Section 5.2 reports Deft switches to synchronizing every kernel for batch 30; earlier batch-1 case uses every 500 kernels. Table 2 cells are interleaved, so no exact violation-rate row is imported.\\
+Transfer limit & Preliminary six-page workshop evaluation with two principal models and one A40. Exhaustive pair profiling does not scale; no cluster/generative-model implementation claimed (section 6). Keep export year 2024 and printed conference/reference year 2023 separately; both inside window.\\
+Source anchor & Printed pp. 15-17; sections 3.2, 4.2, 5.1-5.3 and 6; Table 2 and Fig. 4 discussed in prose; N00005.md lines 250-468\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Two priority inference jobs and preemption trade-off explicit (3.1)\\
+Q2 & 1 & Synchronization strategy and predictor described (4.1-4.2)\\
+Q3 & 0.5 & A40 identified, remaining software/hardware profile incomplete (5.1)\\
+Q4 & 1 & Models, arrivals, batch/input changes specified (3.2, 5.2-5.3)\\
+Q5 & 0.5 & Baselines are implemented synchronization analogues, limiting fidelity (5.1)\\
+Q6 & 1 & JCT inflation and SLO-violation objectives defined (3.1, 4.2)\\
+Q7 & 0 & Run duration, independent repetitions and uncertainty not established in supplied evaluation (5)\\
+Q8 & 0.5 & Result prose supports direction; Table 2 and chart labels are damaged, limiting numerical verification\\
+Q9 & 1 & Explicit profiling scalability and generative/multi-GPU limitations (6)\\
+Q10 & 0.5 & Concrete prototype and scenarios interpretable; exhaustive profile/data details incomplete (4.2, 6)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S024: FaST-GShare: Enabling Efficient Spatio-Temporal GPU Sharing in Serverless Computing for Deep Learning Inference}
+\textbf{Preferred report:} Proceedings of ICPP 2023, 2023; report GA-PN00015. \textbf{Current QA:} 7.5/10 (moderate).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & FaST-GShare: MPS spatial shares plus CUDA interception/token-based temporal quotas; CUDA IPC model sharing\\
+Environment & GCP N1 VMs: 48-core/60GB master; four 24-core worker VMs, each V100 16GB (80 SMs). Ubuntu 20.04.5, Kubernetes 1.24.2, OpenFaaS faas-netes 0.14.2/gateway 0.21.3; PyTorch/TensorFlow; CUDA/driver not yet extracted.\\
+Workload & ResNet, RNNT, BERT and GNMT functions; local time shares 20/40/60/80/100 percent and SM shares 6/12/24/50/60/80/100 percent; multi-pod single-GPU profiling distinct from four-worker placement.\\
+Comparator & Time sharing without spatial shares (racing) versus 12\%/24\% SM allocation; section 5.3 separately tests oversubscribed and non-oversubscribed pods.\\
+Bounded finding & Local section 5.3 states eight RNNT pods at 12\% SM shares reach about 40 req/s with tail latency below 500 ms, versus one racing pod about 12 req/s and above 1250 ms. The local ResNet/RNNT comparison in Fig. 9 reports removing their observed interference with 24\% shares. No unlabelled tail value is relabelled p99.\\
+Transfer limit & Model-specific/proportional share effects, IPC memory trust and batching limit transfer. Prose fractional-gain notation is ambiguous (3.15x with raw 296.8/71.37), so no such multiplier imported. Supplied plot coordinates/percentile identity and repetitions not reconstructed.\\
+Source anchor & Printed pp. 641-643; sections 4, 5.1-5.4; Figs. 8-10; N00015.md lines 523-735\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & FaaS inference sharing problem explicit (1)\\
+Q2 & 1 & MPS, quota/token and IPC design described (3-4)\\
+Q3 & 0.5 & VM/GPU/platform versions specified, CUDA/driver incomplete (5.1)\\
+Q4 & 1 & Model/share/pod experiments specified (5.1-5.3)\\
+Q5 & 0.5 & Racing and spatial controls explicit; oversubscription strata must remain separate (5.3)\\
+Q6 & 0.5 & Units and throughput clear; tail percentile not established from extracted source (5.3)\\
+Q7 & 0.5 & Load tools and experiment scenarios reported, repetitions/variance incomplete (5.1-5.3)\\
+Q8 & 1 & RNNT raw outcomes readable in prose; chart pixels not reconstructed (5.3)\\
+Q9 & 0.5 & Memory contention and resource fragmentation discussed, limited validity treatment (3.4-3.5)\\
+Q10 & 1 & Quota controls and platform implementation critically interpretable (3-5)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S025: SPLIT: QoS-Aware DNN Inference on Shared GPU via Evenly-Sized Model Splitting}
+\textbf{Preferred report:} Proceedings of ICPP 2023, 2023; report GA-PN00040. \textbf{Current QA:} 8.5/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & SPLIT: genetic offline model-block splitting with token-based greedy temporal preemption\\
+Environment & Jetson Nano; Ubuntu 18.04; ONNX Runtime 1.12.1. CUDA/driver versions not yet extracted.\\
+Workload & YOLOv2, GoogLeNet, ResNet50, VGG19, GPT-2; 1000 requests per scenario, Poisson average intervals 160 to 110 ms across six scenarios; latency target alpha times isolated execution time, alpha 2-20.\\
+Comparator & Clockwork-like sequential policy, PREMA-like preemption and Runtime-aware multi-stream approach (RT-A); these adapted baselines differ in concurrency.\\
+Bounded finding & Section 5.5 reports violation rate below 10\% beyond alpha=4 versus 26\% under RT-A in the discussed comparison. For short requests, jitter reductions versus Clockwork/PREMA/RT-A are 55.3/46.8/68.9\% at low load and 56.0/50.3/69.3\% at high load. Jitter is block-execution standard deviation, not p99 latency. Section 6 reports split overhead and static-graph limits.\\
+Transfer limit & One edge GPU and synthetic Poisson load; not a server-class GPU generalization. Temporal predictability sacrifices spatial parallelism; long-request stability can worsen. Table 3 split overhead and RNN limits qualify short-request improvements.\\
+Source anchor & Printed pp. 611-613; sections 5.1-5.5, 6; Tables 1-3; Figs. 6-7; N00040.md lines 451-629\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Single-GPU per-request QoS question explicit (1)\\
+Q2 & 1 & Block splitting and greedy preemption specified (3-4)\\
+Q3 & 0.5 & GPU/OS/runtime given, driver/CUDA incomplete (5.1)\\
+Q4 & 1 & Five models, 1000 requests, six load intervals and alpha sweep (5.1-5.2)\\
+Q5 & 0.5 & Adapted baseline policies described; device/implementation portability qualified (5.3)\\
+Q6 & 1 & Violation target and block-execution SD defined (5.2)\\
+Q7 & 0.5 & Scenario request count/load explicit, repetitions/uncertainty not established (5)\\
+Q8 & 1 & Outcome prose and split-overhead table readable (5.4-5.5, Table 3)\\
+Q9 & 1 & Overhead, static graphs and adverse longer-request stability discussed (5.5-6)\\
+Q10 & 1 & Mechanism and experiment are critically interpretable despite missing configuration controls (3-6)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S026: MIGServe: Layout-Aware Multi-Instance GPU Management for Efficient LLM Serving}
+\textbf{Preferred report:} Proceedings of ICPP 2026, 2026; report GA-PN00831. \textbf{Current QA:} 8.0/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & MIGServe: buddy-aware MIG placement, proactive pair migration and temperature-guided eviction\\
+Environment & One server with four A100 40GB GPUs, two AMD EPYC 7413 CPUs and 512GB RAM; each GPU up to seven MIG slices; OS/driver/serving-engine versions not yet extracted.\\
+Workload & Llama and Qwen 3B-14B models and distinct replicas; Azure/Arena fitted Gamma arrivals, ShareGPT/GSM8K inputs, 4K samples each; request rates 2-12 RPS; TTFT SLO 6 s and TPOT 100 ms at 90\% attainment.\\
+Comparator & Static profile distribution and layout-agnostic dynamic best-fit MIG baseline (LA-Dyn), not every feature of cited production schedulers.\\
+Bounded finding & Section 5.2 Azure: sustainable rate at 90\% SLO attainment is 9.84 RPS versus LA-Dyn 4.13 and Static 1.85. Arena approximately 10.99 versus 2.37 and 2.48 RPS. These are four-GPU server outcomes; local mechanism is MIG layout control, not a single-GPU throughput multiplier.\\
+Transfer limit & Four-GPU evaluation and constructed layout-agnostic comparator; 90\% attainment is weaker than 99\% SLO targets used elsewhere. MIG hardware isolation is described, without adversarial/fault experiment. Source pixels and unreported repeats/versions are not reconstructed.\\
+Source anchor & Printed pp. 850-853; sections 4, 5.1-5.4; Fig. 9 and Figs. 11-13; N00831.md lines 519-780\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Heterogeneous LLM layout/fragmentation problem explicit (1)\\
+Q2 & 1 & Buddy placement, migration and eviction mechanisms described (3-4)\\
+Q3 & 0.5 & Server/GPU/memory given; software versions not yet extracted (5.1)\\
+Q4 & 1 & Models, datasets, arrival construction and SLOs stated (5.1)\\
+Q5 & 0.5 & Two operationally defined baselines; LA-Dyn is a constructed heuristic comparator (5.1)\\
+Q6 & 1 & TTFT/TPOT, attainment and sustainable request rate defined (5.1)\\
+Q7 & 0.5 & Load/SLO sweeps and ablations present; repetitions/variance unresolved (5)\\
+Q8 & 1 & Rates and ablation outcomes readable in prose (5.2-5.4)\\
+Q9 & 0.5 & Layout/reconfiguration trade-offs discussed, limited threat treatment (4-6)\\
+Q10 & 1 & Control logic and workload construction support critical interpretation (3-5)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S027: MMK: A Hybrid Scheduling Framework for Fine-Grained GPU Sharing for Deep Learning Applications}
+\textbf{Preferred report:} ACM Transactions on Architecture and Code Optimization, 2026; report GA-PN00839. \textbf{Current QA:} 8.0/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & MMK: MIG, elastic MPS oversubscription and CUDA-intercepted kernel-priority scheduling\\
+Environment & Two Xeon Platinum 8369B CPUs and two A100 PCIe 80GB GPUs; Ubuntu 20.04/kernel 5.15; driver 535.154.05, CUDA 12.2, PyTorch 2.4.1, cuDNN 8.9.7, cuBLAS 12.2.\\
+Workload & 60 online and 40 offline jobs on testbed, Poisson arrival parameter 30 s; Table 3 CNNs and Qwen2-7B/Llama-3.2-3B/DeepSeek-R1-1.5B; 1000-job simulation is separate.\\
+Comparator & Default time sharing, MPS, MISO and MIGER; fixed 7g.80gb baseline for component analysis.\\
+Bounded finding & Section 4.3/Fig. 9 reports mean JCT 28\% lower, makespan 32\% lower and normalized progress-rate STP 35\% higher than MIGER. These are mixed-job/testbed metrics, not per-request p99 latency. Section 4.5 reports 1.5\% MIG and 3.2\% MPS reconfiguration lifecycle overhead.\\
+Transfer limit & Mixed inference/training and two-GPU optimization; local priority scheduling is the transferable mechanism. Many figure labels contain NUL/glyph corruption, so numerical prose only. STP/JCT does not establish online tail-latency or fault containment.\\
+Source anchor & Article pp. 84:15-84:19; sections 4.1-4.5; Table 3; Figs. 9-12; N00839.md lines 789-1040\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Online/offline GPU contention and priorities explicit (1)\\
+Q2 & 1 & Three-level local scheduling and CUDA interposition detailed (3-4.1)\\
+Q3 & 1 & CPU/GPU/kernel/driver/CUDA/framework versions supplied (4.1-4.2)\\
+Q4 & 1 & Job counts, arrival parameter and inference/training table explicit (4.2, Table 3)\\
+Q5 & 0.5 & Baselines and their scheduling rules described; comparator fidelity qualified (4.2)\\
+Q6 & 1 & JCT, STP and makespan defined (4.2)\\
+Q7 & 0.5 & Testbed/simulation sizes stated; repeats/variance not verified (4.2)\\
+Q8 & 0.5 & Numerical prose readable, figures substantially corrupted in conversion (4.3-4.5)\\
+Q9 & 0.5 & Overhead/resource contention discussed, limited separate validity treatment\\
+Q10 & 1 & Detailed stack/control permits critical interpretation; experiments not rerun (4.1-4.5)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S028: BOER: Enhancing Resource Utilization for Deep Learning Inference with Hybrid Spatial GPU Sharing}
+\textbf{Preferred report:} Proceedings of SC 2025, 2025; report GA-PN00844. \textbf{Current QA:} 8.5/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & BOER: MIG model grouping with Bayesian-optimized MPS configurations inside partitions\\
+Environment & Two servers, each two Xeon Gold 5320 CPUs and four A100 80GB GPUs; CUDA 12.6. Single-A100 motivation profiling separated from eight-GPU system evaluation.\\
+Workload & Nine inference models across five multi-model scenarios; Poisson arrivals; each application request fans out to each model; selected batching based on demand and model QoS.\\
+Comparator & gpulet; USHER IR-Scheduler only; PARIS/ELSA; MIG-serving fast algorithm only; ParvaGPU. Full omitted features are not benchmarked.\\
+Bounded finding & Local section 2.4/Fig. 3 observes ParvaGPU can underperform MIG-only serving for larger BERT/ResNet50 while helping lightweight MobileNet. Section 5.2/Fig. 8 gives eight-GPU QoS-preserved throughput mean 34.61\% above ParvaGPU; 56.8/62.49/34.63/44.83\% above MIG-serving/gpulet/USHER/PARIS. Keep local qualitative counterexample separate from fleet improvements.\\
+Transfer limit & Bayesian exploration cost and instance interference qualify hybrid gains. Baseline reductions (MIG-serving fast/USHER IR only) and multi-GPU request fan-out constrain comparison. Same senior author as MIGER, but different inference-only system and experiments; not a same-study report extension identified in supplied text.\\
+Source anchor & Printed pp. 521, 526-528; sections 2.4, 4.6, 5.1-5.4; Tables 2-3; Figs. 3, 8, 10; N00844.md lines 200-265, 700-890\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & QoS-aware multi-model hybrid sharing question explicit (1-2)\\
+Q2 & 1 & Grouping, partition selection and MPS Bayesian search specified (4)\\
+Q3 & 0.5 & GPU/CPU/CUDA clear, OS/driver not yet extracted (5.1)\\
+Q4 & 1 & Models, input/QoS tables and fan-out/arrival design stated (5.1)\\
+Q5 & 0.5 & Fast-only MIG-serving and IR-only USHER restrictions disclosed (5.1)\\
+Q6 & 1 & QoS-preserved RPS measured by raising rate to violation (5.2)\\
+Q7 & 0.5 & Sweeps/scenarios/ablations present, repetitions and confidence unresolved (5)\\
+Q8 & 1 & Explicit normalized-result prose and local counterexample readable (2.4, 5.2)\\
+Q9 & 1 & Intra-partition interference, search cost and reconfiguration discussed (2.4, 4.6)\\
+Q10 & 1 & Algorithms/open prototype and bounded baseline choices interpretable (4-5)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S029: Adaptive GPU Sharing for Real-time LLM Serving with Best-effort Workloads}
+\textbf{Preferred report:} ICPP Workshops 2026, 2026; report GA-PN00872. \textbf{Current QA:} 8.5/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & AdMix: adaptive MPS active-thread caps, lightweight LLM estimator and best-effort pause/full-access controls\\
+Environment & AMD EPYC 7713 and two A100 PCIe 80GB GPUs with NVLink; CUDA 12.3; vLLM 0.10.2. LLaMA-7B uses TP1 (local), Qwen-14B TP2 is separate.\\
+Workload & LlaMA-7B/Qwen-14B with best-effort ResNet50/VGG19/UNet3D/DeepLabV3 inference; Azure/BurstGPT five-hour segments compressed to one hour and load-scaled. TTFT 1s, TPOT 200ms; MPS 5\% steps and 10s switch interval.\\
+Comparator & Unpartitioned driver time sharing and static MPS selected by exhaustive target-trace replay to meet 99\% attainment; batch choices differ between temporal and static MPS controls.\\
+Bounded finding & Section 4.2 reports average best-effort throughput 1.58x Static MPS with local LLaMA-7B (TP1) and 3.9x with Qwen-14B (TP2), keeping strata distinct. AdMix still increases mean TTFT/TPOT versus LLM-only; on Qwen its mean latency increases exceed Static MPS. More throughput is not zero interference.\\
+Transfer limit & Full six-page original workshop report; one/two-GPU workload strata and tuned-on-test-trace static reference limit transfer. Estimates of average latency do not establish p99. No testbed code rerun or security/fault experiment inferred.\\
+Source anchor & Printed pp. 3-5; sections 3 and 4.1-4.2; Table 1; Figs. 5-6; N00872.md lines 270-453\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Real-time LLM and best-effort inference problem explicit (1)\\
+Q2 & 1 & MPS controller, proactive pause and full-access path described (3)\\
+Q3 & 0.5 & Hardware/CUDA/engine versions stated, OS/driver incomplete (4.1)\\
+Q4 & 1 & Models, trace compression, quotas and SLOs specified (4.1, Table 1)\\
+Q5 & 0.5 & Oracle-like static trace search and differing temporal batches disclosed (4.1)\\
+Q6 & 1 & Mean TTFT/TPOT, attainment and normalized BE throughput defined (4.1)\\
+Q7 & 0.5 & One-hour trace and load scaling explicit; independent repeats/variance unresolved (4.1)\\
+Q8 & 1 & Local TP1 and separate TP2 results readable in prose (4.2)\\
+Q9 & 1 & Static baseline impracticality and latency/throughput cost discussed (4.1-4.2)\\
+Q10 & 1 & Control parameters and implementation hooks interpretable (3-4)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S030: SGDRC: Software-Defined Dynamic Resource Control for Concurrent DNN Inference on NVIDIA GPUs}
+\textbf{Preferred report:} Proceedings of PPoPP 2025, 2025; report GA-PN00904. \textbf{Current QA:} 8.5/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & SGDRC: CUDA/TVM runtime with software VRAM-channel coloring, bimodal tensors and tidal SM masks\\
+Environment & Separate Tesla P40 and RTX A2000 evaluations; clients/server on same machine. TVM-generated kernels and shared CUDA context. OS/driver/CUDA/CPU profile not yet fully extracted.\\
+Workload & Apollo trace for latency-sensitive inference, closed-loop best-effort DNNs; four instances per LS model, no dynamic batching. SLO = n times model isolated p99 runtime for n concurrent DNN services; light/heavy loads.\\
+Comparator & TGS, MPS where supported, Orion, multi-streaming and SGDRC-static; Fig. 18 explicitly excludes unsupported P40 MPS.\\
+Bounded finding & Section 9.3: versus Orion, P40 overall throughput up to 1.47x and BE up to 2.36x; A2000 up to 1.32x and 1.79x, respectively. Mean SLO attainment 99.0\% across evaluated settings. Section 10 explicitly states shared-context GPU runtime errors are not isolated.\\
+Transfer limit & Software coloring is not a proven security boundary. MIG integration is future work; not benchmarked on A100/H100. Reverse-engineering/calibration and TVM compatibility matter; do not treat throughput maxima as averages or infer a P40 MPS result.\\
+Source anchor & Printed pp. 276-277; sections 9.2-9.3, 10; Table 3 and Fig. 18; N00904.md lines 863-965\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Concurrent LS/BE inference and hardware allocation problem explicit (1)\\
+Q2 & 1 & Coloring, tensor conversion and dynamic SM allocation detailed (5-8)\\
+Q3 & 0.5 & P40/A2000 and TVM stated; remaining environment details not yet transcribed (9.2)\\
+Q4 & 1 & Trace replay, BE loop, instance count and batching policy explicit (9.2)\\
+Q5 & 0.5 & Unsupported P40 MPS omitted and static ablation included; kernel/runtime comparability qualified (Fig.18)\\
+Q6 & 1 & p99, n-scaled SLO, goodput/throughput units defined (9.2)\\
+Q7 & 0.5 & Light/heavy trace regimes stated; repetitions/uncertainty not established from extracted source (9)\\
+Q8 & 1 & Separate GPU maxima and SLO outcomes readable in prose (9.3)\\
+Q9 & 1 & Shared-context fault failure and future MIG portability explicitly acknowledged (10)\\
+Q10 & 1 & Architecture/methods allow critical interpretation, despite environment gaps (5-10)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S031: Beyond Utilization: Energy-Conscious GPU Sharing for Inference Serving}
+\textbf{Preferred report:} Proceedings of SOSP 2026, 2026; report GA-PN00946. \textbf{Current QA:} 9.0/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & EnerTune: MIG allocation with joint frequency/batch selection, colocation-power model and runtime tuner; separate MPS portability experiments\\
+Environment & 16 A100 80GB GPUs (four/server), AMD EPYC 9554P; Ubuntu 22.04, driver 575.57.08, CUDA 12.9. Eight A6000/RTX4090 portability experiments separate.\\
+Workload & 22 instances of 11 CNN, SDXL, Whisper and GPT-J-6B models; dense/bursty MAF traces, about one hour, 25-125\% load; p99 normalized by per-model SLO derived from isolated Poisson p90.\\
+Comparator & Usher, FGD, GPULets, ParvaGPU; additive-power estimator ablation. Local pair-energy examples compared with isolated execution.\\
+Bounded finding & Section 2.1/Fig. 2: co-location choice can increase energy; SDXL plus MobileNetV3 example uses 13\% less energy versus no sharing despite 1.14x latency. Section 7.1/Fig. 9: 16-GPU testbed energy reduced by factors 1.4-2.3 and power by 1.3-2.6 versus baselines while meeting SLOs; fleet results are not local per-GPU savings.\\
+Transfer limit & Joint power/energy objectives select different allocations. Local model-pair evidence must stay distinct from fleet savings and from frequency-only effects. Source chart pixels not available; experiments/code not rerun; missing warm-up and independent-run uncertainty not assumed.\\
+Source anchor & Printed pp. 66-67, 73-75; sections 2.1-2.2, 6, 7.1-7.2; Figs. 2, 9; N00946.md lines 140-249, 798-995\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Inference multiplexing with power/energy objective explicit (1)\\
+Q2 & 1 & MIG allocation, energy models and runtime frequency/batch tuning specified (3-6)\\
+Q3 & 1 & GPU/server/OS/driver/CUDA supplied (7)\\
+Q4 & 1 & Models, one-hour traces, loads and SLO derivation explicit (7)\\
+Q5 & 0.5 & Same workloads and representative comparators; cross-system design differences qualified (7)\\
+Q6 & 1 & Energy versus power and normalized p99/SLO metrics separated (7)\\
+Q7 & 0.5 & Trace duration/load sweep present; warm-up/repetition uncertainty unresolved (7)\\
+Q8 & 1 & Bounded pair outcomes and system gain prose readable (2.1, 7.1)\\
+Q9 & 1 & Energy-incompatible pairs and power-versus-energy allocation conflict discussed (2, 7)\\
+Q10 & 1 & Stack, models, equations and implementation support critical interpretation (3-7)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S032: FluidFaaS: A Dynamic Pipelined Solution for Serverless Computing with Strong Isolation-based GPU Sharing}
+\textbf{Preferred report:} Proceedings of HPDC 2025, 2025; report GA-PN00920. \textbf{Current QA:} 8.0/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & MIG partitioned serverless functions with pipelined instance construction, eviction and dynamic resource assignment\\
+Environment & A100 80GB MIG profiles described; evaluation spans serverless deployment and GPU allocations. Per-GPU comparisons separated from aggregate system metrics; full driver/runtime settings not extracted.\\
+Workload & Image classification and depth recognition DNN function pipelines, light/medium/heavy invocation traces derived from Azure Functions; SLO set to 1.5 times isolated latency in default setup.\\
+Comparator & ESG MIG serverless baseline and INFless; baseline variants differ in pipeline execution.\\
+Bounded finding & Section 7.1/Fig. 9 reports FluidFaaS SLO hit-rate improvement of 90\% for medium and 61\% for heavy workload mixes over the compared systems; the abstract reports 25–75\% throughput increases across workloads. These are system-level results, not a measured per-GPU utilization effect.\\
+Transfer limit & Pipeline, placement and MIG allocation contribute jointly; comparisons with a non-pipelined baseline cannot isolate the benefit of MIG partitioning alone. No adversarial security or fault-injection evidence is inferred from MIG descriptions.\\
+Source anchor & N00920.md abstract, sections 3, 6, 7.1; Tables 2, 5–6; Figs. 9 and 12\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Serverless multi-function tenant question explicit (intro)\\
+Q2 & 1 & MIG partition and pipeline controls described (sections 3–5)\\
+Q3 & 0.5 & A100/profile specified, full software stack not extracted (section 6)\\
+Q4 & 1 & Three load regimes, functions, traces and SLO scale (section 6)\\
+Q5 & 0.5 & ESG and INFless compared but pipeline semantics differ (section 6)\\
+Q6 & 1 & SLO hit and latency/throughput metrics described (sections 6–7)\\
+Q7 & 0.5 & Trace derivation stated; repetitions and variance incomplete in conversion (section 6)\\
+Q8 & 1 & Tables 5–6 and Figs. 9, 12 support bounded claims (section 7)\\
+Q9 & 1 & Fragmentation and baseline trade-offs discussed (sections 3, 7)\\
+Q10 & 0.5 & Enough setup for critical interpretation; full implementation settings limited (sections 6–7)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S033: Improving GPU Sharing Performance through Adaptive Bubbleless Spatial-Temporal Sharing}
+\textbf{Preferred report:} Proceedings of EuroSys 2025, 2025; report GA-PN01085. \textbf{Current QA:} 8.0/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & Bless: adaptive kernel-squad scheduling, MPS contexts with SM affinity and temporal/spatial quota adjustments\\
+Environment & One A100 40GB (108 SM), AMD EPYC 7302, CUDA 11.8, Ubuntu 20.04 (section 6.1).\\
+Workload & Co-located inference and training DNNs; explicit two- and four-instance BERT inference scenarios and VGG11/ResNet50 quotas on one GPU.\\
+Comparator & Temporal round robin and quota-based spatial sharing/MPS configurations in section 6; relative percentages must retain their stated comparator and scenario.\\
+Bounded finding & The introduction and evaluation report mean latency reductions of 39.1\% for two BERT inference instances and 41.2\% for four, under the paper's compared GPU-sharing systems. Other reported aggregate gains are not recast as p99 or universal speedups.\\
+Transfer limit & Quota, model pairing and GPU generation condition results. The conversion has damaged column/table layout, so no unlabeled plotted coordinates or precise tail-percentile gains were recovered.\\
+Source anchor & N01085.md intro, sections 4, 6.1–6; Fig. 1 and BERT co-location result prose\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Multiple inference tenant question explicit (intro)\\
+Q2 & 1 & Kernel squads and affinity/quota controls described (sections 4–5)\\
+Q3 & 1 & Single A100/CPU/OS/CUDA specified (6.1)\\
+Q4 & 1 & DNN model pairs and quota scenarios specified (Fig. 1, 6)\\
+Q5 & 0.5 & Multiple sharing baselines; exact equal resource budgets partly unclear in conversion (6)\\
+Q6 & 1 & Latency and quota metrics identifiable; mean is not p99 (6)\\
+Q7 & 0.5 & Trace and setup given; variance/repetitions not fully recovered (6.1)\\
+Q8 & 1 & BERT result in prose and figures support scoped comparisons (6)\\
+Q9 & 0.5 & Some adverse cases/transfer limits discussed, no security/fault test (6)\\
+Q10 & 0.5 & Mechanism interpretable; damaged plot/table layout limits reconstruction (4–6)\\
+\bottomrule\end{longtable}
+
+\Needspace{12\baselineskip}
+\subsection{GA-S034: Understanding GPU Resource Interference One Level Deeper}
+\textbf{Preferred report:} Proceedings of SoCC 2025, 2025; report GA-PN01096. \textbf{Current QA:} 8.0/10 (high).
+\begin{longtable}{P{0.15\linewidth}P{0.75\linewidth}}
+\toprule Extraction field & Recorded observation\\\midrule\endhead
+Mechanism & CUDA streams and CUDA Green Context SM partition for controlled co-location; interference characterization rather than a deployed scheduler\\
+Environment & H100 NVL (132 SM, CUDA 12.9, driver 575.57.08) and RTX 3090 (82 SM, CUDA 12.6, driver 560.35.03); modified vLLM fork.\\
+Workload & Llama 3.1 8B and Gemma 3 1B decode phases co-located with controlled sleep, copy or compute kernels; Table 1 H100 batch 8, 16,384-token prompt, ten generated tokens.\\
+Comparator & LLM decode alone versus controlled co-location in streams/Green Contexts; synthetic interference kernels, not a second production inference service.\\
+Bounded finding & H100 Llama decode P90 time between tokens rises from 7.53 to 16.56 ms under a sleep co-tenant in section 4.2 (batch 1, 1,000-token prompt). Table 1's Green Context experiment isolates SM sets (64/68) but reports P90 TBT as high as 18.38 ms under copy-kernel memory pressure; its alone baseline is 14.2 ms on the whole GPU, so partition cost and interference cannot be collapsed into one effect.\\
+Transfer limit & Synthetic co-tenants and short decode traces quantify resource contention; the paper proposes a future scheduler but does not implement an end-to-end serving controller. Green Context SM partition does not partition L2 or external memory bandwidth. Table 1 conversion is interleaved; only prose and clearly attributable values are used.\\
+Source anchor & N01096.md sections 3–5, especially 4.1–4.4; Fig. 2 and Table 1\\
+\bottomrule\end{longtable}
+\begin{longtable}{P{0.09\linewidth}P{0.10\linewidth}P{0.67\linewidth}}
+\toprule QA & Score & Source-based rationale\\\midrule\endhead
+Q1 & 1 & Interference for concurrent inference explicit (abstract, 4)\\
+Q2 & 1 & Streams and Green Context partition specified (3–4)\\
+Q3 & 1 & GPU/SM/CUDA/driver and modified vLLM stated (4.1)\\
+Q4 & 0.5 & LLM sizes/prompt/batch given; co-tenant synthetic rather than service trace (4.1–4.4)\\
+Q5 & 0.5 & Solo baseline exists; whole-GPU and partition budgets differ (Table 1)\\
+Q6 & 1 & P90 TBT and time units stated (4.2–4.3)\\
+Q7 & 0.5 & Short traces and controlled kernels; repetition/variance limited (4)\\
+Q8 & 1 & Trace/Fig. 2 and Table 1/prose substantiate scoped findings (4)\\
+Q9 & 1 & Shared cache/bandwidth and scheduler outlook explicitly discussed (4–5)\\
+Q10 & 0.5 & Benchmarks interpretable; no complete deployed scheduler to reproduce (5)\\
 \bottomrule\end{longtable}
 

@@ -16,7 +16,7 @@ for(const [name,matrix] of Object.entries(data)){
  body.format.columnWidth=22;body.format.rowHeight=48;
  sh.getRangeByIndexes(0,0,1,cols).format={fill:'#17324D',font:{name:'Calibri',bold:true,color:'#FFFFFF',size:11},rowHeight:32};
  sh.freezePanes.freezeRows(1);
- if(name!=='Summary')sh.tables.add(sh.getRangeByIndexes(0,0,rows,cols),true,name+'Table');
+ if(!['Summary','Current'].includes(name))sh.tables.add(sh.getRangeByIndexes(0,0,rows,cols),true,name+'Table');
  if(name==='Decisions'){sh.getRange('D:D').format.columnWidth=65;sh.getRange('H:H').format.columnWidth=95;sh.getRange('L:L').format.columnWidth=65;body.format.rowHeight=80;}
  if(name==='Included'){sh.getRange('C:G').format.columnWidth=60;body.format.rowHeight=95;}
  if(name==='Downloads'){sh.getRange('C:C').format.columnWidth=70;sh.getRange('E:F').format.columnWidth=65;body.format.rowHeight=65;}
@@ -52,6 +52,20 @@ for(const [name,matrix] of Object.entries(data)){
   sh.getRange(`L2:L${rows}`).formulas=Array.from({length:rows-1},(_,i)=>[`=SUM(B${i+2}:K${i+2})`]);
   sh.getRange(`M2:M${rows}`).formulas=Array.from({length:rows-1},(_,i)=>[`=IF(L${i+2}>=8,"high",IF(L${i+2}>=6,"moderate","low"))`]);
  }
+ if(name==='Current'){
+  sh.getRange('A:A').format.columnWidth=54;sh.getRange('B:B').format.columnWidth=85;
+  body.format.rowHeight=46;sh.getRange('B4').formulas=[['=COUNTIF(Batch1!D2:D11,"accepted")']];
+  sh.getRange('B5').formulas=[['=COUNTIF(Batch2!D2:D12,"accepted")']];
+  sh.getRange('B6').formulas=[['=SUM(B3:B5)']];sh.getRange('A6:B6').format.fill='#DDEFE7';
+ }
+ if(name==='Batch1'||name==='Batch2'){
+  sh.getRange('A:B').format.columnWidth=18;sh.getRange('C:C').format.columnWidth=24;
+  sh.getRange('D:E').format.columnWidth=18;sh.getRange('F:G').format.columnWidth=90;body.format.rowHeight=90;
+ }
+ if(name==='DownloadQueue'){
+  sh.getRange('B:B').format.columnWidth=20;sh.getRange('C:C').format.columnWidth=90;
+  sh.getRange('P:P').format.columnWidth=80;body.format.rowHeight=100;
+ }
  if(name==='Summary'){
   sh.getRange('A:A').format.columnWidth=36;sh.getRange('B:B').format.columnWidth=50;
   sh.getRange('B3:B10').setNumberFormat('0');
@@ -64,13 +78,13 @@ wb.recalculate();
 console.log((await wb.inspect({kind:'region',sheetId:'Summary',range:'A1:B12',maxChars:3000,tableMaxRows:12,tableMaxCols:2})).ndjson);
 const preview=await wb.render({sheetName:'Summary',autoCrop:'all',scale:1,format:'png'});
 await fs.writeFile(path.join(report,'workbook-preview.png'),new Uint8Array(await preview.arrayBuffer()));
-for(const [sheetName,range] of [['Quality','A17:N22'],['Received','A1:E7']]){
- console.log((await wb.inspect({kind:'region',sheetId:sheetName,range,maxChars:7000,tableMaxRows:7,tableMaxCols:14})).ndjson);
+for(const [sheetName,range] of [['Quality','A31:N35'],['Received','A18:F28'],['Current','A1:B10'],['Batch1','A1:E11'],['Batch2','A1:G12'],['Included','A31:G35'],['AssessedNew','A14:L24'],['DownloadQueue','A11:P22']]){
+ console.log((await wb.inspect({kind:'region',sheetId:sheetName,range,maxChars:1500,tableMaxRows:3,tableMaxCols:5})).ndjson);
  const picture=await wb.render({sheetName,range,scale:1,format:'png'});
  await fs.writeFile(path.join(report,sheetName.toLowerCase()+'-preview.png'),new Uint8Array(await picture.arrayBuffer()));
 }
-for(const [sheetName,range] of [['Extension','A1:I8'],['NewQueue','A1:I8'],['Triage','A1:I8']]){
- console.log((await wb.inspect({kind:'region',sheetId:sheetName,range,maxChars:6500,tableMaxRows:8,tableMaxCols:9})).ndjson);
+for(const [sheetName,range] of [['Extension','A7:I8'],['NewQueue','A1:I5'],['Triage','A1:F5']]){
+ console.log((await wb.inspect({kind:'region',sheetId:sheetName,range,maxChars:1000,tableMaxRows:3,tableMaxCols:5})).ndjson);
  const picture=await wb.render({sheetName,range,scale:1,format:'png'});
  await fs.writeFile(path.join(report,sheetName.toLowerCase()+'-preview.png'),new Uint8Array(await picture.arrayBuffer()));
 }

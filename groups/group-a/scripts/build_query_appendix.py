@@ -35,14 +35,14 @@ def latex(value):
     return "".join(replacements.get(char, char) for char in value)
 
 
-qa = {row["study_id"]: row for row in rows("quality.csv")}
-extraction = {row["study_id"]: row for row in rows("extraction.csv")}
+qa = {row["study_id"]: row for row in rows("current_quality.csv")}
+extraction = {row["study_id"]: row for row in rows("current_extraction.csv")}
 if qa.keys() != extraction.keys():
     raise ValueError("The included QA and extraction study IDs differ")
 
 parts = [
     r"\section{Study-level evidence cards}\label{app:cards}",
-    r"\pending{These cards reflect the 21-study checkpoint; regenerate them after the final study and report-version decisions.}",
+    r"\pending{These cards reflect the current 34-study accepted set after batch 2; the complete four-database selection flow remains open.}",
     r"The item rationales below reproduce the Group A quality register. Bounded outcomes and caveats reproduce the extraction register. They are not a new independent appraisal or a substitute for the cited full texts.",
 ]
 for study_id in sorted(qa):

@@ -1,0 +1,12 @@
+record_id,report_id,study_id,filename,sha256,bytes,received_date,source_format,decision,qa_total
+GA-N00920,GA-PN00920,GA-S032,N00920.md,200bfa689fceed161581e292ea63991073594a21027303d772bb2748ca7db16f,79352,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,8.0
+GA-N01085,GA-PN01085,GA-S033,N01085.md,0e62afeeff01ba125900294c709e5b6f77bddbbaf2f560149579a724ba16e9df,109564,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,8.0
+GA-N01096,GA-PN01096,GA-S034,N01096.md,76fca8fc31f23603170a57e7f536e90ebe4811351931ece9945ee4d015b8f3cb,51540,2026-10-17,User-supplied Markdown conversion of published report; source kept private,accepted_new_study,8.0
+GA-N00002,GA-PN00002,,N00002.md,73c74ea3eac76bdae0799ff8882142432be7693924420d07b4bc3e795fedebe7,43291,2026-10-17,User-supplied full-report Markdown conversion,excluded_E2,
+GA-N00004,GA-PN00004,,N00004.md,216df7d8e6fb5b3e76e4b37d4637787efb6a00949d7598bdf3c8028ba4e88505,43879,2026-10-17,User-supplied full-report Markdown conversion,excluded_E1,
+GA-N00055,GA-PN00055,,N00055.md,7598275b755aa109cca6f373d50f2a0b7c39270446fb18bfe183047640d6d777,30538,2026-10-17,User-supplied full-report Markdown conversion,excluded_E4,
+GA-N00088,GA-PN00088,,N00088.md,623d8a0da89be3d6c2898e6fe2e1b18ceea3d1c5b9ba2d95328d02351cb59e3c,101060,2026-10-17,User-supplied full-report Markdown conversion,excluded_E1,
+GA-N00102,GA-PN00102,,N00102.md,816b711bb21de3bef29ffb7b14fc32cd6554d7632a3f10d615c1c38fe6606242,88410,2026-10-17,User-supplied full-report Markdown conversion,excluded_E2,
+GA-N01195,GA-PN01195,,N01195.md,4bfa4724442c738a940170e91903cafa4d5df8fb7034d496de5ad84bbe790e00,92367,2026-10-17,User-supplied full-report Markdown conversion,excluded_E2,
+GA-N01866,GA-PN01866,,N01866.md,6e7c34027d40ae4893b47cb48131faa8373f0668f948c8ca755c9d4ab7bacbe2,79837,2026-10-17,User-supplied full-report Markdown conversion,excluded_E1,
+GA-N01945,GA-PN01945,,N01945.md,df47b1f2ca455847e530313586a57a9be21ba78d6c50c55047fa3830ddef99e4,125907,2026-10-17,User-supplied full-report Markdown conversion,excluded_E1,

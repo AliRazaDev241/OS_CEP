@@ -50,38 +50,64 @@ The adopted ten-item rubric scores reporting and interpretability from 0 (absent
 
 \texttt{GA-S021} & 1 & 1 & 0.5 & 1 & 0.5 & 1 & 0.5 & 1 & 0.5 & 0.5 & 7.5 & moderate\\
 
+\texttt{GA-S022} & 1 & 1 & 0.5 & 1 & 0.5 & 1 & 0.5 & 1 & 1 & 0.5 & 8 & high\\
+
+\texttt{GA-S023} & 1 & 1 & 0.5 & 1 & 0.5 & 1 & 0 & 0.5 & 1 & 0.5 & 7 & moderate\\
+
+\texttt{GA-S024} & 1 & 1 & 0.5 & 1 & 0.5 & 0.5 & 0.5 & 1 & 0.5 & 1 & 7.5 & moderate\\
+
+\texttt{GA-S025} & 1 & 1 & 0.5 & 1 & 0.5 & 1 & 0.5 & 1 & 1 & 1 & 8.5 & high\\
+
+\texttt{GA-S026} & 1 & 1 & 0.5 & 1 & 0.5 & 1 & 0.5 & 1 & 0.5 & 1 & 8 & high\\
+
+\texttt{GA-S027} & 1 & 1 & 1 & 1 & 0.5 & 1 & 0.5 & 0.5 & 0.5 & 1 & 8 & high\\
+
+\texttt{GA-S028} & 1 & 1 & 0.5 & 1 & 0.5 & 1 & 0.5 & 1 & 1 & 1 & 8.5 & high\\
+
+\texttt{GA-S029} & 1 & 1 & 0.5 & 1 & 0.5 & 1 & 0.5 & 1 & 1 & 1 & 8.5 & high\\
+
+\texttt{GA-S030} & 1 & 1 & 0.5 & 1 & 0.5 & 1 & 0.5 & 1 & 1 & 1 & 8.5 & high\\
+
+\texttt{GA-S031} & 1 & 1 & 1 & 1 & 0.5 & 1 & 0.5 & 1 & 1 & 1 & 9 & high\\
+
+\texttt{GA-S032} & 1 & 1 & 0.5 & 1 & 0.5 & 1 & 0.5 & 1 & 1 & 0.5 & 8 & high\\
+
+\texttt{GA-S033} & 1 & 1 & 1 & 1 & 0.5 & 1 & 0.5 & 1 & 0.5 & 0.5 & 8 & high\\
+
+\texttt{GA-S034} & 1 & 1 & 1 & 0.5 & 0.5 & 1 & 0.5 & 1 & 1 & 0.5 & 8 & high\\
+
 \bottomrule\end{longtable}\endgroup
 
-The 21 preferred reports total 174 points (mean 8.29, range 6.5--9). There are 17 high (8--10), 4 moderate (6--7.5) and 0 low (below 6) scores. The four moderate studies are VastPipe (6.5), ArkGPU (7), Dyna-P (7) and InferFair (7.5). Their individual Q-item rationales, preferred-report IDs and source anchors are recorded in \path{quality.csv}; Appendix~\ref{app:cards} presents study-level evidence cards.
+The 34 preferred reports total 279.5 points (mean 8.22, range 6.5--9). There are 28 high (8--10), 6 moderate (6--7.5) and 0 low (below 6) scores. The six moderate studies are Deft (7), FaST-GShare (7.5), VastPipe (6.5), ArkGPU (7), Dyna-P (7) and InferFair (7.5). Their individual Q-item rationales, preferred-report IDs and source anchors are recorded in \path{current_quality.csv}; Appendix~\ref{app:cards} presents study-level evidence cards.
 
 \begin{longtable}{P{0.11\linewidth}P{0.50\linewidth}rrr}
 
 \toprule Item & Interpretation & Adequate & Partial & Absent\\\midrule\endhead
 
-Q1 & Question and tenant setting & 21 & 0 & 0\\
+Q1 & Question and tenant setting & 34 & 0 & 0\\
 
-Q2 & Mechanism and configuration & 21 & 0 & 0\\
+Q2 & Mechanism and configuration & 34 & 0 & 0\\
 
-Q3 & Hardware/software profile & 4 & 17 & 0\\
+Q3 & Hardware/software profile & 8 & 26 & 0\\
 
-Q4 & Model, load and co-tenant mix & 21 & 0 & 0\\
+Q4 & Model, load and co-tenant mix & 33 & 1 & 0\\
 
-Q5 & Comparator and resource budget & 6 & 15 & 0\\
+Q5 & Comparator and resource budget & 6 & 28 & 0\\
 
-Q6 & Metric definition and units & 21 & 0 & 0\\
+Q6 & Metric definition and units & 33 & 1 & 0\\
 
-Q7 & Measurement controls & 5 & 14 & 2\\
+Q7 & Measurement controls & 5 & 26 & 3\\
 
-Q8 & Support in figure/table/text & 16 & 5 & 0\\
+Q8 & Support in figure/table/text & 27 & 7 & 0\\
 
-Q9 & Threats and adverse cases & 9 & 12 & 0\\
+Q9 & Threats and adverse cases & 18 & 16 & 0\\
 
-Q10 & Reproduction or critical interpretation & 16 & 5 & 0\\
+Q10 & Reproduction or critical interpretation & 24 & 10 & 0\\
 
 \bottomrule\end{longtable}
 
-The recurring weaknesses are Q3 (17 partial hardware/software profiles), Q7 (14 partial and two absent measurement-control descriptions), Q5 (15 partial comparator assessments), and Q9 (12 partial validity discussions). All 21 score adequately on Q1, Q2, Q4 and Q6; this says the questions, mechanisms, workloads and metric labels were identifiable, not that results across papers use a common GPU, load, percentile, or fair baseline. Only two item scores are zero, both on Q7. A high sum can therefore coexist with a serious missing control in a specific comparison.
+Hardware/software completeness, baseline fidelity and measurement controls remain qualified across the current set. The item-count table above is regenerated from all 34 rows. Numeric prose can support a bounded finding even when the supplied conversion lacks readable plot pixels; no missing curve or confidence interval is reconstructed.
 
-\paragraph{Sensitivity and version control.} Removing the four moderate reports leaves 17 high-scored studies; it does not erase an entire mechanism family, but any claim relying chiefly on one moderate report must be qualified. The preferred Reef journal extension scores 8.5; its earlier OSDI report scored 8 and is retained as version history, not a second independent study. A metadata hit or retrieval lead receives no QA score.
+\paragraph{Sensitivity and version control.} Removing the six moderate reports leaves 28 high-scored studies. It removes Deft and FaST-GShare as well as VastPipe, ArkGPU, Dyna-P and InferFair. This weakens particular synchronization, serverless, mixed-workload and fairness claims; it does not prove complete causal controls in the retained set. The preferred Reef journal extension remains one study, with its conference assessment retained as history.
 
 \paragraph{Limits of the appraisal.} Some supplied conversions lacked readable chart images; Q8 is based on accessible captions, tables and stated numbers, not reverse-engineered pixels. The experiments and code were not rerun, so Q10 assesses whether a reader can critically interpret the configuration. Performance isolation, resource separation, adversarial security and fault containment need different experiments; a high total cannot establish all four. \pending{Pantheon and Jormungandr remain unscored pending report-version and eligibility sign-off; if admitted, their own source-anchored Q1--Q10 rows and all summary counts must be regenerated.}

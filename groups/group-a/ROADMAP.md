@@ -22,3 +22,11 @@
 The current set meets the numerical minimum provisionally; coverage and extraction gaps prevent a final completion claim. Group B remains unchanged.
 
 User access constraint (11 October 2026): at most 10 paper downloads total. Six of the ten were supplied and assessed; no further download is requested. Retain inaccessible candidates as deferred, not excluded or requested. Record incomplete coverage explicitly.
+
+
+## 17 October batch 1 checkpoint
+
+- Completed: batch 1 ten accepted; batch 2 eleven received and assessed, three accepted and eight excluded with source-anchored reasons. Current accepted set: 34 (historical 21 + ten + three), with QA/extraction for every accepted study.
+- Receipt/assessment authorities: `batch1_review_assessments.json`, `batch1_paper_receipts.csv`, `new_fulltext_assessments.csv`. Current combined accepted evidence uses `current_` filenames; original Flow A is retained as history.
+- Remaining: 55 unassessed queue reports, two earlier eligible-pending-integration reports, canonical Step 3–5 and duplicate/version reconciliation, final PRISMA derivation, parameter/measurement gaps and synthesis sensitivity. These candidates are not guaranteed additions.
+- No source paper bodies are published. The submitted protocol, guidelines, topics and Group B files are unchanged.

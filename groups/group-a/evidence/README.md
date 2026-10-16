@@ -1,3 +1,7 @@
+# Current evidence — batches 1 and 2, 17 October 2026
+
+Current accepted set: 34; use the current-prefixed combined ledgers and batch1_review.md / batch2_review.md. Original Flow A is historical. Extension decision authority: new_fulltext_assessments.csv. Twenty-one received/assessed, 55 remaining in the supplied 76-entry queue; two earlier preliminary assessments are outside the 34. See report/BUILD.md for rebuild order.
+
 # Group A evidence — 11 October 2026
 
 Start with search_runs.csv, prisma_counts.json and studies.csv. imported_records.json preserves all689 formal query occurrences; duplicates.csv links10 repeated records without deleting provenance. studies.csv is the decision authority; accepted.csv, rejected.csv and pending.csv are derived views. Twenty-one study IDs link accepted reports to extraction.csv, quality.csv and the included-only ../../report/query_references.bib. Supplementary selected records are20, not an exhaustive web export. Six uploaded conversions resolved six pending access cases; the preferred REEF journal report replaces its conference extraction without double-counting. See six_paper_review.md, uploaded_paper_receipts.csv and uploaded_review_assessments.json; source Markdown files are not committed.
@@ -6,7 +10,7 @@ Screening is one AI reviewer authorized by the user, not independent student rev
 
 Public result-page capture substitutes for unavailable publisher exports; it does not preserve abstracts that were never displayed. metadata contains only the matched result item, never signed-in account or network details. retrieval_lookups.json is a sanitized public-access ledger, not an archive of copyrighted full texts. Download requests are linked to NED-listed platforms; individual entitlements are unverified.
 
-Counts reconcile the 11 October captured subset only. The later ACM/ScienceDirect parsed occurrences are separately reported, with displayed/export discrepancies unresolved. The query report contains an interim PRISMA stage diagram for the older subset; no final four-database flow or completed SLR is claimed. See `guideline_7_14_audit.md` for the remaining requirements.
+Counts reconcile the captured subset only. ACM/ScienceDirect totals are UNKNOWN. No final PRISMA diagram or completed four-database SLR is claimed. Use the report's checkpoint flow and the machine-readable counts together.
 
 Calibration/reconsiderations: PipeSwitch retained because inference switching outcomes are explicit; KRISP retained under protocol7.2 local partition/API control but its AMD emulation is isolated from NVIDIA MPS evidence; TGS excluded as training-only; Fermilab Triton reconsidered and retained only after Fig10 showed concurrent distinct models inside a slice. DIPPM rejected at full text because profile suggestion alone is not concurrent tenant evaluation. No reviewer disagreement or consensus is invented.
 
