@@ -3,6 +3,8 @@
 \usepackage{iftex}
 \ifPDFTeX\usepackage[T1]{fontenc}\usepackage[utf 8]{inputenc}\usepackage{mathptmx}\else\usepackage{fontspec}\setmainfont{Times New Roman}\fi
 \usepackage{longtable,booktabs,array,enumitem,microtype,xcolor,needspace}
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
 \usepackage[hidelinks]{hyperref}
 \usepackage{parskip}
 \setlength{\emergencystretch}{3em}
@@ -10,11 +12,11 @@
 \newcolumntype{P}[1]{>{\raggedright\arraybackslash}p{#1}}
 \title{GPU Sharing Mechanisms for Multi-Tenant Inference Serving\\\large Group A: Search Execution and Evidence Report}
 \author{MUHAMMAD BURHAN UN NADEEM (SE-24071)\\MUHAMMAD FAAIZ ALAM (SE-24094)\\ALI RAZA (SE-24302)}
-\date{11 October 2026\\Operating Systems Complex Engineering Problem\\NED University of Engineering and Technology}
+\date{16 October 2026\\Operating Systems Complex Engineering Problem\\NED University of Engineering and Technology}
 \begin{document}
 \maketitle
 \begin{abstract}
-This intermediate deliverable records execution of the submitted SLR protocol and prepares traceable evidence for the final CEP report. Two databases yielded 689 captured query occurrences; supplementary public venue and author searches supplied additional named candidates. Twenty-one distinct peer-reviewed studies currently meet full-text eligibility. Unavailable full texts, incomplete publisher coverage and extraction gaps remain explicit. The paper set and conditional synthesis are provisional; the completed four-database SLR and final CEP submission are not claimed.
+This intermediate deliverable records execution of the submitted SLR protocol and prepares traceable evidence for the final CEP report. The 11 October IEEE/Springer checkpoint contains 689 formal query occurrences and 21 accepted studies. A 14 October extension supplied 23 ACM/ScienceDirect export files with 3,727 parsed occurrences; those new records have not been fully screened or integrated into a revised review flow. Run-count discrepancies, retrieval and extraction gaps remain explicit. The paper set and conditional synthesis are provisional; the completed four-database SLR and final CEP submission are not claimed.
 \end{abstract}
 \textbf{Status: evidence checkpoint, not final SLR.} The publication window is 1 January 2020--11 October 2026 inclusive. One AI reviewer conducted screening and appraisal at the user's direction; the listed students are the project authors, not claimed independent reviewers.
 \newpage\tableofcontents\newpage
@@ -40,15 +42,35 @@ IEEE MIG & All metadata; years 2020--2026 &23\\
 IEEE temporal & All metadata; years 2020--2026 &45\\
 IEEE API & All metadata; years 2020--2026 &9\\
 Springer master & General search; English; research articles/conference papers;2020--2026 &587\\
-ACM pilot & Search blocked by challenge loop &Unknown; no import\\
-ScienceDirect pilot & Search page unavailable &Unknown; no import\\
+ACM pilot (11 October) & Search blocked by challenge loop &Unknown; no import at that checkpoint\\
+ScienceDirect pilot (11 October) & Search page unavailable &Unknown; no import at that checkpoint\\
 \bottomrule
 \end{longtable}
 The common block is GPU or graphics-processing-unit AND inference, model serving, deep learning, DNN or LLM. IEEE uses one family block per run. Springer uses all family blocks in one OR group. Exact strings, filters, source URLs, dates and export limitations are in \texttt{search\_runs.csv}. The IEEE field implementation differs from the planned field-qualified Command Search and is disclosed, not described as an equivalent validated command. Research type/language and precise 2026 cutoff checks are manual where facets are unavailable. No accepted study is dated after 2025.
 
 All 30 Springer result pages (20 hits/page,7 on the final page) and all IEEE pages were captured, yielding 587+25+23+45+9=689 occurrences. These are rendered-result metadata imports, not publisher-generated RIS/CSV exports. Springer export redirects to sign-in; IEEE results export requires personal sign-in and public citation export timed out. The imports retain IDs, database/run, page, title, DOI/URL and displayed date/item metadata. Clock time was not retained and is marked unrecorded.
 
-Springer's broad index includes reference/full-text matches and unrelated acronym expansions such as welding MIG. Search hits therefore do not imply eligible GPU studies. Seed checks recovered ParvaGPU and KRISP in IEEE; papers in other publisher proceedings require supplementary discovery and completion of ACM coverage. Supplementary records are selected named-paper lookups checked after adoption, including submitted seeds and related systems. They are not an exhaustive search-engine result export or completed backward/forward citation search. Their follow-up query strings are reproducible suggestions, not invented historical exact queries.
+Springer's broad index includes reference/full-text matches and unrelated acronym expansions such as welding MIG. Search hits therefore do not imply eligible GPU studies. Seed checks recovered ParvaGPU and KRISP in IEEE; papers in other publisher proceedings required supplementary discovery at this checkpoint. Supplementary records are selected named-paper lookups checked after adoption, including submitted seeds and related systems. They are not an exhaustive search-engine result export or completed backward/forward citation search. Their follow-up query strings are reproducible suggestions, not invented historical exact queries.
+
+\section{14 October ACM and ScienceDirect extension}
+The operator supplied 23 database export files and a search log from the named PC export directory. All 23 export SHA-256 hashes were checked against \path{export_intake.csv} on 16 October and matched; a private backup of the originals has not yet been confirmed. The 24th directory item is the log, not a database export. The local log and \path{search_log_received.txt} have identical lines; the received copy has one additional final CRLF. The source-file receipt and per-file parser counts are in \path{export_intake.csv}; the exact received log and structured run transcription are \path{search_log_received.txt} and \path{search_runs_received.csv}. The log records ACM's Full-Text Collection and all-fields query, four ScienceDirect family searches, the recorded 2020--2026 year filters, URLs and times. The ACM log states that the run used NED library access, without recording the access mechanism; the operator confirmed use of NED VPN for the ScienceDirect runs. Neither statement establishes entitlement to individual full texts. The protocol's exact 11 October cutoff still applies to individual reports.
+
+\begin{longtable}{P{0.29\linewidth}rrr}
+\toprule Run & Displayed hits & Log export claim & Parsed entries\\\midrule\endhead
+ACM master &1,600&1,603&1,829\\
+ScienceDirect temporal &1,053&1,053&1,053\\
+ScienceDirect MPS &517&563&563\\
+ScienceDirect MIG &241&241&241\\
+ScienceDirect API &41&41&41\\
+\midrule Total of run values &3,452&3,501&3,727\\
+\bottomrule\end{longtable}
+The parsed total consists of 1,829 BibTeX and 1,898 RIS entry \emph{occurrences}, before adjudicated deduplication. The ACM files contain 442 exact keys in both files and 1,387 distinct keys altogether. Of those distinct keys, 472 label whole-proceedings volumes rather than individual papers; their treatment must be recorded in screening. The site showed 1,600 in the saved run register and 1,603 according to the operator; the export contains 1,829 rows. The page-range overlap and completeness of the export are unverified. The numbers represent site observations, parsed rows and keys, respectively, and are not interchangeable. ACM exports used the site's Export button in one session with different page ranges, according to the operator.
+
+ScienceDirect MPS contains 563 parsed entries, including 63 from the separately re-exported \path{SSD_MPS_06.ris}; 561 distinct DOIs occur in those files. The source of the earlier displayed count of 517 is unrecorded. Reopening the result page on 16 October showed 563 hits, a later observation that supports but does not establish the 14 October page state. The ScienceDirect temporal files contain 1,053 rows and 1,051 distinct DOIs; their \texttt{\_010}/\texttt{\_011} filename order was reversed by a naming error, without changing their retained contents. Its logged URL carries an \texttt{openaccess} facet absent from the written filter description. On 16 October, the operator observed 298 hits with that facet and 1,053 without it. The 1,053 exported entries are consistent with the unfiltered set, but the filter state at export time cannot be established from this later check. No original log or export is altered to force these counts to agree.
+
+ScienceDirect rejected the intended master string under its connector limit, so the four family queries omitted the \texttt{DNN OR LLM} terms in the inference block. The received log preserves the exact queries. This is a documented query deviation from the other platforms; whether any additional content-type or language filter was selected is not recorded. The 2026 year facet alone does not enforce the 11 October cutoff. The five 14 October completed runs are recorded separately from the 11 October runs and blocked pilots. Each log names the first export file for its run; \path{export_intake.csv} maps all 23 files.\par
+
+The reproducible import assigns \texttt{GA-N00001}--\texttt{GA-N03727} in \texttt{new\_export\_occurrences.csv}. Automated DOI/title matching flags nine occurrences against the old 689 formal records, 537 against earlier new occurrences, and twelve candidate links to already accepted study metadata; these classes can overlap and require report-version adjudication. The subsequent reproducible first pass in \path{new_screening_triage.csv} links 427 exact DOI repeats and 88 exact ACM BibTeX-key repeats, records 2,615 title/abstract exclusions (six individually documented and 2,609 rule-assisted), retains ten priority retrieval leads, separately records two assessed eligible full reports, and leaves 585 topical or ambiguous occurrences for individual title/abstract review. These disjoint occurrence classes sum to 3,727. Rule-assisted exclusions need sensitivity review before final flow reconciliation; no title-only or different-DOI version is automatically removed. The two assessed reports have source-anchored preliminary extraction in \path{new_fulltext_assessments.csv}, but still need formal QA and version linking before integration into the 21-study synthesis and final flow. A retrieval lead is not an included study. The 21 accepted studies and their source-anchored extraction below remain the prior checkpoint.
 
 \section{Screening checkpoint and reconciliation}
 Every formal occurrence receives a record ID. Exact DOI/URL and normalized-title checks link duplicate occurrences without deleting provenance. Bibliographic report IDs identify candidate reports; study IDs identify accepted underlying studies. The REEF journal extension is selected for GA-S001; its less complete conference report is a linked E8 companion and adds no study.
@@ -63,7 +85,37 @@ Full-text exclusions & 7\\
 Accepted unique studies & 21\\
 Pending / not retrieved & 96\\
 \bottomrule\end{longtable}
-The reconciled captured subset is: 689-10+20=699 records; 699 equals pre-full-text exclusions plus assessed reports plus pending records. Assessed reports equal included reports plus full-text exclusions. Missing ACM/ScienceDirect populations are unknown and outside these arithmetic identities. This checkpoint is intentionally not a completed PRISMA2020 flow. Reports sought include pending retrieval attempts, but complete formal-database retrieval and final study-version resolution remain open.
+The reconciled captured subset is: 689-10+20=699 records; 699 equals pre-full-text exclusions plus assessed reports plus pending records. Assessed reports equal included reports plus full-text exclusions. The later ACM/ScienceDirect occurrence population is outside these 11 October arithmetic identities. This 11 October checkpoint is intentionally not a completed PRISMA2020 flow. Reports sought include pending retrieval attempts, but complete formal-database retrieval and final study-version resolution remain open.
+
+\begin{figure}[p]
+\centering
+\begin{tikzpicture}[>=Latex, every node/.style={font=\small}, main/.style={draw,rounded corners=2pt,align=center,text width=6.4cm,minimum height=1.1cm,fill=blue!5}, side/.style={draw,rounded corners=2pt,align=center,text width=4.0cm,minimum height=1.1cm,fill=gray!9}, line/.style={-Latex,thick}]
+\node[main] (id) at (0,0) {IEEE and Springer records identified\\$n=689$};
+\node[main] (unique) at (0,-2) {Unique formal records\\$689-10=679$};
+\node[side] (duplicate) at (6.8,-1) {Duplicates removed\\$n=10$};
+\node[side] (supplementary) at (6.8,-3) {Supplementary records selected\\$n=20$};
+\node[main] (screened) at (0,-4) {Records for screening\\$679+20=699$};
+\node[main] (sought) at (0,-6) {Reports sought\\$699-575=124$};
+\node[side] (early) at (6.8,-5) {Excluded before full text\\$n=575$};
+\node[main] (assessed) at (0,-8) {Full-text reports assessed\\$124-96=28$};
+\node[side] (unavailable) at (6.8,-7) {Pending / not retrieved\\$n=96$};
+\node[main] (included) at (0,-10) {Unique primary studies included\\$28-7=21$};
+\node[side] (excluded) at (6.8,-9) {Full texts excluded\\$n=7$ (E1: 4; E2: 1; E3: 1; E8: 1)};
+\draw[line] (id) -- (unique);
+\draw[line] (id.east) -- (duplicate.west);
+\draw[line] (unique) -- (screened);
+\draw[line] (supplementary.west) -- (screened.east);
+\draw[line] (screened) -- (sought);
+\draw[line] (screened.east) -- (early.west);
+\draw[line] (sought) -- (assessed);
+\draw[line] (sought.east) -- (unavailable.west);
+\draw[line] (assessed) -- (included);
+\draw[line] (assessed.east) -- (excluded.west);
+\end{tikzpicture}
+\caption{Interim PRISMA 2020 stage mapping for the reconciled 11 October captured subset. The later 3,727 ACM/ScienceDirect occurrences are outside this flow. E1--E8 reason definitions and report-level decisions are in \texttt{rejected.csv}. This is not the completed four-database flow.}
+\label{fig:prisma-checkpoint}
+\end{figure}
+\clearpage
 
 Title decisions are first-pass relevance judgments, explicitly labelled as title stage. Abstract decisions cite publisher scope; full-text decisions identify a section or experiment. Training and inference are not interchangeable: PipeSwitch and SIRIUS are retained for explicit inference outcomes, whereas TGS is rejected for training-only evidence. The Fermilab paper was retained after its multi-model slice experiment was inspected, rather than merely because it mentioned MIG. DIPPM was rejected because profile prediction alone does not test concurrent tenant sharing.
 
@@ -138,6 +190,9 @@ Current totals range from 6.5 to 9.0. Four newly included studies score below 8;
 
 Isolation observations remain four different columns: performance interference, resource/memory separation, adversarial security and fault containment. Most current findings establish workload performance rather than comparative security or fault containment. The KRYPTON fault experiment is specifically identified; it does not validate all mechanisms or all GPU generations.
 
+\subsection{Section 14: data extraction status after the extension}
+The extraction and appraisal matrices for the 21 accepted studies were prepared from the previously assessed source texts. No new ACM or ScienceDirect occurrence has been added to these matrices solely on the strength of bibliographic metadata. Two ACM full proceedings reports have now been assessed directly from author-hosted copies: Pantheon (MobiSys 2024) evaluates concurrent inference scheduling on Jetson GPUs and reports deadline misses of 0.39--1.10\% in its three application mixes (PDF section 5.1, Fig. 9); Jormungandr (SYSTOR 2024) profiles one-A100 multi-model MIG/MPS/batch configurations but evaluates allocation on an eight-A100 cluster (PDF sections 3.2 and 8, Figs. 3 and 6--7). These are provisionally eligible, with source-anchored fields and transfer limits in \path{new_fulltext_assessments.csv}; formal QA, report-version linkage and synthesis integration remain open. The ten other priority leads and any of the 585 unresolved occurrences advanced after individual review need full texts, eligibility decisions, study/version links, quality appraisal and source-anchored extraction. Title/abstract exclusions have no full-text or extraction claims. The workbook's \texttt{Extension}, \texttt{NewQueue}, \texttt{Triage} and \texttt{AssessedNew} tabs show the run receipt, immediate review queue, occurrence-level first pass and these two full-text assessments; the source CSV retains all 3,727 records. Thus Section 14 is an auditable status through extraction, not an assertion that extraction is complete for all newly received records.
+
 \section{Provisional answers to the research questions}
 \subsection{RQ1: mechanism and control boundaries}
 The set contains temporal scheduling, MPS resource provisioning, MIG plus MPS, and API/runtime interception or remoting. Hybrids are counted as studies once, not once per mechanism. Software scheduling may control task admission, kernel dispatch, preemption or memory handover; these are different operating boundaries. A process-sharing prototype, a kernel-intercepted container and a hardware slice cannot be assigned the same security meaning. The detailed mapping is in \texttt{extraction.csv} and \texttt{claims.md}.
@@ -174,14 +229,14 @@ Strong adversarial/fault guarantee & No universal selection supported &Comparati
 \section{Sensitivity, limitations and continuation}
 Removing QA<6 removes no current study, so that sensitivity test is uninformative. Removing provisional author-manuscript evidence weakens hybrid MIG and the recorded negative throughput comparison. Excluding AMD-only feature evidence limits cross-vendor conclusions. Removing all incompletely transcribed environment profiles would sharply reduce evidence; final recommendations require completing those fields. No pooled effect or universal winner is asserted.
 
-The main limitations are incomplete ACM/ScienceDirect searches, single-AI-reviewer bias, inaccessible full texts, supplementary-selection bias, baseline and hardware heterogeneity, incomplete parameter extraction and unresolved report versions. The accessible set is concentrated in systems proceedings and older DNN workloads; LLM and adversarial isolation evidence requires further checking. A minimum paper count cannot offset these limitations.
+The main limitations are unresolved ACM/ScienceDirect run-count and deduplication reconciliation, incomplete screening of newly supplied exports, single-AI-reviewer bias, inaccessible full texts, supplementary-selection bias, baseline and hardware heterogeneity, incomplete parameter extraction and unresolved report versions. The accessible set is concentrated in systems proceedings and older DNN workloads; LLM and adversarial isolation evidence requires further checking. A minimum paper count cannot offset these limitations.
 
-Next, continue public-access recovery and available database exports, complete parameter extraction and rerun claims/sensitivity. The user supplied six of the ten requested papers; all six are assessed. The remaining four are unavailable and no further paper download is requested. Link any new report to its underlying study before adding a citation. Exact 2026 dates must be verified. Scope changes still require a documented amendment and instructor guidance; this report does not relax eligibility.
+Next, adjudicate export selection and cross-source duplicate links, screen the new records under the frozen protocol, continue public-access recovery, complete parameter extraction and rerun claims/sensitivity. The user supplied six of the ten requested papers; all six are assessed. The remaining four are unavailable and no further paper download is requested. Link any new report to its underlying study before adding a citation. Exact 2026 dates must be verified. Scope changes still require a documented amendment and instructor guidance; this report does not relax eligibility.
 
 \section{Evidence package and institutional requests}
 The evidence directory supplies search runs, imported records, duplicates, all decisions and reasons, accepted/rejected/pending views, retrieval lookups, QA, extraction, claims and checkpoint counts. \texttt{references.bib} contains only the 21 currently chosen primary reports, each cited here. The spreadsheet is a review view; CSV/JSON records remain the authority. Scripts validate linkage and reconciliation and regenerate derived views.
 
-The unresolved access backlog is in \texttt{download\_requests.csv}; there are zero active requests. \texttt{download\_requests.md} records the six received conversions and four unavailable original requests. No additional paper download is requested. All requested publisher platforms appear on NED's list, but article-level access must be checked using university access. PDFs should be supplied privately through the conversation, not committed to the public repository. Query exports must preserve exact syntax, collection, facets and counts; sending papers alone does not repair incomplete systematic search coverage.
+The unresolved access backlog is in \texttt{download\_requests.csv}; there are zero active requests. \texttt{download\_requests.md} records the six received conversions and four unavailable original requests. No additional paper download is requested. All requested publisher platforms appear on NED's list, but article-level access must be checked using university access. PDFs should be supplied privately through the conversation, not committed to the public repository. The supplied export files preserve a new occurrence ledger, while exact syntax, collection, facets and conflicting displayed/export totals remain recorded for reconciliation.
 
 \bibliographystyle{IEEEtran}\bibliography{query_references}
 \end{document}
